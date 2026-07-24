@@ -225,3 +225,32 @@ th, td {
         text-align: center !important;
     }
 }
+/* ==========================================================================
+   TABLE READABILITY & FONT SIZE ENHANCEMENT
+   ========================================================================== */
+
+/* 1. Base Table Text Scaling */
+table {
+    width: 100% !important;
+    font-size: 0.95rem !important; /* Bumped up from 0.85rem / small default */
+    line-height: 1.5 !important;
+    border-collapse: collapse;
+}
+
+/* 2. Cell Padding & Text Spacing */
+th, td {
+    padding: 12px 14px !important; /* Gives text breathing room */
+    vertical-align: top;
+}
+
+th {
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em;
+}
+
+/* 3. Smooth Horizontal Scroll Container for Tables */
+.slide-body {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
