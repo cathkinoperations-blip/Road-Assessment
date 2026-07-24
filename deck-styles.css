@@ -153,3 +153,75 @@ li {
     border: 1px solid #cbd5e1;
 }
 }
+/* ==========================================================================
+   GLOBAL MOBILE RESPONSIVE OVERRIDES
+   ========================================================================== */
+
+/* 1. Prevent Horizonal Page Overflow */
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+/* 2. Responsive Slide Container */
+.slide {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 16px !important;
+    min-height: auto !important;
+    box-sizing: border-box !important;
+    border-radius: 8px !important;
+}
+
+/* 3. Header & Text Downscaling for Small Screens */
+.slide-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+    margin-bottom: 16px !important;
+    padding-bottom: 10px !important;
+}
+
+.slide-header h2 {
+    font-size: 1.35rem !important;
+    line-height: 1.2 !important;
+}
+
+.slide-header .tag {
+    font-size: 0.75rem !important;
+}
+
+/* 4. Table Mobile Scroll & Font Scaling */
+.slide-body {
+    width: 100% !important;
+    overflow-x: auto !important; /* Touch scrolling for tables */
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    min-width: 600px !important; /* Preserves column alignment while scrolling smoothly */
+    font-size: 0.78rem !important;
+}
+
+th, td {
+    padding: 8px 6px !important;
+}
+
+/* 5. Mobile Grid Stacking (Index & Appendices) */
+@media (max-width: 768px) {
+    .grid-2, .grid-3, .summary-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+
+    .card, .nav-card {
+        padding: 16px !important;
+    }
+
+    .slide-footer {
+        flex-direction: column !important;
+        gap: 6px !important;
+        text-align: center !important;
+    }
+}

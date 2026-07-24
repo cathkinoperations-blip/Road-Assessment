@@ -4,38 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master Road Assessment Hub — July 2026</title>
+    <!-- Link to shared stylesheet for central styling and mobile responsiveness -->
+    <link rel="stylesheet" href="deck-styles.css">
     <style>
-        :root {
-            --primary-color: #1e293b;
-            --accent-color: #0284c7;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-color: #334155;
-            --border-color: #e2e8f0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1100px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
+        /* Specific overrides for the Hub Index Portal */
         .header-card {
-            background-color: var(--primary-color);
+            background-color: var(--primary-color, #1e293b);
             color: #ffffff;
             padding: 32px;
             border-radius: 12px;
@@ -56,29 +30,16 @@
 
         .section-title {
             font-size: 1.25rem;
-            color: var(--primary-color);
+            color: var(--primary-color, #1e293b);
             margin-top: 10px;
             margin-bottom: -10px;
-            border-bottom: 2px solid var(--border-color);
+            border-bottom: 2px solid var(--border-color, #e2e8f0);
             padding-bottom: 8px;
         }
 
-        /* Grids */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 20px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 16px;
-        }
-
         .nav-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e2e8f0);
             border-radius: 12px;
             padding: 24px;
             display: flex;
@@ -95,7 +56,7 @@
 
         .nav-card h2, .nav-card h3 {
             margin: 0 0 10px 0;
-            color: var(--primary-color);
+            color: var(--primary-color, #1e293b);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -134,10 +95,10 @@
             transition: background-color 0.15s ease;
         }
 
-        .btn-main { background-color: var(--accent-color); color: #ffffff; }
+        .btn-main { background-color: var(--accent-color, #0284c7); color: #ffffff; }
         .btn-main:hover { background-color: #0369a1; }
 
-        .btn-sub { background-color: #f1f5f9; color: #334155; border: 1px solid var(--border-color); }
+        .btn-sub { background-color: #f1f5f9; color: #334155; border: 1px solid var(--border-color, #e2e8f0); }
         .btn-sub:hover { background-color: #e2e8f0; }
 
         .footer {
@@ -172,7 +133,7 @@
             <div class="nav-card">
                 <div>
                     <h2>Technical Appendix <span class="badge badge-primary">Reference</span></h2>
-                    <p>Contains Sub-Base Strategy (Slide A1) and structural material specifications for concrete edge containment and interlocking paver overlays (Slide A2).</p>
+                    <p>Contains Sub-Base Strategy (Slide A1), Material Comparisons (Slide A2), and G1–G10 Granular Classifications (Slide A3).</p>
                 </div>
                 <a href="Road_Assessment_Jul_2026_Appendix.html" target="_blank" class="btn btn-main">Open Technical Appendix ↗</a>
             </div>
@@ -208,7 +169,8 @@
             </div>
             <div class="nav-card">
                 <h3>Bridge 4 Series <span class="badge badge-high">High</span></h3>
-                <p>~195m | Trapped moisture between parapets & deck potholing. 30m paver rebuild + 150mm weep channels & spot holding fix on remaining 100m.</p>                <a href="Road_Assessment_Jul_2026_Series_Bridge_4.html" target="_blank" class="btn btn-sub">Open Bridge 4 File ↗</a>
+                <p>~195m | Trapped moisture between parapets & deck potholing. 30m paver rebuild + 150mm weep channels & spot holding fix on remaining 100m.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Bridge_4.html" target="_blank" class="btn btn-sub">Open Bridge 4 File ↗</a>
             </div>
             <div class="nav-card">
                 <h3>Bridge 5 Series <span class="badge badge-high">High</span></h3>
@@ -272,7 +234,7 @@
             </div>
         </div>
 
-                <!-- INTERACTIVE GIS MAP SECTION -->
+        <!-- INTERACTIVE GIS MAP SECTION -->
         <h2 class="section-title">Interactive Estate Road Network Map</h2>
         <div class="nav-card" style="padding: 12px; overflow: hidden;">
             <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;">
@@ -283,7 +245,7 @@
                     loading="lazy">
                 </iframe>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding: 0 4px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding: 0 4px; flex-wrap: wrap; gap: 8px;">
                 <span style="font-size: 0.85rem; color: #64748b;">
                     📍 Toggle layers and click on individual road segments for damage logs and repair specs. Marking positions and lengths are illustrative only.
                 </span>
