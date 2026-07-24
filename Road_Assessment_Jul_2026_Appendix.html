@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Road Infrastructure Assessment Deck</title>
+    <style>
+        :root {
+            --primary-color: #1e293b;
+            --accent-color: #0284c7;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .slide {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 1100px;
+            min-height: 600px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            page-break-after: always;
+        }
+
+        .slide-header {
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .slide-header h2 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .slide-header .tag {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .slide-body {
+            flex-grow: 1;
+            overflow-x: auto;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Summary Slide Styling */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .summary-card {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .summary-card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.4;
+            font-size: 0.95rem;
+        }
+
+        .slide-footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+                gap: 0;
+            }
+            .slide {
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                width: 100vw;
+                height: 100vh;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appendix - Road Infrastructure Technical Specifications</title>
+    <style>
+        :root {
+            --primary-color: #1e293b;
+            --accent-color: #0284c7;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .slide {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 1100px;
+            min-height: 600px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            page-break-after: always;
+        }
+
+        .slide-header {
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .slide-header h2 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .slide-header .tag {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .slide-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Grid Cards Layout */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f8fafc;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .card ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .card li {
+            margin-bottom: 8px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .slide-footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+                gap: 0;
+            }
+            .slide {
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                width: 100vw;
+                height: 100vh;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== APPENDIX SLIDE 1 ==================== -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Appendix A1: Structural Sub-Base Strategy</h2>
+            <span class="tag">Technical Reference — Base Work Scope</span>
+        </div>
+        <div class="slide-body">
+            <p style="font-size: 0.9rem; margin-top: 0; color: #475569;">
+                A critical distinction in the master assessment plan is separating surface-level waterproofing from full structural sub-base reconstruction. Surface treatments do not automatically require redoing the sub-base, preserving capital where structural integrity remains intact.
+            </p>
+
+            <div class="grid-3">
+                <div class="card" style="border-top: 4px solid #10b981;">
+                    <h3>1. Surface Sealing Only</h3>
+                    <p style="font-size: 0.8rem; font-weight: bold; color: #047857; margin-top: -5px;">Sub-base Left Intact</p>
+                    <ul>
+                        <li><strong>Mechanism:</strong> Applied directly onto existing asphalt.</li>
+                        <li><strong>Purpose:</strong> Waterproofs the surface, seals micro-cracks, and prevents binder oxidation.</li>
+                        <li><strong>Applicable Conditions:</strong> Fine map cracking, surface weathering, pinhole loss.</li>
+                        <li><strong>Target Corridors:</strong> Duiker Ridge, Village 4 & 5, Bridge 3 & 7 approaches.</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="border-top: 4px solid #f59e0b;">
+                    <h3>2. Targeted Box Cuts</h3>
+                    <p style="font-size: 0.8rem; font-weight: bold; color: #b45309; margin-top: -5px;">Localized Base Repairs</p>
+                    <ul>
+                        <li><strong>Mechanism:</strong> Cold-milling or hand-excavating localized failure zones down to sub-base.</li>
+                        <li><strong>Purpose:</strong> Rebuilds isolated sub-base collapse before applying a continuous surface seal.</li>
+                        <li><strong>Applicable Conditions:</strong> Wheel-path alligator cracking, isolated depressions, sunken patches.</li>
+                        <li><strong>Target Corridors:</strong> Bridge 5, Champagne Ridge, Eland Way, Oribi Lane.</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="border-top: 4px solid #ef4444;">
+                    <h3>3. Full Structural Rebuild</h3>
+                    <p style="font-size: 0.8rem; font-weight: bold; color: #b91c1c; margin-top: -5px;">Full Depth Excavation Required</p>
+                    <ul>
+                        <li><strong>Mechanism:</strong> Total removal of failed sub-base; installation of concrete beams, drainage, or pavers.</li>
+                        <li><strong>Purpose:</strong> Re-establishes structural load-bearing capacity and edge control.</li>
+                        <li><strong>Applicable Conditions:</strong> Severe washout trenches, edge scour, high turning shear.</li>
+                        <li><strong>Target Corridors:</strong> Bridge 6 & 8 washout zones, Arum Lane apron.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Appendix A1 — Base Requirements & Preservation Strategy</span>
+        </div>
+    </div>
+
+
+    <!-- ==================== APPENDIX SLIDE 2 ==================== -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Appendix A2: Bituminous Material Comparison</h2>
+            <span class="tag">Technical Reference — Cape Seal vs. Slurry Overlay</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Slurry Overlay (Slurry Seal)</th>
+                        <th>Cape Seal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>System Construction</strong></td>
+                        <td>Single-layer pre-mixture of bitumen emulsion, fine aggregate (sand/small stone), water, and cement filler.</td>
+                        <td>Two-step hybrid treatment: Single chip seal (coarse stone on emulsion) topped with a slurry seal layer.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Layer Thickness</strong></td>
+                        <td><strong>3 mm to 6 mm</strong> (Thin surfacing)</td>
+                        <td><strong>10 mm to 15 mm</strong> (Medium-thick matrix)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Structural Strength</strong></td>
+                        <td>Relies on binder/fine aggregate density; lower shear resistance under heavy turning.</td>
+                        <td>High tensile strength provided by embedded stone skeleton matrix; excellent resistance to turning shear.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Surface Texture & Skid Resistance</strong></td>
+                        <td>Smooth, uniform, sand-like finish. Extremely quiet under traffic; standard traction.</td>
+                        <td>Macro-textured skid resistance of a chip seal combined with the smooth, flexible finish of slurry (no loose stones).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Expected Lifespan</strong></td>
+                        <td><strong>5 to 7 Years</strong></td>
+                        <td><strong>10 to 15 Years</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ideal Estate Usage</strong></td>
+                        <td>Low-volume straight runs, light residential streets, preventative binder sealing (e.g., Duiker Ridge, Bridge 3/5/7).</td>
+                        <td>High-wear corridors, steep inclines, sweeping curves, and oxidized main arteries (e.g., Champagne Ridge, Oribi Lane).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Appendix A2 — Material Specifications: Cape Seal vs. Slurry Overlay</span>
+        </div>
+    </div>
+
+</body>
+</html>
+
+</body>
+</html>
