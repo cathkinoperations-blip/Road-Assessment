@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Road Assessment Hub — July 2026</title>
+    <style>
+        :root {
+            --primary-color: #1e293b;
+            --accent-color: #0284c7;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .header-card {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-card h1 {
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+            color: #ffffff;
+        }
+
+        .header-card p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            margin-top: 10px;
+            margin-bottom: -10px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        /* Grids */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+        }
+
+        .nav-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-card h2, .nav-card h3 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-card p {
+            font-size: 0.875rem;
+            color: #64748b;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-critical { background-color: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .badge-high { background-color: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; }
+        .badge-med { background-color: #fefce8; color: #d97706; border: 1px solid #fef08a; }
+        .badge-low { background-color: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+        .badge-primary { background-color: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .btn-main { background-color: var(--accent-color); color: #ffffff; }
+        .btn-main:hover { background-color: #0369a1; }
+
+        .btn-sub { background-color: #f1f5f9; color: #334155; border: 1px solid var(--border-color); }
+        .btn-sub:hover { background-color: #e2e8f0; }
+
+        .footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HEADER -->
+        <div class="header-card">
+            <h1>Road Infrastructure Assessment Portal</h1>
+            <p>Master Reporting Deck & Individual Series Breakdowns — July 2026</p>
+        </div>
+
+        <!-- MASTER DECKS -->
+        <h2 class="section-title">Master Executive & Technical Decks</h2>
+        <div class="grid-2">
+            <div class="nav-card">
+                <div>
+                    <h2>Master Executive Summary <span class="badge badge-primary">Master Deck</span></h2>
+                    <p>Low-TCO priority matrix covering all 15 road corridors (~1,325m). Balances permanent concrete/paver builds on critical zones with low-cost holding fixes on viable asphalt.</p>
+                </div>
+                <a href="Road_Assessment_Jul_2026_Exec_Summ.html" target="_blank" class="btn btn-main">Open Executive Summary ↗</a>
+            </div>
+
+            <div class="nav-card">
+                <div>
+                    <h2>Technical Appendix <span class="badge badge-primary">Reference</span></h2>
+                    <p>Contains Sub-Base Strategy (Slide A1) and structural material specifications for concrete edge containment and interlocking paver overlays (Slide A2).</p>
+                </div>
+                <a href="Road_Assessment_Jul_2026_Appendix.html" target="_blank" class="btn btn-main">Open Technical Appendix ↗</a>
+            </div>
+        </div>
+
+        <!-- TIER 1: CRITICAL PRIORITY -->
+        <h2 class="section-title">Tier 1: Critical Priority (Permanent Rebuilds & Active Washouts)</h2>
+        <div class="grid-3">
+            <div class="nav-card">
+                <h3>Champagne Ridge <span class="badge badge-critical">Critical</span></h3>
+                <p>~280m | 280m severe oxidation, inner-curve edge breakouts, patch failure & saddle dips. Priority 1 paver + concrete beam rebuild.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Champagne_Ridge.html" target="_blank" class="btn btn-sub">Open Champagne Ridge File ↗</a>
+            </div>
+            <div class="nav-card">
+                <h3>Bridge 6 Series <span class="badge badge-critical">Critical</span></h3>
+                <p>~60m | Parapet wall scour, severe washout trench & historic patch failure. Permanent concrete slab pour required.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Bridge_6.html" target="_blank" class="btn btn-sub">Open Bridge 6 File ↗</a>
+            </div>
+            <div class="nav-card">
+                <h3>Bridge 8 Series <span class="badge badge-critical">Critical</span></h3>
+                <p>~140m | 59m continuous incline fracture & headwall shoulder collapse. Rip-rap, concrete apron & paver approach.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Bridge_8.html" target="_blank" class="btn btn-sub">Open Bridge 8 File ↗</a>
+            </div>
+        </div>
+
+        <!-- TIER 2: HIGH PRIORITY -->
+        <h2 class="section-title">Tier 2: High Priority (Base & Drainage Failure)</h2>
+        <div class="grid-3">
+            <div class="nav-card">
+                <h3>Bridge 2 Series <span class="badge badge-high">High</span></h3>
+                <p>~95m | Bridge approach patch failure & shoulder erosion. Concrete edge beams + 80mm paver overlay.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Bridge_2.html" target="_blank" class="btn btn-sub">Open Bridge 2 File ↗</a>
+            </div>
+            <div class="nav-card">
+                <h3>Bridge 4 Series <span class="badge badge-high">High</span></h3>
+                <p>~195m | Trapped moisture between parapets & deck potholing. 30m deck paver rebuild + 150mm concrete weep channels.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Bridge_4.html" target="_blank" class="btn btn-sub">Open Bridge 4 File ↗</a>
+            </div>
+            <div class="nav-card">
+                <h3>Bridge 5 Series <span class="badge badge-high">High</span></h3>
+                <p>~76m | Mid-span settlement & wheel-path alligator cracking. 15m G2 sub-base rebuild & 80mm paver overlay.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Bridge_5.html" target="_blank" class="btn btn-sub">Open Bridge 5 File ↗</a>
+            </div>
+        </div>
+
+        <!-- TIER 3: MEDIUM PRIORITY -->
+        <h2 class="section-title">Tier 3: Medium Priority (Holding Fixes & Targeted Maintenance)</h2>
+        <div class="grid-3">
+            <div class="nav-card">
+                <h3>Arum Lane <span class="badge badge-med">Medium-High</span></h3>
+                <p>~65m | Turning shear at apron & alligator fatigue outside #52. Paver apron installation + G2 box cut holding patch.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Arum_Lane.html" target="_blank" class="btn btn-sub">Open Arum Lane File ↗</a>
+            </div>
+            <div class="nav-card">
+                <h3>Cathkin Dam Series <span class="badge badge-med">Medium</span></h3>
+                <p>~55m | Thermal slab cracking & asphalt transition joint shear. Sub-grout void injection & joint sealing.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Dam.html" target="_blank" class="btn btn-sub">Open Cathkin Dam File ↗</a>
+            </div>
+            <div class="nav-card">
+                <h3>Eland Way <span class="badge badge-med">Medium-High</span></h3>
+                <p>~90m | 90m downhill centerline split & sunken historic patches. Hot-pour crack seal & spot leveling holding fix.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Eland_Way.html" target="_blank" class="btn btn-sub">Open Eland Way File ↗</a>
+            </div>
+            <div class="nav-card">
+                <h3>Duiker Ridge <span class="badge badge-med">Medium</span></h3>
+                <p>~63m | Aggregate stripping on bend (18m) & parallel shoulder crack. Hot-pour seal & spot rejuvenator holding fix.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Duiker_Ridge.html" target="_blank" class="btn btn-sub">Open Duiker Ridge File ↗</a>
+            </div>
+            <div class="nav-card">
+                <h3>Oribi Lane <span class="badge badge-med">Medium</span></h3>
+                <p>~155m | Binder oxidation, pinhole pop-outs & block web. Cold-mix patch leveling & band sealing holding fix.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Oribi_Lane.html" target="_blank" class="btn btn-sub">Open Oribi Lane File ↗</a>
+            </div>
+            <div class="nav-card">
+                <h3>Village 4 Series <span class="badge badge-med">Medium</span></h3>
+                <p>~65m | Full-width map cracking & speed hump approach wear. Speed hump transition sealing & map crack band seal.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Village_4.html" target="_blank" class="btn btn-sub">Open Village 4 File ↗</a>
+            </div>
+            <div class="nav-card">
+                <h3>Village 5 Series <span class="badge badge-med">Medium</span></h3>
+                <p>~16m | Wheel-path fatigue alligatoring & centerline shear. Pressure clean, hot-pour crack seal & mastic patch.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Village_5.html" target="_blank" class="btn btn-sub">Open Village 5 File ↗</a>
+            </div>
+        </div>
+
+        <!-- TIER 4: LOW PRIORITY -->
+        <h2 class="section-title">Tier 4: Low Priority (Preventative Maintenance)</h2>
+        <div class="grid-3">
+            <div class="nav-card">
+                <h3>Bridge 3 Series <span class="badge badge-low">Low-Med</span></h3>
+                <p>~35m | Turning fatigue along approach curve & fine block cracks. Polymer crack seal holding repair.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Bridge_3.html" target="_blank" class="btn btn-sub">Open Bridge 3 File ↗</a>
+            </div>
+            <div class="nav-card">
+                <h3>Bridge 7 Series <span class="badge badge-low">Low</span></h3>
+                <p>~35m | Early longitudinal crack & fine map cracking on curve. Preventative hot-pour crack seal along 35m line.</p>
+                <a href="Road_Assessment_Jul_2026_Series_Bridge_7.html" target="_blank" class="btn btn-sub">Open Bridge 7 File ↗</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            Cathkin Estates Operations Committee — Modular Documentation
+        </div>
+
+    </div>
+
+</body>
+</html>
