@@ -7,6 +7,15 @@
     --border-color: #e2e8f0;
 }
 
+/* ==========================================================================
+   BASE & LAYOUT STYLES
+   ========================================================================== */
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-color);
@@ -19,6 +28,7 @@ body {
     gap: 40px;
 }
 
+/* Slide Container */
 .slide {
     background-color: var(--card-bg);
     width: 100%;
@@ -61,34 +71,27 @@ body {
 
 .slide-body {
     flex-grow: 1;
-    overflow-x: auto;
-}
-
-/* Table Styling */
-table {
     width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-    text-align: left;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
-th, td {
-    padding: 10px 12px;
-    border: 1px solid var(--border-color);
-    vertical-align: top;
+/* ==========================================================================
+   PORTAL HUB & DASHBOARD GRIDS
+   ========================================================================== */
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 }
 
-th {
-    background-color: #f1f5f9;
-    color: var(--primary-color);
-    font-weight: 600;
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
 }
 
-tr:nth-child(even) {
-    background-color: #f8fafc;
-}
-
-/* Summary Slide Styling */
 .summary-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -110,6 +113,46 @@ tr:nth-child(even) {
     padding-bottom: 8px;
 }
 
+/* Nav Cards Internal Padding */
+.nav-card {
+    padding: 20px;
+}
+
+/* ==========================================================================
+   TABLE & DATA LOG READABILITY ENHANCEMENT
+   ========================================================================== */
+
+table {
+    width: 100%;
+    min-width: 750px; /* Ensures columns stay properly aligned before scrolling */
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 14px;
+    border: 1px solid var(--border-color);
+    vertical-align: top;
+}
+
+th {
+    background-color: #f1f5f9;
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+}
+
+tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY & UTILITIES
+   ========================================================================== */
+
 ul {
     margin: 0;
     padding-left: 20px;
@@ -121,6 +164,12 @@ li {
     font-size: 0.95rem;
 }
 
+.badge-holding {
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+
 .slide-footer {
     margin-top: 25px;
     padding-top: 15px;
@@ -130,6 +179,10 @@ li {
     font-size: 0.8rem;
     color: #94a3b8;
 }
+
+/* ==========================================================================
+   MEDIA QUERIES (PRINT & RESPONSIVE MOBILE)
+   ========================================================================== */
 
 @media print {
     body {
@@ -145,70 +198,40 @@ li {
         height: 100vh;
         max-width: none;
     }
-
-
-.badge-holding {
-    background-color: #f1f5f9;
-    color: #475569;
-    border: 1px solid #cbd5e1;
-}
-}
-/* ==========================================================================
-   GLOBAL MOBILE RESPONSIVE OVERRIDES
-   ========================================================================== */
-
-/* 1. Prevent Horizonal Page Overflow */
-html, body {
-    max-width: 100% !important;
-    overflow-x: hidden !important;
 }
 
-/* 2. Responsive Slide Container */
-.slide {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 16px !important;
-    min-height: auto !important;
-    box-sizing: border-box !important;
-    border-radius: 8px !important;
-}
+@media (max-width: 900px) {
+    body {
+        padding: 16px 10px;
+        gap: 20px;
+    }
 
-/* 3. Header & Text Downscaling for Small Screens */
-.slide-header {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 6px !important;
-    margin-bottom: 16px !important;
-    padding-bottom: 10px !important;
-}
+    .slide {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 16px !important;
+        min-height: auto !important;
+        border-radius: 8px !important;
+    }
 
-.slide-header h2 {
-    font-size: 1.35rem !important;
-    line-height: 1.2 !important;
-}
+    .slide-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+        margin-bottom: 16px !important;
+        padding-bottom: 10px !important;
+    }
 
-.slide-header .tag {
-    font-size: 0.75rem !important;
-}
+    .slide-header h2 {
+        font-size: 1.35rem !important;
+        line-height: 1.2 !important;
+    }
 
-/* 4. Table Mobile Scroll & Font Scaling */
-.slide-body {
-    width: 100% !important;
-    overflow-x: auto !important; /* Touch scrolling for tables */
-    -webkit-overflow-scrolling: touch;
-}
+    .slide-header .tag {
+        font-size: 0.75rem !important;
+    }
 
-table {
-    min-width: 600px !important; /* Preserves column alignment while scrolling smoothly */
-    font-size: 0.78rem !important;
-}
-
-th, td {
-    padding: 8px 6px !important;
-}
-
-/* 5. Mobile Grid Stacking (Index & Appendices) */
-@media (max-width: 768px) {
+    /* Grid Stacking for Mobile & Tablets */
     .grid-2, .grid-3, .summary-grid {
         display: flex !important;
         flex-direction: column !important;
@@ -224,33 +247,4 @@ th, td {
         gap: 6px !important;
         text-align: center !important;
     }
-}
-/* ==========================================================================
-   TABLE READABILITY & FONT SIZE ENHANCEMENT
-   ========================================================================== */
-
-/* 1. Base Table Text Scaling */
-table {
-    width: 100% !important;
-    font-size: 0.95rem !important; /* Bumped up from 0.85rem / small default */
-    line-height: 1.5 !important;
-    border-collapse: collapse;
-}
-
-/* 2. Cell Padding & Text Spacing */
-th, td {
-    padding: 12px 14px !important; /* Gives text breathing room */
-    vertical-align: top;
-}
-
-th {
-    font-size: 0.9rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.02em;
-}
-
-/* 3. Smooth Horizontal Scroll Container for Tables */
-.slide-body {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
 }
