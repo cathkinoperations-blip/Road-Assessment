@@ -72,6 +72,12 @@
         font-weight: bold;
     }
 
+    .completed {
+        background-color: #10b981 !important;
+        color: white;
+        border-radius: 4px;
+    }
+
     .header-card {
         background-color: var(--primary-color);
         color: #ffffff;
@@ -115,6 +121,8 @@
                 <th class="task-name">Task / Sub-Task</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>% Complete</th>
+                <th>Aug 26</th>
                 <th>Sep 26</th>
                 <th>Oct 26</th>
                 <th>Nov 26</th>
@@ -127,15 +135,31 @@
             </tr>
         </thead>
         <tbody>
+            <!-- PHASE 0: ASSESSMENT & SCOPING -->
+            <tr style="background-color: #e2e8f0; font-weight: bold;">
+                <td class="task-name" colspan="4">Phase 0: Initial Assessment & Scoping (Completed)</td>
+                <td colspan="10"></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">0.1 Site Audit & Photographic Analysis (Road damage & material review)</td>
+                <td>2026-08-01</td>
+                <td>2026-08-31</td>
+                <td><strong>100%</strong></td>
+                <td class="completed">✓</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+
             <!-- PHASE 1 -->
             <tr style="background-color: #e2e8f0; font-weight: bold;">
-                <td class="task-name" colspan="3">Phase 1: Procurement & Contractor Engagement</td>
-                <td colspan="9"></td>
+                <td class="task-name" colspan="4">Phase 1: Procurement & Contractor Engagement</td>
+                <td colspan="10"></td>
             </tr>
             <tr>
                 <td class="sub-task-name">1.1 Contractor Sourcing & Briefings (Engage 3+ contractors vs Angelo)</td>
                 <td>2026-09-01</td>
                 <td>2026-10-31</td>
+                <td><strong>0%</strong></td>
+                <td></td>
                 <td class="shaded">■</td>
                 <td class="shaded">■</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
@@ -144,7 +168,8 @@
                 <td class="sub-task-name">1.2 Tender Package & Financial Compliance (Verify pricing & terms)</td>
                 <td>2026-10-01</td>
                 <td>2026-11-30</td>
-                <td></td>
+                <td><strong>0%</strong></td>
+                <td></td><td></td>
                 <td class="shaded">■</td>
                 <td class="shaded">■</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td>
@@ -153,7 +178,8 @@
                 <td class="sub-task-name">1.3 Material Hedging (Order & stockpile 80mm pavers & edge curbs)</td>
                 <td>2026-11-01</td>
                 <td>2026-12-31</td>
-                <td></td><td></td>
+                <td><strong>0%</strong></td>
+                <td></td><td></td><td></td>
                 <td class="shaded">■</td>
                 <td class="shaded">■</td>
                 <td></td><td></td><td></td><td></td><td></td>
@@ -161,14 +187,15 @@
 
             <!-- PHASE 2 -->
             <tr style="background-color: #e2e8f0; font-weight: bold;">
-                <td class="task-name" colspan="3">Phase 2: Technical Preparation & Interim Mitigation</td>
-                <td colspan="9"></td>
+                <td class="task-name" colspan="4">Phase 2: Technical Preparation & Interim Mitigation</td>
+                <td colspan="10"></td>
             </tr>
             <tr>
                 <td class="sub-task-name">2.1 Champagne Ridge Interim Fix (Evaluate in-house vs holding work)</td>
                 <td>2026-11-01</td>
                 <td>2027-01-31</td>
-                <td></td><td></td>
+                <td><strong>0%</strong></td>
+                <td></td><td></td><td></td>
                 <td class="shaded">■</td>
                 <td class="shaded">■</td>
                 <td class="shaded">■</td>
@@ -178,7 +205,8 @@
                 <td class="sub-task-name">2.2 Drainage & Sub-Base Prep (u-drains, 150mm weep channels)</td>
                 <td>2026-12-01</td>
                 <td>2027-02-28</td>
-                <td></td><td></td><td></td>
+                <td><strong>0%</strong></td>
+                <td></td><td></td><td></td><td></td>
                 <td class="shaded">■</td>
                 <td class="shaded">■</td>
                 <td class="shaded">■</td>
@@ -188,7 +216,8 @@
                 <td class="sub-task-name">2.3 Wet-Season Holding Maintenance (Crack seals & mastic on Tiers 3-4)</td>
                 <td>2026-12-01</td>
                 <td>2027-02-28</td>
-                <td></td><td></td><td></td>
+                <td><strong>0%</strong></td>
+                <td></td><td></td><td></td><td></td>
                 <td class="shaded">■</td>
                 <td class="shaded">■</td>
                 <td class="shaded">■</td>
@@ -197,14 +226,15 @@
 
             <!-- PHASE 3 -->
             <tr style="background-color: #e2e8f0; font-weight: bold;">
-                <td class="task-name" colspan="3">Phase 3: Implementation & Construction Execution</td>
-                <td colspan="9"></td>
+                <td class="task-name" colspan="4">Phase 3: Implementation & Construction Execution</td>
+                <td colspan="10"></td>
             </tr>
             <tr>
                 <td class="sub-task-name">3.1 Tier 1 Critical Rebuilds (Champagne Ridge, Bridge 6 & 8)</td>
                 <td>2027-03-01</td>
                 <td>2027-04-30</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><strong>0%</strong></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td class="shaded">■</td>
                 <td class="shaded">■</td>
                 <td></td>
@@ -213,7 +243,8 @@
                 <td class="sub-task-name">3.2 Tier 2 High Priority & Drainage Integration</td>
                 <td>2027-03-01</td>
                 <td>2027-04-30</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><strong>0%</strong></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td class="shaded">■</td>
                 <td class="shaded">■</td>
                 <td></td>
@@ -222,21 +253,23 @@
                 <td class="sub-task-name">3.3 Handover, Compaction Testing & Financial Reconciliation</td>
                 <td>2027-04-15</td>
                 <td>2027-04-30</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td>
-                <td></td>
+                <td><strong>0%</strong></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td class="shaded">■</td>
                 <td></td>
             </tr>
 
             <!-- PHASE 4 -->
             <tr style="background-color: #e2e8f0; font-weight: bold;">
-                <td class="task-name" colspan="3">Phase 4: Communication & Stakeholder Management</td>
-                <td colspan="9"></td>
+                <td class="task-name" colspan="4">Phase 4: Communication & Stakeholder Management</td>
+                <td colspan="10"></td>
             </tr>
             <tr>
                 <td class="sub-task-name">4.1 Early Aesthetic & Strategic Townhall (Homeowner Consultation on Pavers)</td>
                 <td>2026-09-15</td>
                 <td>2026-09-30</td>
+                <td><strong>0%</strong></td>
+                <td></td>
                 <td class="shaded">■</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
@@ -244,7 +277,8 @@
                 <td class="sub-task-name">4.2 Board Approval Milestone (Submit tender comparison & financial plan)</td>
                 <td>2026-11-15</td>
                 <td>2026-11-30</td>
-                <td></td><td></td>
+                <td><strong>0%</strong></td>
+                <td></td><td></td><td></td>
                 <td class="milestone">◆</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
@@ -252,7 +286,8 @@
                 <td class="sub-task-name">4.3 Pre-Construction Operational Townhall (Logistics & Access Briefing)</td>
                 <td>2027-02-01</td>
                 <td>2027-02-28</td>
-                <td></td><td></td><td></td><td></td><td></td>
+                <td><strong>0%</strong></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
                 <td class="shaded">■</td>
                 <td></td><td></td><td></td>
             </tr>
@@ -260,7 +295,8 @@
                 <td class="sub-task-name">4.4 Monthly Progress Updates & Traffic Advisories (Homeowner Emails)</td>
                 <td>2027-03-01</td>
                 <td>2027-04-30</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><strong>0%</strong></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td class="shaded">■</td>
                 <td class="shaded">■</td>
                 <td></td>
