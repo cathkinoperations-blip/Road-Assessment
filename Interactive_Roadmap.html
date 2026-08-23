@@ -177,6 +177,9 @@
         margin-top: 10px;
     }
 </style>
+
+<script src="https://unpkg.com/@neondatabase/serverless@latest/umd/index.min.js"></script>
+
 </head>
 <body>
 
@@ -192,6 +195,11 @@
                 <option value="gemini-3.6-flash">Gemini 3.6 Flash</option>
                 <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite</option>
             </select>
+        </div>
+
+        <div class="form-group">
+            <label for="neon-url">Neon Connection String</label>
+            <input type="password" id="neon-url" placeholder="postgresql://user:pass@host/db?sslmode=require" />
         </div>
 
         <div class="form-group">
@@ -212,9 +220,10 @@
         </div>
 
         <button id="send-btn" class="btn" onclick="sendPrompt()">Update Roadmap</button>
+        <button id="save-cloud-btn" class="btn" onclick="saveToNeon()">Save to Cloud</button>
+
         <div id="loading" class="loading-overlay">Gemini is updating your roadmap...</div>
     </div>
-
     <!-- Live Preview Panel -->
     <div class="preview-panel">
         <div class="preview-header">
@@ -508,14 +517,71 @@
 </html>`;
 
     // Initialize preview frame
-    window.onload = function() {
-        updatePreview();
+    window.onload = async function() {
         // Load saved API key if available
         const savedKey = localStorage.getItem('gemini_api_key');
         if (savedKey) {
             document.getElementById('api-key').value = savedKey;
         }
+
+        // Load saved Neon connection string and fetch latest roadmap if available
+        const savedNeon = localStorage.getItem('neon_connection_string');
+        if (savedNeon) {
+            document.getElementById('neon-url').value = savedNeon;
+            await loadFromNeon(savedNeon);
+        } else {
+            updatePreview();
+        }
     };
+
+    async function loadFromNeon(connectionString) {
+        try {
+            const sql = neon.neon(connectionString);
+            const rows = await sql`SELECT html_content FROM roadmaps WHERE slug = 'cathkin-master'`;
+            if (rows && rows.length > 0) {
+                currentHTML = rows[0].html_content;
+            }
+        } catch (e) {
+            console.log('Could not load from Neon, using default template:', e.message);
+        }
+        updatePreview();
+    }
+
+
+    async function saveToNeon() {
+        const connectionString = document.getElementById('neon-url').value.trim();
+        const saveBtn = document.getElementById('save-cloud-btn');
+
+        if (!connectionString) {
+            alert('Please enter your Neon Connection String first.');
+            return;
+        }
+
+        // Save connection string locally so you don't have to re-type it next time
+        localStorage.setItem('neon_connection_string', connectionString);
+        
+        saveBtn.textContent = 'Saving...';
+        saveBtn.disabled = true;
+
+        try {
+            const sql = neon.neon(connectionString);
+            
+            // Upsert query directly from the browser
+            await sql`
+                INSERT INTO roadmaps (slug, html_content, updated_at) 
+                VALUES ('cathkin-master', ${currentHTML}, CURRENT_TIMESTAMP) 
+                ON CONFLICT (slug) 
+                DO UPDATE SET html_content = EXCLUDED.html_content, updated_at = CURRENT_TIMESTAMP
+            `;
+
+            alert('Roadmap successfully saved directly to Neon!');
+        } catch (err) {
+            alert('Database Error: ' + err.message);
+        } finally {
+            saveBtn.textContent = 'Save to Cloud';
+            saveBtn.disabled = false;
+        }
+    }
 
     function updatePreview() {
         const frame = document.getElementById('render-frame');
