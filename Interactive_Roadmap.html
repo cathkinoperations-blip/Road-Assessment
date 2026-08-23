@@ -180,8 +180,8 @@
 
 <script src="https://unpkg.com/@neondatabase/serverless@latest/umd/index.min.js"></script>
 <script>
-    // Map the global bundle export to the variable name expected by your functions
-    const neon = window.neon || ns; // Fallback depending on bundler exposure
+    // Ensure neon is safely globally mapped across different bundle formats
+    const neon = window.neon || window.ns || (typeof neonModule !== 'undefined' ? neonModule : {});
 </script>
 
 </head>
