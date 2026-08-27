@@ -16,19 +16,19 @@ export default function RoadCalculator() {
     const [dustPrice, setDustPrice] = useState(930);
     const [cementQty, setCementQty] = useState(20);
     const [cementPrice, setCementPrice] = useState(90);
-    const [emulsionQty, setEmulsionQty] = useState(260);
+    const [emulsionQty, setEmulsionQty] = useState(260); // Updated per image
     const [emulsionPrice, setEmulsionPrice] = useState(3521.85);
-    const [emulsionDrumSize, setEmulsionDrumSize] = useState(210);
-    const [waterQty, setWaterQty] = useState(200);
+    const [emulsionDrumSize, setEmulsionDrumSize] = useState(210); // 210L drum explicit check
+    const [waterQty, setWaterQty] = useState(200); // Updated per image
     const [waterPrice, setWaterPrice] = useState(0);
     
-    // Slurry Materials (Fuel & Squeegee)
-    const [fuelQty, setFuelQty] = useState(10);
+    // Slurry Materials (Fuel & Squeegee) updated per image proportions
+    const [fuelQty, setFuelQty] = useState(2.7); 
     const [fuelPrice, setFuelPrice] = useState(25);
-    const [squeegeeQty, setSqueegeeQty] = useState(1);
+    const [squeegeeQty, setSqueegeeQty] = useState(0.2); 
     const [squeegeePrice, setSqueegeePrice] = useState(350);
 
-    // New "Other" Miscellaneous State
+    // New "Other" Miscellaneous State updated per image
     const [otherQty, setOtherQty] = useState(1);
     const [otherPrice, setOtherPrice] = useState(0);
 
@@ -51,9 +51,9 @@ export default function RoadCalculator() {
     // Paving State
     const [pavingLength, setPavingLength] = useState(700);
     const [pavingWidth, setPavingWidth] = useState(3.3);
-    const [pavingRate, setPavingRate] = useState(700);
+    const [pavingRate, setPavingRate] = useState(800); // Updated default to R800/m2
 
-    // Budget State
+    // Budget State (stored as raw number, formatted with commas for display)
     const [projectBudget, setProjectBudget] = useState(1000000);
 
     // UI Tab State
@@ -127,6 +127,7 @@ export default function RoadCalculator() {
 
         const eL = batches * (Number(emulsionQty) || 0);
         setTotalEmulsionL(eL);
+        // Emulsion calculation: total litres divided by drum size (210L default) multiplied by price per drum
         const drums = (Number(emulsionDrumSize) || 210) > 0 ? (eL / Number(emulsionDrumSize)) : 0;
         setEmulsionDrums(drums);
         const eCost = drums * (Number(emulsionPrice) || 0);
@@ -149,7 +150,7 @@ export default function RoadCalculator() {
         const sqCost = sqCount * (Number(squeegeePrice) || 0);
         setSqueegeeTotalCost(sqCost);
 
-        // Other calculations (fixed or per-batch multiplier)
+        // Other calculations
         const oUnits = batches * (Number(otherQty) || 0);
         setTotalOtherUnits(oUnits);
         const oCost = oUnits * (Number(otherPrice) || 0);
@@ -208,9 +209,9 @@ export default function RoadCalculator() {
                         setEmulsionDrumSize(d.slurry.emulsionDrumSize ?? 210);
                         setWaterQty(d.slurry.waterQty ?? 200);
                         setWaterPrice(d.slurry.waterPrice ?? 0);
-                        setFuelQty(d.slurry.fuelQty ?? 10);
+                        setFuelQty(d.slurry.fuelQty ?? 2.7);
                         setFuelPrice(d.slurry.fuelPrice ?? 25);
-                        setSqueegeeQty(d.slurry.squeegeeQty ?? 1);
+                        setSqueegeeQty(d.slurry.squeegeeQty ?? 0.2);
                         setSqueegeePrice(d.slurry.squeegeePrice ?? 350);
                         setOtherQty(d.slurry.otherQty ?? 1);
                         setOtherPrice(d.slurry.otherPrice ?? 0);
@@ -233,7 +234,7 @@ export default function RoadCalculator() {
                     if (d.paving) {
                         setPavingLength(d.paving.length ?? 700);
                         setPavingWidth(d.paving.width ?? 3.3);
-                        setPavingRate(d.paving.rate ?? 700);
+                        setPavingRate(d.paving.rate ?? 800);
                     }
                     if (d.budget) {
                         setProjectBudget(d.budget ?? 1000000);
@@ -259,13 +260,13 @@ export default function RoadCalculator() {
         setDustQty(1); setDustPrice(930); setCementQty(20); setCementPrice(90);
         setEmulsionQty(260); setEmulsionPrice(3521.85); setEmulsionDrumSize(210);
         setWaterQty(200); setWaterPrice(0); 
-        setFuelQty(10); setFuelPrice(25); setSqueegeeQty(1); setSqueegeePrice(350);
+        setFuelQty(2.7); setFuelPrice(25); setSqueegeeQty(0.2); setSqueegeePrice(350);
         setOtherQty(1); setOtherPrice(0);
         setLabourCapacity(50);
         setLabourersCount(7); setLabourersRate(250); setSupervisorsCount(1); setSupervisorsRate(500);
         setDrainUnitCost(800); setDrainLengthUnit(5);
         setDrainCham(2); setDrainEland(1); setDrainArum(1); setDrainWhydah(1); setDrainGovender(1); setDrainCathkin(1);
-        setPavingLength(700); setPavingWidth(3.3); setPavingRate(700);
+        setPavingLength(700); setPavingWidth(3.3); setPavingRate(800);
         setProjectBudget(1000000);
     };
 
@@ -392,9 +393,14 @@ export default function RoadCalculator() {
                                 <div>
                                     <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, marginBottom: '4px', color: '#475569' }}>Project Budget (ZAR)</label>
                                     <input 
-                                        type="number" 
-                                        value={projectBudget} 
-                                        onChange={(e) => setProjectBudget(e.target.value)} 
+                                        type="text" 
+                                        value={Number(projectBudget).toLocaleString()} 
+                                        onChange={(e) => {
+                                            const rawValue = e.target.value.replace(/,/g, '');
+                                            if (!isNaN(rawValue)) {
+                                                setProjectBudget(rawValue);
+                                            }
+                                        }} 
                                         style={{ width: '100%', padding: '8px 10px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '0.9rem', boxSizing: 'border-box', background: 'white' }} 
                                     />
                                 </div>
@@ -416,7 +422,7 @@ export default function RoadCalculator() {
                 {/* TAB 1: SLURRY SEAL */}
                 {activeTab === 'slurry' && (
                     <div>
-                        <p style={{ fontSize: '0.85rem', color: '#64748b', marginTop: 0 }}>Slurry seal specification model (Minimum thickness: <strong>5 mm</strong>).</p>
+                        <p style={{ fontSize: '0.85rem', color: '#64748b', marginTop: 0 }}>Slurry seal specification model (Minimum thickness: <strong>5 mm</strong>). Note: Emulsion pricing is calculated per **210L drum**.</p>
                         
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '20px' }}>
                             <div style={{ marginBottom: '12px' }}>
@@ -479,8 +485,8 @@ export default function RoadCalculator() {
                                     <tr>
                                         <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><strong>60% Emulsion</strong></td>
                                         <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><input type="number" value={emulsionQty} onChange={(e) => setEmulsionQty(e.target.value)} style={{ width: '70px', padding: '6px', border: '1px solid #cbd5e1', borderRadius: '4px', textAlign: 'right', fontSize: '0.85rem', background: 'white' }} /> L</td>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><strong style={{ color: '#0284c7' }}>{totalEmulsionL.toFixed(1)} L</strong></td>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}>R <input type="number" step="0.01" value={emulsionPrice} onChange={(e) => setEmulsionPrice(e.target.value)} style={{ width: '70px', padding: '6px', border: '1px solid #cbd5e1', borderRadius: '4px', textAlign: 'right', fontSize: '0.85rem', background: 'white' }} /> /drum</td>
+                                        <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><strong style={{ color: '#0284c7' }}>{totalEmulsionL.toFixed(1)} L ({emulsionDrums.toFixed(2)} drums of 210L)</strong></td>
+                                        <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}>R <input type="number" step="0.01" value={emulsionPrice} onChange={(e) => setEmulsionPrice(e.target.value)} style={{ width: '70px', padding: '6px', border: '1px solid #cbd5e1', borderRadius: '4px', textAlign: 'right', fontSize: '0.85rem', background: 'white' }} /> /drum (210L)</td>
                                         <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><strong style={{ color: '#15803d' }}>R{emulsionTotalCost.toLocaleString(undefined, {maximumFractionDigits:0})}</strong></td>
                                     </tr>
                                     <tr>
@@ -492,14 +498,14 @@ export default function RoadCalculator() {
                                     </tr>
                                     <tr>
                                         <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><strong>Fuel</strong></td>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><input type="number" value={fuelQty} onChange={(e) => setFuelQty(e.target.value)} style={{ width: '70px', padding: '6px', border: '1px solid #cbd5e1', borderRadius: '4px', textAlign: 'right', fontSize: '0.85rem', background: 'white' }} /> L</td>
+                                        <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><input type="number" step="0.1" value={fuelQty} onChange={(e) => setFuelQty(e.target.value)} style={{ width: '70px', padding: '6px', border: '1px solid #cbd5e1', borderRadius: '4px', textAlign: 'right', fontSize: '0.85rem', background: 'white' }} /> L</td>
                                         <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><strong style={{ color: '#0284c7' }}>{totalFuelL.toFixed(1)} L</strong></td>
                                         <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}>R <input type="number" step="0.01" value={fuelPrice} onChange={(e) => setFuelPrice(e.target.value)} style={{ width: '70px', padding: '6px', border: '1px solid #cbd5e1', borderRadius: '4px', textAlign: 'right', fontSize: '0.85rem', background: 'white' }} /> /L</td>
                                         <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><strong style={{ color: '#15803d' }}>R{fuelTotalCost.toLocaleString(undefined, {maximumFractionDigits:0})}</strong></td>
                                     </tr>
                                     <tr>
                                         <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><strong>Squeegee</strong></td>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><input type="number" value={squeegeeQty} onChange={(e) => setSqueegeeQty(e.target.value)} style={{ width: '70px', padding: '6px', border: '1px solid #cbd5e1', borderRadius: '4px', textAlign: 'right', fontSize: '0.85rem', background: 'white' }} /> units</td>
+                                        <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><input type="number" step="0.1" value={squeegeeQty} onChange={(e) => setSqueegeeQty(e.target.value)} style={{ width: '70px', padding: '6px', border: '1px solid #cbd5e1', borderRadius: '4px', textAlign: 'right', fontSize: '0.85rem', background: 'white' }} /> units</td>
                                         <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><strong style={{ color: '#0284c7' }}>{totalSqueegees.toFixed(1)} units</strong></td>
                                         <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}>R <input type="number" step="0.01" value={squeegeePrice} onChange={(e) => setSqueegeePrice(e.target.value)} style={{ width: '70px', padding: '6px', border: '1px solid #cbd5e1', borderRadius: '4px', textAlign: 'right', fontSize: '0.85rem', background: 'white' }} /> /unit</td>
                                         <td style={{ padding: '8px', borderBottom: '1px solid #e2e8f0' }}><strong style={{ color: '#15803d' }}>R{squeegeeTotalCost.toLocaleString(undefined, {maximumFractionDigits:0})}</strong></td>
