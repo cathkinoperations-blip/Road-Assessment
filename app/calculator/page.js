@@ -3,6 +3,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 export default function RoadCalculator() {
+    // Authentication State
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [passwordInput, setPasswordInput] = useState('');
+    const [authError, setAuthError] = useState(false);
+
     // Slurry State
     const [length, setLength] = useState(900);
     const [width, setWidth] = useState(3.3);
@@ -61,6 +66,17 @@ export default function RoadCalculator() {
     const [currentPavingCost, setCurrentPavingCost] = useState(0);
 
     const grandTotal = currentSlurryCost + currentDrainCost + currentPavingCost;
+
+    // Password verification handler
+    const handleLogin = (e) => {
+        e.preventDefault();
+        if (passwordInput === 'Cathkin2026') {
+            setIsAuthenticated(true);
+            setAuthError(false);
+        } else {
+            setAuthError(true);
+        }
+    };
 
     // Calculation functions wrapped in useCallback to safely trigger dependencies
     const calculateRoadCosts = useCallback(() => {
@@ -122,6 +138,7 @@ export default function RoadCalculator() {
 
     // Load configuration on mount
     useEffect(() => {
+        if (!isAuthenticated) return;
         async function loadConfiguration() {
             try {
                 const response = await fetch('/api/config');
@@ -168,14 +185,15 @@ export default function RoadCalculator() {
             }
         }
         loadConfiguration();
-    }, []);
+    }, [isAuthenticated]);
 
     // Trigger calculations whenever inputs change
     useEffect(() => {
+        if (!isAuthenticated) return;
         calculateRoadCosts();
         calculateDrainCosts();
         calculatePavingCosts();
-    }, [calculateRoadCosts, calculateDrainCosts, calculatePavingCosts]);
+    }, [isAuthenticated, calculateRoadCosts, calculateDrainCosts, calculatePavingCosts]);
 
     const resetDefaults = () => {
         setLength(900); setWidth(3.3); setSlurryYield(200);
@@ -213,13 +231,44 @@ export default function RoadCalculator() {
         }
     };
 
+    // If not authenticated, render the clean password prompt screen
+    if (!isAuthenticated) {
+        return (
+            <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif', color: '#334155', backgroundColor: '#faf8f5', margin: 0, padding: '60px 20px', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', boxSizing: 'border-box' }}>
+                <div style={{ width: '100%', maxWidth: '400px', background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '30px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', textAlign: 'center' }}>
+                    <h2 style={{ margin: '0 0 10px 0', color: '#1e293b', fontSize: '1.2rem' }}>Restricted Access</h2>
+                    <p style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '20px' }}>Please enter the access password to view the Cathkin Estates Infrastructure Estimator.</p>
+                    
+                    <form onSubmit={handleLogin}>
+                        <input 
+                            type="password" 
+                            placeholder="Enter password..." 
+                            value={passwordInput} 
+                            onChange={(e) => setPasswordInput(e.target.value)} 
+                            style={{ width: '100%', padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '0.9rem', boxSizing: 'border-box', marginBottom: '12px', outline: 'none' }}
+                        />
+                        {authError && <div style={{ color: '#dc2626', fontSize: '0.75rem', marginBottom: '12px', fontWeight: 600 }}>Incorrect password. Please try again.</div>}
+                        <button 
+                            type="submit" 
+                            style={{ width: '100%', background: '#0284c7', color: 'white', border: 'none', padding: '10px', borderRadius: '6px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer' }}
+                        >
+                            Unlock Calculator
+                        </button>
+                    </form>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif', color: '#334155', backgroundColor: '#faf8f5', margin: 0, padding: '30px', display: 'flex', justifyContent: 'center', width: '100%' }}>
             <div style={{ width: '100%', maxWidth: '780px', background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '25px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #0284c7', paddingBottom: '10px', marginBottom: '15px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #0284c7', paddingBottom: '10px', marginBottom: '15px', flexWrap: 'wrap', gap: '10px' }}>
                     <h2 style={{ margin: 0, border: 'none', padding: 0, color: '#1e293b', fontSize: '1.3rem' }}>Road & Infrastructure Cost Estimator</h2>
-                    <button onClick={resetDefaults} style={{ background: '#e2e8f0', color: '#334155', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer' }}>Reset Default Specs</button>
-                    <button onClick={saveConfiguration} style={{ background: '#0284c7', color: 'white', border: 'none', padding: '8px 14px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer' }}>Save Changes to Database</button>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                        <button onClick={resetDefaults} style={{ background: '#e2e8f0', color: '#334155', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer' }}>Reset Default Specs</button>
+                        <button onClick={saveConfiguration} style={{ background: '#0284c7', color: 'white', border: 'none', padding: '8px 14px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer' }}>Save Changes to Database</button>
+                    </div>
                 </div>
 
                 {/* Navigation Tabs */}
@@ -306,7 +355,7 @@ export default function RoadCalculator() {
                         <div style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '15px', marginBottom: '15px' }}>
                             <h3 style={{ marginTop: 0, color: '#1e293b', fontSize: '0.95rem', borderBottom: '1px solid #cbd5e1', paddingBottom: '6px' }}>Slurry Seal Mix & Pricing Parameters (Min Thickness: 5 mm)</h3>
                             
-                            <div style={{ margin: '12px 0 15px 0', background: '#f1f5f9', padding: '10px 12px', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <div style={{ margin: '12px 0 15px 0', background: '#f1f5f9', padding: '10px 12px', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
                                 <label style={{ fontSize: '0.85rem', fontWeight: 600, color: '#334155', margin: 0 }}>Mix Proportion Yield Coverage per Batch:</label>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                     <input type="number" value={slurryYield} onChange={(e) => setSlurryYield(e.target.value)} style={{ width: '100px', padding: '6px', border: '1px solid #cbd5e1', borderRadius: '4px', textAlign: 'right', fontSize: '0.85rem', background: 'white' }} /> <strong>m²</strong>
