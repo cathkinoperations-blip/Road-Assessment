@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Road Infrastructure Assessment Deck</title>
+    <style>
+        :root {
+            --primary-color: #1e293b;
+            --accent-color: #0284c7;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .slide {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 1100px;
+            min-height: 600px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            page-break-after: always;
+        }
+
+        .slide-header {
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .slide-header h2 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .slide-header .tag {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .slide-body {
+            flex-grow: 1;
+            overflow-x: auto;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Summary Slide Styling */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .summary-card {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .summary-card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.4;
+            font-size: 0.95rem;
+        }
+
+        .slide-footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+                gap: 0;
+            }
+            .slide {
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                width: 100vw;
+                height: 100vh;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- ==================== UPDATED EXECUTIVE SUMMARY SLIDE (DETAIL LINKED) ==================== -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Estate Road Network Assessment</h2>
+            <span class="tag">Master Series Executive Summary — Linked Detail Assets</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Prio.</th>
+                        <th>Series / Corridor</th>
+                        <th>Est. Length (m)</th>
+                        <th>Risk Level</th>
+                        <th>Key Failure Mechanism</th>
+                        <th>Consolidated Fix Plan Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- TIER 1: CRITICAL PRIORITY (ACTIVE WASHOUTS & STRUCTURAL LOSS) -->
+                    <tr style="background-color: #fef2f2;">
+                        <td><strong>1</strong></td>
+                        <td>
+                            <strong>Bridge 6 Series</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Before%20Bridge%206.jpg" target="_blank" style="color: #0284c7;">Before Bridge 6</a>, 
+                                <a href="images/Bridge%206%20detail%202.jpg" target="_blank" style="color: #0284c7;">Detail 2</a>, 
+                                <a href="images/Bridge%206%20detail%203.jpg" target="_blank" style="color: #0284c7;">Detail 3</a>, 
+                                <a href="images/Bridge%206%20detail%204.jpg" target="_blank" style="color: #0284c7;">Detail 4</a>, 
+                                <a href="images/Bridge%206%20detail.jpg" target="_blank" style="color: #0284c7;">Washout Detail</a>]
+                            </span>
+                        </td>
+                        <td>~60 m</td>
+                        <td><span style="color: #dc2626; font-weight: 700;">Critical</span></td>
+                        <td>Severe edge scour/washout trench along wall footing; failed historic patch joints.</td>
+                        <td>Cast concrete side-drain/edge beam; backfill washout with G5; rebuild patches & slurry overlay.</td>
+                    </tr>
+                    <tr style="background-color: #fef2f2;">
+                        <td><strong>2</strong></td>
+                        <td>
+                            <strong>Bridge 8 Series</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Bridge%208%20Approach%20Detail%2059%20mts.jpg" target="_blank" style="color: #0284c7;">59m Detail</a>, 
+                                <a href="images/Bridge%208%20Opposite%20Approach%201.jpg" target="_blank" style="color: #0284c7;">Opposite App 1/2</a>, 
+                                <a href="images/Bridge%208%20opposite%20side.jpg" target="_blank" style="color: #0284c7;">Washout Side</a>, 
+                                <a href="images/Bridge%208%20Approach.jpg" target="_blank" style="color: #0284c7;">Approach</a>]
+                            </span>
+                        </td>
+                        <td>~140 m</td>
+                        <td><span style="color: #dc2626; font-weight: 700;">Critical</span></td>
+                        <td>Total sub-base edge washout near headwall; 59m continuous fracture line on incline.</td>
+                        <td>Rebuild headwall shoulder with rip-rap & concrete apron; hot-pour seal 59m crack; slurry coat.</td>
+                    </tr>
+
+                    <!-- TIER 2: HIGH PRIORITY (SEVERE BASE & HYDRAULIC THREATS) -->
+                    <tr style="background-color: #fff7ed;">
+                        <td><strong>3</strong></td>
+                        <td>
+                            <strong>Bridge 4 Series</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Bridge%204.jpg" target="_blank" style="color: #0284c7;">Bridge 4</a>, 
+                                <a href="images/Bridge%204%20Detail%2030%20mts.jpg" target="_blank" style="color: #0284c7;">Detail 30m</a>, 
+                                <a href="images/Bridge%206%20detail%204.jpg" target="_blank" style="color: #0284c7;">Detail 4</a>, 
+                                <a href="images/After%20Bridge%204.jpg" target="_blank" style="color: #0284c7;">Beyond Bridge 4</a>]
+                            </span>
+                        </td>
+                        <td>~195 m</td>
+                        <td><span style="color: #ea580c; font-weight: 600;">High</span></td>
+                        <td>Trapped moisture between parapets; potholing; speed hump wear; 100m edge wear.</td>
+                        <td>Install deck weep channels; deep-lift sub-base rebuild along deck; crack seal & slurry coat 100m run.</td>
+                    </tr>
+                    <tr style="background-color: #fff7ed;">
+                        <td><strong>4</strong></td>
+                        <td>
+                            <strong>Bridge 5 Series</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Bridge%205%20-%2076%20mts.jpg" target="_blank" style="color: #0284c7;">76m Stretch</a>, 
+                                <a href="images/Bridge%205%20Detail.jpg" target="_blank" style="color: #0284c7;">Crocodile Detail</a>]
+                            </span>
+                        </td>
+                        <td>~76 m</td>
+                        <td><span style="color: #ea580c; font-weight: 600;">High</span></td>
+                        <td>Recurrent mid-span settlement over 76m; severe wheel-path crocodile cracking.</td>
+                        <td>Sub-soil drainage along wall footings; mill out 15m failed base; reconstruct sub-base and slurry seal.</td>
+                    </tr>
+                    <tr style="background-color: #fff7ed;">
+                        <td><strong>5</strong></td>
+                        <td>
+                            <strong>Champagne Ridge</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Champagne%20Ridge.jpg" target="_blank" style="color: #0284c7;">Champ Ridge</a>, 
+                                <a href="images/Champ%20Ridge.jpg" target="_blank" style="color: #0284c7;">Center Potholing</a>, 
+                                <a href="images/Champ%20Rdg%201.jpg" target="_blank" style="color: #0284c7;">Edge Breakout</a>, 
+                                <a href="images/Champ%20Ridge%20280%20mts.jpg" target="_blank" style="color: #0284c7;">280m Run</a>]
+                            </span>
+                        </td>
+                        <td>~280 m</td>
+                        <td><span style="color: #ea580c; font-weight: 600;">High</span></td>
+                        <td>280m widespread oxidation; inner-curve shoulder slumping/breakout; saddle depressions.</td>
+                        <td>Rebuild failing embankment edges; mill & level sunken patches; double slurry coat across full 280m.</td>
+                    </tr>
+
+                    <!-- TIER 3: MEDIUM PRIORITY (SURFACE FATIGUE & PREVENTATIVE BASE SEALS) -->
+                    <tr style="background-color: #fefce8;">
+                        <td><strong>6</strong></td>
+                        <td>
+                            <strong>Arum Lane</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/52%20Arum%20Lane.jpg" target="_blank" style="color: #0284c7;">#52 Arum</a>, 
+                                <a href="images/Arum%20Lane%20Cathkin%20Dr.jpg" target="_blank" style="color: #0284c7;">Cathkin Dr Junction</a>, 
+                                <a href="images/Arum%20Lane%20Cathkin%20Drive%202.jpg" target="_blank" style="color: #0284c7;">Turning Apron</a>, 
+                                <a href="images/Arum%20Lane%20Cathkin%20Drive%203.jpg" target="_blank" style="color: #0284c7;">Approach 3</a>]
+                            </span>
+                        </td>
+                        <td>~65 m</td>
+                        <td><span style="color: #d97706; font-weight: 600;">Medium – High</span></td>
+                        <td>Turning shear at intersection apron; localized alligator fatigue outside #52.</td>
+                        <td>Box cut & base rebuild at #52; evaluate pavers for intersection; crack seal & slurry overlay.</td>
+                    </tr>
+                    <tr style="background-color: #fefce8;">
+                        <td><strong>7</strong></td>
+                        <td>
+                            <strong>Cathkin Dam Series</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Cathkin%20Drive%20Dam%201.jpg" target="_blank" style="color: #0284c7;">Dam 1 (Concrete)</a>, 
+                                <a href="images/Cathkin%20Drive%20Dam%202.jpg" target="_blank" style="color: #0284c7;">Dam 2 (Slab)</a>, 
+                                <a href="images/Cathkin%20Drive%20Dam.jpg" target="_blank" style="color: #0284c7;">Asphalt Transition</a>]
+                            </span>
+                        </td>
+                        <td>~55 m</td>
+                        <td><span style="color: #d97706; font-weight: 600;">Medium</span></td>
+                        <td>Concrete slab thermal cracking; asphalt-concrete transition joint shear (no active pumping).</td>
+                        <td>Rout out & hot-pour elastomeric seal cracks; rebuild flexible-rigid transition joint; clear side drains.</td>
+                    </tr>
+                    <tr style="background-color: #fefce8;">
+                        <td><strong>8</strong></td>
+                        <td>
+                            <strong>Eland Way</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Eland%20Way%20Full%2090mts.jpg" target="_blank" style="color: #0284c7;">Full 90m</a>, 
+                                <a href="images/Eland%20Way%202.jpg" target="_blank" style="color: #0284c7;">Centerline Split</a>, 
+                                <a href="images/Eland%20Way%20Detail.jpg" target="_blank" style="color: #0284c7;">Mid-Lane Croc</a>, 
+                                <a href="images/Eland%20Way%20Detail%202.jpg" target="_blank" style="color: #0284c7;">Patch Settlement</a>]
+                            </span>
+                        </td>
+                        <td>~90 m</td>
+                        <td><span style="color: #d97706; font-weight: 600;">Medium – High</span></td>
+                        <td>Continuous centerline fracture over 90m downhill stretch; sunken historic patches.</td>
+                        <td>Rout & elastomeric hot-seal 90m centerline; re-excavate failed patches; slurry seal entire grade.</td>
+                    </tr>
+                    <tr style="background-color: #fefce8;">
+                        <td><strong>9</strong></td>
+                        <td>
+                            <strong>Duiker Ridge</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Duiker%20Ridge%2045%20mts.jpg" target="_blank" style="color: #0284c7;">45m Shoulder Line</a>, 
+                                <a href="images/Duiker%20Ridge%2018%20mts.jpg" target="_blank" style="color: #0284c7;">18m Stripping Bend</a>]
+                            </span>
+                        </td>
+                        <td>~63 m</td>
+                        <td><span style="color: #d97706; font-weight: 600;">Medium</span></td>
+                        <td>Extreme aggregate stripping on bend (18m); 45m parallel shoulder crack.</td>
+                        <td>Rout and hot-seal 45m shoulder crack; slurry seal 63m total corridor to lock coarse aggregate.</td>
+                    </tr>
+                    <tr style="background-color: #fefce8;">
+                        <td><strong>10</strong></td>
+                        <td>
+                            <strong>Oribi Lane</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Oribi%20Lane%20Add%20100%20mts.jpg" target="_blank" style="color: #0284c7;">100m Ext</a>, 
+                                <a href="images/Oribi%20Lane%20Cont.jpg" target="_blank" style="color: #0284c7;">Center Crack</a>, 
+                                <a href="images/Oribi%20Lane%20Detail.jpg" target="_blank" style="color: #0284c7;">Patch Rims</a>, 
+                                <a href="images/Oribi%20Lane%20Detail%203.jpg" target="_blank" style="color: #0284c7;">Block Web</a>]
+                            </span>
+                        </td>
+                        <td>~155 m</td>
+                        <td><span style="color: #d97706; font-weight: 600;">Medium</span></td>
+                        <td>100m binder oxidation; pinhole pop-outs; sunken patch rims; full-width map cracking.</td>
+                        <td>Mill out & level historic patches; seal block crack networks; full-corridor Cape Seal overlay (100m+).</td>
+                    </tr>
+                    <tr style="background-color: #fefce8;">
+                        <td><strong>11</strong></td>
+                        <td>
+                            <strong>Village 4 Series</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Village%204.jpg" target="_blank" style="color: #0284c7;">Full Map Crack</a>, 
+                                <a href="images/Nr%20Village%204.jpg" target="_blank" style="color: #0284c7;">Speed Hump App</a>]
+                            </span>
+                        </td>
+                        <td>~65 m</td>
+                        <td><span style="color: #d97706; font-weight: 600;">Medium</span></td>
+                        <td>Full-width top-down map cracking from binder oxidation; speed hump approach wear.</td>
+                        <td>Seal transition joints near speed hump; apply full-width waterproofing slurry/Cape Seal over 40m.</td>
+                    </tr>
+                    <tr style="background-color: #fefce8;">
+                        <td><strong>12</strong></td>
+                        <td>
+                            <strong>Village 5 Series</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Village%205%20Approach%2016%20mts.jpg" target="_blank" style="color: #0284c7;">16m Approach</a>]
+                            </span>
+                        </td>
+                        <td>~16 m</td>
+                        <td><span style="color: #d97706; font-weight: 600;">Medium</span></td>
+                        <td>Wheel-path fatigue alligatoring & centerline shear over 16m approach stretch.</td>
+                        <td>High-pressure clean & hot seal wheel-path cracks; 16m full-width slurry coat to prevent base softening.</td>
+                    </tr>
+
+                    <!-- TIER 4: LOW PRIORITY (PREVENTATIVE MAINTENANCE) -->
+                    <tr style="background-color: #f0fdf4;">
+                        <td><strong>13</strong></td>
+                        <td>
+                            <strong>Bridge 3 Series</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Bridge%203.jpg" target="_blank" style="color: #0284c7;">Bridge 3 Curve</a>, 
+                                <a href="images/Bridge%203%20Detail.jpg" target="_blank" style="color: #0284c7;">Fine Croc</a>]
+                            </span>
+                        </td>
+                        <td>~35 m</td>
+                        <td><span style="color: #16a34a; font-weight: 600;">Low – Medium</span></td>
+                        <td>Centrifugal turning fatigue along approach curve; localized fine block cracking.</td>
+                        <td>High-pressure crack clean & elastomeric seal; full-width rejuvenator/slurry seal over 35m approach.</td>
+                    </tr>
+                    <tr style="background-color: #f0fdf4;">
+                        <td><strong>14</strong></td>
+                        <td>
+                            <strong>Bridge 7 Series</strong><br>
+                            <span style="font-size: 0.75rem;">
+                                [<a href="images/Bridge%207.jpg" target="_blank" style="color: #0284c7;">Bridge 7 Approach</a>]
+                            </span>
+                        </td>
+                        <td>~35 m</td>
+                        <td><span style="color: #16a34a; font-weight: 600;">Low</span></td>
+                        <td>Early wheel-path longitudinal crack and fine map cracking on sweeping curve.</td>
+                        <td>Preventative hot crack sealing along longitudinal crack line; single-layer Cape Seal application.</td>
+                    </tr>
+
+                    <!-- TOTALS ROW -->
+                    <tr style="background-color: #e2e8f0; font-weight: bold;">
+                        <td colspan="2"><strong>TOTAL ESTIMATED SCOPE</strong></td>
+                        <td><strong>~1,230 m</strong></td>
+                        <td colspan="3"><strong>14 Surveyed Series (~1.23 km Total Network Length)</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Master Executive Summary — Hyperlinked Asset Overview</span>
+        </div>
+    </div>
+
+    <!-- ==================== ARUM LANE ==================== -->
+    <!-- Slide 1: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Arum Lane</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/52 Arum Lane.jpg" target="_blank" style="color: #0284c7;">52 Arum Lane.jpg</a></td>
+                        <td>15–20 m (L) × 3.0 m (W)</td>
+                        <td>Structural Fatigue / Alligator Cracking</td>
+                        <td>High-density interlocking crocodile/alligator cracking network across primary wheel track; grass encroachment.</td>
+                        <td>Classic sub-base failure under wheel loading. Deep moisture ingress requires ripping, sub-base stabilization, and sub-surface drainage before repaving.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Arum Lane Cathkin Drive.jpg" target="_blank" style="color: #0284c7;">Arum Lane Cathkin Drive.jpg</a></td>
+                        <td>12–15 m (L) × 3.2 m (W)</td>
+                        <td>Longitudinal & Transverse Block Cracking</td>
+                        <td>Interconnected linear and block cracking along the lane center extending toward T-junction.</td>
+                        <td>Fatigue cracking driven by traffic load and aging binder. Moisture penetration along cracks is destabilizing the base layer.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Arum Lane Cathkin Drive 2.jpg" target="_blank" style="color: #0284c7;">Arum Lane Cathkin Drive 2.jpg</a></td>
+                        <td>18–22 m (L) × 6.0–8.0 m (W)</td>
+                        <td>Intersection Turning Fatigue & Block Cracking</td>
+                        <td>Diffuse network of block cracking across wide turning radius/apron; surface binder stripping and aggregate ravelling.</td>
+                        <td>Torsional shear from turning vehicles combined with base flexure. High-stress zone; candidate for modular interlocking pavers or reinforced base structure.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Arum Lane Cathkin Drive 3.jpg" target="_blank" style="color: #0284c7;">Arum Lane Cathkin Drive 3.jpg</a></td>
+                        <td>15–18 m (L) × 3.5 m (W)</td>
+                        <td>Longitudinal Flexural Cracking</td>
+                        <td>Fine to medium longitudinal crack networks running parallel to travel direction down the roadway section.</td>
+                        <td>Incipient sub-base settlement/flexure along traffic paths. Requires crack sealing and base stabilization.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Arum Lane — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 2: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Arum Lane</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>High-Stress Intersection Apron:</strong> Significant block cracking and binder stripping on the wide turning radius at Cathkin Drive due to torsional turning forces.</li>
+                        <li><strong>Localized Sub-Base Failure:</strong> Severe alligator cracking outside #52 indicating moisture entrapment and sub-grade softening beneath the wheel paths.</li>
+                        <li><strong>Linear Flexural Cracking:</strong> Centerline and parallel longitudinal cracks extending along the approach lanes.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Structural Rebuild (#52 Arum):</strong> Box cut failed zone, stabilize sub-base with G5 crushed stone/cement, install sub-surface drain, and patch deep-lift asphalt.</li>
+                        <li><strong>Intersection Option:</strong> Consider replacing the high-shear apron at Cathkin Drive junction with 80mm heavy-duty interlocking concrete pavers.</li>
+                        <li><strong>Corridor Preservation:</strong> Route and hot-seal longitudinal cracks, followed by a full-width slurry seal across the entire lane.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Arum Lane — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== CATHKIN DAM SERIES ==================== -->
+    <!-- Slide 3: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Cathkin Dam Series</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Cathkin Drive Dam 1.jpg" target="_blank" style="color: #0284c7;">Cathkin Drive Dam 1.jpg</a></td>
+                        <td>10–12 m (L) × 3.5–4.0 m (W)</td>
+                        <td>Rigid/Concrete Pavement Structural Cracking</td>
+                        <td>Wide structural transverse and diagonal cracking across concrete slab section near dam crossing; surface mud pumping.</td>
+                        <td>Severe sub-grade movement or slab flexure. Mud pumping (brown sediment) indicates sub-grade fines being forced up through cracks under load.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cathkin Drive Dam 2.jpg</strong></td>
+                        <td>12–15 m (L) × 3.5–4.0 m (W)</td>
+                        <td>Rigid Slab Joint & Random Cracking</td>
+                        <td>Extensive map/structural cracking across concrete section with edge spalling and surface wear.</td>
+                        <td>Failure of concrete slab continuity due to thermal movement or un-compacted sub-base below slab. Base stabilization required beneath slab.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cathkin Drive Dam.jpg</strong></td>
+                        <td>25–30 m (L) × 3.5–4.0 m (W)</td>
+                        <td>Asphalt-to-Concrete Transition Shear & Base Bleeding</td>
+                        <td>Major structural joint cracking at interface between flexible asphalt and rigid concrete; brown sub-base pumping visible.</td>
+                        <td>Differential movement at rigid-flexible joint. Fines/mud pumping proves sub-base saturation and loss of support at the dam approach.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Cathkin Dam Series — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 4: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Cathkin Dam Series</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>Sub-Grade Mud Pumping:</strong> Brown sediment pumping up through concrete cracks confirms active sub-base saturation and voiding under vehicular loading.</li>
+                        <li><strong>Transition Joint Failure:</strong> Severe differential shear and cracking where the flexible asphalt pavement meets the rigid concrete dam slab.</li>
+                        <li><strong>Slab Disintegration:</strong> Thermal expansion failure and structural slab cracking due to un-compacted base layers.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Drainage & Stabilization:</strong> Install heavy-duty agricultural sub-soil drainage along dam embankments to eliminate hydrostatic water pressure.</li>
+                        <li><strong>Slab Under-Grouting:</strong> Inject polyurethane expanding grout or cement slurry beneath concrete slabs to fill voids and stabilize the base.</li>
+                        <li><strong>Transition Interface:</strong> Reconstruction of the asphalt-to-concrete interface using an engineered concrete expansion joint and bituminous tie-in.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Cathkin Dam Series — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== BRIDGE 4 SERIES ==================== -->
+    <!-- Slide 5: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Bridge 4 Series</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Bridge 4 .jpg / Bridge 4.jpg" target="_blank" style="color: #0284c7;">Bridge 4 .jpg / Bridge 4.jpg</a></td>
+                        <td>15–25 m (L) × 3.0 m (W)</td>
+                        <td>Severe Potholing & Wheel Fatigue</td>
+                        <td>Shallow pothole/patch between stone headwalls; intense longitudinal fatigue cracking radiating outward.</td>
+                        <td>High moisture retention between stone bridge parapets causing severe base weakening under wheel loading. Priority repair zone.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Bridge 4 Detail 30 mts.jpg" target="_blank" style="color: #0284c7;">Bridge 4 Detail 30 mts.jpg</a></td>
+                        <td>30 m (L) × 3.0 m (W)</td>
+                        <td>Centerline Shear Cracking</td>
+                        <td>Deep longitudinal shear cracking and surface binder erosion running directly between stone bridge walls.</td>
+                        <td>Severe base softening within the bridge corridor due to water entrapment between retaining walls.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Bridge 6 detail 4.jpg" target="_blank" style="color: #0284c7;">Bridge 6 detail 4.jpg</a></td>
+                        <td>5–10 m spot × 3.0 m (W)</td>
+                        <td>Binder Oxidation & Ravelling</td>
+                        <td>Severe binder loss, exposed sub-base fines, and loose aggregate near stone headwall.</td>
+                        <td>Surface seal failed completely; water penetrates into sub-grade. Requires slurry seal post-base compaction.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/After Bridge 4 / Beyond Bridge 4 (Pt 2).jpg" target="_blank" style="color: #0284c7;">After Bridge 4 / Beyond Bridge 4 (Pt 2).jpg</a></td>
+                        <td>100 m Total × 3.0 m (W)</td>
+                        <td>Speed Hump Interface & Edge Wear</td>
+                        <td>Paved speed hump transitions showing asphalt ravelling, pothole depressions, and uncurbed edge erosion over 100m.</td>
+                        <td>Dynamic impact stresses at speed hump; uncurbed pavement runoff causing edge breakdown over 100m run.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Bridge 4 Series — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 6: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Bridge 4 Series</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>Trapped Water Degradation:</strong> Stone parapet walls retain water across the deck, causing severe base softening, potholes, and centerline shear.</li>
+                        <li><strong>Extended Surface Oxidation:</strong> A 100-meter run beyond the bridge exhibits uncurbed edge wear, aggregate stripping, and longitudinal cracking.</li>
+                        <li><strong>Traffic Calming Wear:</strong> Asphalt cracking and joint separation occurring around the speed hump transition ramps.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Bridge Deck Drainage:</strong> Install weep holes and edge channels along stone parapet footings to allow trapped water to drain freely.</li>
+                        <li><strong>Deep Patching:</strong> Box out and reconstruct the sub-base along the 30m bridge deck and approach with dense G5 aggregate and asphalt binder.</li>
+                        <li><strong>100m Corridor Treatment:</strong> Seal all longitudinal cracks and apply a continuous slurry/Cape Seal coat to protect uncurbed edges.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Bridge 4 Series — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== BRIDGE 3 SERIES ==================== -->
+    <!-- Slide 7: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Bridge 3 Series</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Bridge 3.jpg" target="_blank" style="color: #0284c7;">Bridge 3.jpg</a></td>
+                        <td>25–35 m (L) × 3.0 m (W)</td>
+                        <td>Approach Flexure & Surface Ravelling</td>
+                        <td>Curved roadway section leading toward stone bridge parapet; general surface binder loss and fine map cracking down the travel path.</td>
+                        <td>Centrifugal dynamic loading along curve accelerating surface fatigue. Sub-base intact; ideal for crack sealing and slurry seal.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Bridge 3 Detail.jpg" target="_blank" style="color: #0284c7;">Bridge 3 Detail.jpg</a></td>
+                        <td>5–8 m spot × 3.0 m (W)</td>
+                        <td>Interconnected Block & Alligator Cracking</td>
+                        <td>Close-up of high-density fine alligator/block cracking along the central lane stretch.</td>
+                        <td>Early-stage alligatoring from binder oxidation and water ingress. Needs crack filling/slurry seal quickly before potholing develops.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Bridge 3 Series — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 8: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Bridge 3 Series</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>Curved Approach Stress:</strong> Surface wear and binder loss accelerated along the bend leading into the stone parapets due to dynamic turning loads.</li>
+                        <li><strong>Early Alligatoring:</strong> Localized 5–8m zones showing fine, interconnected block/alligator cracking across the travel lane.</li>
+                        <li><strong>Sound Structural Foundation:</strong> Unlike other bridges, the sub-base remains structurally aligned with no major structural slumping yet.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Preventative Crack Sealing:</strong> High-pressure clean and blow out all fine alligator and block cracks; fill with polymer crack sealant.</li>
+                        <li><strong>Rejuvenating Cape Seal:</strong> Apply a light slurry seal or Cape Seal coat over the full 35m approach to restore binder matrix and lock aggregate.</li>
+                        <li><strong>Side Channel Inspection:</strong> Ensure road shoulders leading into parapets clear stormwater efficiently off the pavement edge.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Bridge 3 Series — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== BRIDGE 5 SERIES ==================== -->
+    <!-- Slide 9: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Bridge 5 Series</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Bridge 5 - 76 mts.jpg" target="_blank" style="color: #0284c7;">Bridge 5 - 76 mts.jpg</a></td>
+                        <td>76 m (L) × 3.0 m (W)</td>
+                        <td>Mid-Span Patching & Longitudinal Cracking</td>
+                        <td>Continuous 76 m stretch bounded by stone walls; asphalt patch/infill section at mid-span with extensive longitudinal cracking along wheel lines.</td>
+                        <td>Water retention between parapet walls accelerating base flexure. Structural patch indicates past failure; surrounding cracks show base instability.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Bridge 5 Detail.jpg" target="_blank" style="color: #0284c7;">Bridge 5 Detail.jpg</a></td>
+                        <td>10–15 m spot × 3.0 m (W)</td>
+                        <td>High-Density Wheel-Path Alligator Cracking</td>
+                        <td>Close-up showing dense network of advanced alligator/crocodile cracking radiating along primary wheel paths between stone walls.</td>
+                        <td>Sub-base degradation due to trapped water within the wall-bounded section. Requires localized deep-lift sub-base compaction and sub-surface drainage.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Bridge 5 Series — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 10: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Bridge 5 Series</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>76-Meter Corridor Distress:</strong> Long corridor bounded by stone parapets exhibiting recurrent mid-span settlement and historic patch failure.</li>
+                        <li><strong>Advanced Wheel-Path Crocodile Cracking:</strong> 10–15m spot showing deep structural alligatoring caused by severe moisture buildup under the wheel tracks.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Sub-Surface Drainage:</strong> Retrofit sub-soil drain lines along the wall footings to release trapped deck moisture.</li>
+                        <li><strong>Base Reconstruction:</strong> Mill out 15m of failed asphalt and soft sub-base material; reconstruct with dense compacted base layer and hot asphalt.</li>
+                        <li><strong>Full Resurfacing:</strong> Apply a slurry seal across the remaining 76m corridor to waterproof surrounding micro-cracks.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Bridge 5 Series — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== BRIDGE 6 SERIES ==================== -->
+    <!-- Slide 11: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Bridge 6 Series</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Before Bridge 6 / Bridge 6.jpg" target="_blank" style="color: #0284c7;">Before Bridge 6 / Bridge 6.jpg</a></td>
+                        <td>30–40 m (L) × 3.0 m (W)</td>
+                        <td>Wheel-Path Shear & Wall Wear</td>
+                        <td>Curved approach with oxidized binder; continuous longitudinal cracking along wheel path and wall footings.</td>
+                        <td>Moisture trapped along stone wall footing weakening edge support. Demands edge drainage detail and localized compaction.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Bridge 6 detail 2 / 3.jpg" target="_blank" style="color: #0284c7;">Bridge 6 detail 2 / 3.jpg</a></td>
+                        <td>10–15 m spot × 3.0 m (W)</td>
+                        <td>Patch Joint Failure & Settlement</td>
+                        <td>Full-width historical repair patch showing severe joint cracking along perimeters and uneven surface transition.</td>
+                        <td>Inadequate compaction or moisture ingress at old patch joints. Water entering joints will undermine sub-base if not sealed.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Bridge 6 detail 4_2.jpg" target="_blank" style="color: #0284c7;">Bridge 6 detail 4_2.jpg</a></td>
+                        <td>5–10 m spot × 3.0 m (W)</td>
+                        <td>Severe Surface Ravelling</td>
+                        <td>Severe binder stripping exposing underlying sub-base aggregate/fines directly.</td>
+                        <td>Complete loss of protective seal coat; sub-base fines are picking up. Priority localized tack and patch.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Bridge 6 detail.jpg" target="_blank" style="color: #0284c7;">Bridge 6 detail.jpg</a></td>
+                        <td>3–5 m spot × 0.5–1.0 m (W)</td>
+                        <td>Severe Edge Scour & Washout</td>
+                        <td>Complete erosion/washout of asphalt edge and sub-base fines adjacent to stone parapet wall footing.</td>
+                        <td>Stormwater runoff channeling along stone wall footing has scoured away pavement support. Requires concrete side-drain install.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Bridge 6 Series — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 12: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Bridge 6 Series</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>Critical Edge Washout:</strong> Direct stormwater channeling along the stone wall footing has scoured away the sub-base, creating an open trench under the road edge.</li>
+                        <li><strong>Historical Patch Failure:</strong> Perimeter joint failure on old repair patches allowing active water infiltration.</li>
+                        <li><strong>Complete Surface Loss:</strong> Localized sections showing total binder stripping down to raw sub-base fines.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Civil Edge Protection (Critical):</strong> Cast a concrete side-drain/edge beam along the stone parapet wall footing to permanently prevent water scour.</li>
+                        <li><strong>Sub-Base Backfill & Patching:</strong> Backfill scoured edge with compacted base material and re-lay deep asphalt patch over failed patch areas.</li>
+                        <li><strong>Crack & Seal Treatment:</strong> Seal all perimeter patch joints and overlay the corridor with a protective slurry coat.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Bridge 6 Series — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== BRIDGE 7 SERIES ==================== -->
+    <!-- Slide 13: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Bridge 7 Series</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Bridge 7.jpg" target="_blank" style="color: #0284c7;">Bridge 7.jpg</a></td>
+                        <td>25–35 m (L) × 3.0 m (W)</td>
+                        <td>Early Wheel-Path Fatigue & Longitudinal Cracking</td>
+                        <td>Sweeping curve approach leading toward stone bridge wall; distinct longitudinal crack running down right wheel path with fine alligatoring in foreground.</td>
+                        <td>Centrifugal loading along bend flexing oxidized binder. Sub-base is structurally sound; low-cost candidate for crack sealing and rejuvenating slurry/Cape Seal.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Bridge 7 Series — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 14: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Bridge 7 Series</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>Incipient Wheel-Path Fatigue:</strong> Single prominent longitudinal crack developing along the outer wheel path on the curved approach.</li>
+                        <li><strong>Early Surface Aging:</strong> Minor localized alligatoring appearing where vehicles track around the bend.</li>
+                        <li><strong>Structurally Sound Base:</strong> Base course shows no signs of sub-grade slumping, mud pumping, or severe potholing.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Targeted Crack Sealing:</strong> Rout, blow out, and hot-seal the linear longitudinal crack before wet weather worsens flexure.</li>
+                        <li><strong>Surface Rejuvenation:</strong> Apply a single-layer Cape Seal or slurry seal across the 35m section to protect against binder drying.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Bridge 7 Series — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== BRIDGE 8 SERIES ==================== -->
+    <!-- Slide 15: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Bridge 8 Series</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Bridge 8 Approach Detail 59 mts.jpg" target="_blank" style="color: #0284c7;">Bridge 8 Approach Detail 59 mts.jpg</a></td>
+                        <td>59 m (L) × 3.0 m (W)</td>
+                        <td>Continuous Centerline & Wheel Shearing</td>
+                        <td>Continuous longitudinal fracture splitting down mid-lane and right wheel path over 59 m stretch.</td>
+                        <td>Sub-base flexure due to traffic load and binder shrinkage over long stretch. Urgent crack sealing required.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Bridge 8 Opposite Approach (1 & 2).jpg" target="_blank" style="color: #0284c7;">Bridge 8 Opposite Approach (1 & 2)</a></td>
+                        <td>30–40 m (L) × 3.0 m (W)</td>
+                        <td>Advanced Map Cracking & Edge Loss</td>
+                        <td>Dense block/alligator cracking network, historic rectangular patches, uncurbed edge fraying into grass line.</td>
+                        <td>Pavement fatigue and aging repairs. Uncurbed shoulder allows lateral runoff to erode asphalt edges.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Bridge 8 opposite side.jpg" target="_blank" style="color: #0284c7;">Bridge 8 opposite side.jpg</a></td>
+                        <td>3–5 m (L) × 1.5–2.0 m (W)</td>
+                        <td>Total Edge Washout / Sub-Base Erosion</td>
+                        <td>Total loss of asphalt surface and sub-base material down to raw earth/rock adjacent to stone headwall footing.</td>
+                        <td>Major stormwater scour zone. Water shedding off road/headwall has eroded shoulder and base support. Critical civil repair.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bridge 8 / Approach.jpg</strong></td>
+                        <td>40–50 m (L) × 3.0 m (W)</td>
+                        <td>Bridge Approach Transition Wear</td>
+                        <td>Long-distance longitudinal cracking along incline corridor terminating at stone bridge parapet.</td>
+                        <td>Fatigue cracking driven by climbing heavy vehicle loads and gradient runoff. High-stress transition zone.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Bridge 8 Series — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 16: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Bridge 8 Series</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>Major Sub-Base Washout (Critical):</strong> Complete erosion down to raw earth adjacent to stone headwall (`Bridge 8 opposite side.jpg`).</li>
+                        <li><strong>59-Meter Fracture Line:</strong> Extended continuous longitudinal crack splitting down the center and wheel track on the approach slope.</li>
+                        <li><strong>Uncurbed Shoulder Fraying:</strong> Water shedding off the incline is undermining the uncurbed pavement margins.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Civil Infrastructure Rebuild:</strong> Re-establish shoulder support at washout zone with stone rip-rap / concrete apron and backfilled sub-base.</li>
+                        <li><strong>59m Crack Sealing:</strong> High-performance rubberized hot-crack sealing along the extended longitudinal crack.</li>
+                        <li><strong>Surface Protection:</strong> Overlay both approaches with a heavy slurry seal coat to bind fraying edges.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Bridge 8 Series — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== CHAMPAGNE RIDGE ==================== -->
+    <!-- Slide 17: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Champagne Ridge</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Champagne Ridge.jpg" target="_blank" style="color: #0284c7;">Champagne Ridge.jpg</a></td>
+                        <td>280 m Corridor × 3.0–6.0 m (W)</td>
+                        <td>Longitudinal Cracking & Intersection Wear</td>
+                        <td>Long linear crack splitting down center-left path; visible historical surface patch at wide intersection apron.</td>
+                        <td>Torsional and dynamic loading at intersection apron. Water ingress along longitudinal crack line threatens base stability.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Champ Ridge.jpg" target="_blank" style="color: #0284c7;">Champ Ridge.jpg</a></td>
+                        <td>280 m Corridor × 3.0 m (W)</td>
+                        <td>Centerline Subsidence / Potholing</td>
+                        <td>Shallow central depression/pothole in foreground with extensive full-width historical patch work visible along ridge line.</td>
+                        <td>Repeated localized base settlement under wheel loading; historical patching shows recurring moisture accumulation along ridge saddle.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Champ Rdg 1.jpg" target="_blank" style="color: #0284c7;">Champ Rdg 1.jpg</a></td>
+                        <td>280 m Corridor × 3.0 m (W)</td>
+                        <td>Shoulder Breakout & Edge Scour</td>
+                        <td>Severe localized shoulder breakout and edge slump along inner curve (marked in spray paint); road edge breaking into soil.</td>
+                        <td>Lateral runoff and unsupported shoulders causing localized sub-base shear and erosion along curved embankment edge.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Champ Ridge 280 mts.jpg" target="_blank" style="color: #0284c7;">Champ Ridge 280 mts.jpg</a></td>
+                        <td>280 m Corridor × 3.0 m (W)</td>
+                        <td>Continuous Alligatoring & Edge Slump</td>
+                        <td>Spray paint marking repair bounds; extensive block/alligator cracking down right wheel path with shoulder drop-off over 280m.</td>
+                        <td>End-to-end binder oxidation across full 280m ridge stretch. Requires full-width surface rejuvenation and edge rebuilds.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Champagne Ridge — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 18: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Champagne Ridge</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>Major 280m Corridor Degradation:</strong> Continuous binder oxidation, extensive block cracking, and historic patch failure spanning the full ridge line.</li>
+                        <li><strong>Embankment Edge Slumping:</strong> Unsupported inner-curve edges breaking away into soil (`Champ Rdg 1.jpg`).</li>
+                        <li><strong>Saddle Moisture Accumulation:</strong> Centerline depressions and recurring potholes at natural low points along the ridge.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Shoulder Stabilization:</strong> Excavate and rebuild failing embankment edges with stone sub-base and asphalt edge beams.</li>
+                        <li><strong>Base Repair & Milling:</strong> Cold-mill failed historical patches and center depressions; backfill with dense asphalt base.</li>
+                        <li><strong>Full Resurfacing:</strong> Apply a full-width double slurry coat or Cape Seal along the entire 280m corridor.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Champagne Ridge — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== DUIKER RIDGE ==================== -->
+    <!-- Slide 19: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Duiker Ridge</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Duiker Ridge 45 mts.jpg" target="_blank" style="color: #0284c7;">Duiker Ridge 45 mts.jpg</a></td>
+                        <td>45 m (L) × 3.0 m (W)</td>
+                        <td>Linear Longitudinal Cracking</td>
+                        <td>Straight linear crack extending parallel to shoulder line; uncurbed edge with grass encroachment along margin.</td>
+                        <td>Early-to-mid stage binder shrinkage and base flexure parallel to shoulder line. Sub-base stable, open crack permits moisture entry.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Duiker Ridge 18 mts.jpg" target="_blank" style="color: #0284c7;">Duiker Ridge 18 mts.jpg</a></td>
+                        <td>18 m (L) × 3.0 m (W)</td>
+                        <td>Advanced Ravelling & Binder Stripping</td>
+                        <td>Curved 18 m stretch past wooden post; severe coarse aggregate exposure, surface coarseness, and binder depletion.</td>
+                        <td>Severe binder oxidation and stripping across curve. High surface friction wear; wearing course nearing complete disintegration.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Duiker Ridge — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 20: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Duiker Ridge</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>Binder Stripping on Bend (18m):</strong> Extreme surface coarseness and exposed aggregate where binder has completely dried out under turning loads.</li>
+                        <li><strong>Parallel Shoulder Crack (45m):</strong> Straight longitudinal crack running parallel to the uncurbed grass shoulder.</li>
+                        <li><strong>Good Foundation Integrity:</strong> Sub-base layers are firm with no structural potholes or sub-grade failure visible.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Crack Sealing (45m):</strong> Route out and hot-seal the 45-meter parallel shoulder crack.</li>
+                        <li><strong>Slurry Rejuvenation Seal:</strong> Apply a slurry seal across both sections (63m total) to lock in loose aggregate on the bend and seal the surface.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Duiker Ridge — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== ELAND WAY ==================== -->
+    <!-- Slide 21: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Eland Way</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Eland Way Full 90mts - Eland Way.jpg" target="_blank" style="color: #0284c7;">Eland Way Full 90mts / Eland Way.jpg</a></td>
+                        <td>90 m Corridor × 3.0–6.0 m (W)</td>
+                        <td>Longitudinal Shearing & Mid-Lane Cracking</td>
+                        <td>White spray mark at start; prominent central longitudinal crack opening into localized alligatoring down mid-lane approach.</td>
+                        <td>Wheel-path fatigue and binder shrinkage on approach to intersection. Centerline cracking permits direct rainwater entry into base layer.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Eland Way 2.jpg" target="_blank" style="color: #0284c7;">Eland Way 2.jpg</a></td>
+                        <td>90 m Corridor × 3.0 m (W)</td>
+                        <td>Central Longitudinal Fatigue Fracture</td>
+                        <td>Continuous longitudinal crack running down roadway centerline into distance toward downhill bend.</td>
+                        <td>Sub-base flexure/settlement along longitudinal construction joint or centerline traffic path. Needs routing and high-performance crack seal.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Eland Way Detail.jpg" target="_blank" style="color: #0284c7;">Eland Way Detail.jpg</a></td>
+                        <td>10–15 m spot × 1.0 m (W)</td>
+                        <td>Dense Centerline Crocodile Cracking</td>
+                        <td>Close-up showing advanced interlocking alligator cracking pattern concentrated directly down center lane line.</td>
+                        <td>Localized base softening under repetitive wheel loads. Surface binder completely dry, causing top-down fatigue failure.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Eland Way Detail 2.jpg</strong></td>
+                        <td>20–30 m spot × 3.0 m (W)</td>
+                        <td>Historical Patch Settlement & Depressions</td>
+                        <td>Historical surface patch area showing edge joint cracking, shallow depressions/potholing, and surrounding block cracking down grade.</td>
+                        <td>Past repair failure due to moisture entry around patch perimeters and inadequate base compaction under gradient runoff.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Eland Way — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 22: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Eland Way</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>Persistent Centerline Fracture:</strong> Continuous longitudinal cracking stretching down the center of the 90-meter downhill corridor.</li>
+                        <li><strong>Failed Patch Work:</strong> Depressed historical patches on the slope with open perimeter joints gathering stormwater.</li>
+                        <li><strong>Mid-Lane Crocodile Cracking:</strong> Advanced 10–15m localized alligatoring along the center travel line.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Route & Seal (90m):</strong> Rout out the continuous centerline crack and fill with elastomeric hot-pour sealant.</li>
+                        <li><strong>Patch Re-Excavation:</strong> Mill out sunken historical patches down to sub-base, re-compact sub-base, and relay level asphalt patches.</li>
+                        <li><strong>Surface Overlay:</strong> Apply a full slurry seal coat to waterproof the slope and prevent runoff infiltration.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Eland Way — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== ORIBI LANE ==================== -->
+    <!-- Slide 23: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Oribi Lane</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Oribi Lane Add 100 mts.jpg" target="_blank" style="color: #0284c7;">Oribi Lane Add 100 mts.jpg</a></td>
+                        <td>100 m Extension × 3.0 m (W)</td>
+                        <td>Binder Oxidation & Aggregate Exposure</td>
+                        <td>Straight elevated perspective; uniform surface coarseness with loss of fine binder matrix across full width.</td>
+                        <td>Advanced surface oxidation along extended 100 m stretch. Sub-base sound, but dry binder needs sealing before cracking initiates.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Oribi Lane Cont - 19 mts.jpg" target="_blank" style="color: #0284c7;">Oribi Lane Cont / 3 - 19 mts.jpg</a></td>
+                        <td>19–40 m (L) × 3.0 m (W)</td>
+                        <td>Mid-Lane Cracking & Fine Alligatoring</td>
+                        <td>Spray paint bounding section; fine longitudinal cracking splitting into localized block network and light wheel alligatoring.</td>
+                        <td>Early-stage pavement fatigue and binder shrinkage along center traffic line, permitting moisture ingress. Sub-base firm.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Oribi Lane Detail (1 & 2).jpg" target="_blank" style="color: #0284c7;">Oribi Lane Detail (1 & 2).jpg</a></td>
+                        <td>15–20 m spot × 3.0 m (W)</td>
+                        <td>Pinhole Potholes & Sunken Patch Rim</td>
+                        <td>Shallow surface delamination, aggregate pop-outs, and series of depressed historical asphalt patches with rim subsidence.</td>
+                        <td>Surface binder stripping causing top-down failure. Poor joint bond and localized base settlement beneath old patches.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Oribi Lane Detail 3.jpg" target="_blank" style="color: #0284c7;">Oribi Lane Detail 3.jpg</a></td>
+                        <td>25–35 m spot × 3.0 m (W)</td>
+                        <td>Full-Width Block & Map Cracking</td>
+                        <td>Extended view along incline showing continuous web of fine block cracking spanning full lane width.</td>
+                        <td>Widespread binder embrittlement across curved grade. High potential for rapid degradation into full alligatoring if left unsealed.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Oribi Lane — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 24: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Oribi Lane</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>Extended 100m Oxidation Zone:</strong> Dry, coarse surface texture requiring surface enrichment before cracks form.</li>
+                        <li><strong>Pop-Out Potholes & Sunken Patches:</strong> Small pinhole aggregate pop-outs and failing patch perimeters along the incline.</li>
+                        <li><strong>Widespread Block Cracking:</strong> 25–35m section covered in a web-like map cracking network across the full lane width.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Patch Milling:</strong> Mill out and level depressed historic patches; seal all perimeter joints.</li>
+                        <li><strong>Crack Sealing:</strong> Seal all active longitudinal and block crack networks across the incline.</li>
+                        <li><strong>Full-Corridor Cape Seal:</strong> Apply a continuous slurry or Cape Seal over the entire 100m+ corridor to stop top-down wearing coat breakdown.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Oribi Lane — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== VILLAGE 4 SERIES ==================== -->
+    <!-- Slide 25: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Village 4 Series</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Village 4.jpg" target="_blank" style="color: #0284c7;">Village 4.jpg</a></td>
+                        <td>30–40 m (L) × 3.0 m (W)</td>
+                        <td>Extensive Fine Block Cracking & Oxidation</td>
+                        <td>Web-like network of fine block cracking spanning full roadway width; coarse aggregate exposure and binder matrix depletion.</td>
+                        <td>Advanced wearing course binder oxidation allowing micro-cracking across full width. Sub-base remains structurally aligned; requires urgent waterproofing.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="images/Nr Village 4.jpg" target="_blank" style="color: #0284c7;">Nr Village 4.jpg</a></td>
+                        <td>25–35 m (L) × 3.0 m (W)</td>
+                        <td>Speed Hump Transition Fatigue</td>
+                        <td>Interconnected block and wheel-path cracking concentrated on approach to paved cross-threshold / speed hump.</td>
+                        <td>Dynamic impact and shear stresses from braking/accelerating vehicles near rigid hump interface. Base layer stable; crack sealing needed before wet season.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Village 4 Series — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 26: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Village 4 Series</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>Full-Width Map Cracking:</strong> Widespread micro-cracking driven by surface binder oxidation and exposure across the 30–40m section.</li>
+                        <li><strong>Traffic Calming Stress Zone:</strong> Interconnected block cracking clustered on the approach to the paved speed hump threshold due to braking/accelerating forces.</li>
+                        <li><strong>Stable Base Layer:</strong> Sub-base alignment remains structural and intact.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>Transition Crack Sealing:</strong> Rout, air-blow, and seal cracks near the speed hump interface with rubberized bitumen.</li>
+                        <li><strong>Surface Rejuvenation:</strong> Apply a full-width slurry seal or Cape Seal across the section to seal fine micro-cracks and prevent water infiltration into the base.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Village 4 Series — 2 of 2</span>
+        </div>
+    </div>
+
+    <!-- ==================== VILLAGE 5 SERIES ==================== -->
+    <!-- Slide 27: Table -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Village 5 Series</h2>
+            <span class="tag">Assessment Data Log</span>
+        </div>
+        <div class="slide-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image Name</th>
+                        <th>Dimensions</th>
+                        <th>Primary Damage Type</th>
+                        <th>Key Visual Indicators</th>
+                        <th>Sub-Base & Structural Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="images/Village 5 Approach 16 mts.jpg" target="_blank" style="color: #0284c7;">Village 5 Approach 16 mts.jpg</a></td>
+                        <td>16 m (L) × 3.0 m (W)</td>
+                        <td>Wheel-Path Alligatoring & Centerline Shear</td>
+                        <td>Interlocking network of alligator/crocodile cracking running along primary wheel path and centerline; dry, oxidized wearing course.</td>
+                        <td>Early-to-mid stage pavement fatigue. Moisture ingress through crack lines is beginning to compromise sub-base layer, requiring intervention before base softening accelerates.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Village 5 Series — 1 of 2</span>
+        </div>
+    </div>
+
+    <!-- Slide 28: Summary -->
+    <div class="slide">
+        <div class="slide-header">
+            <h2>Village 5 Series</h2>
+            <span class="tag">Corridor Summary & Fix Plan</span>
+        </div>
+        <div class="slide-body">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Key Observations & Issues</h3>
+                    <ul>
+                        <li><strong>Wheel-Path Fatigue Alligatoring:</strong> Concentrated network of crocodile cracking running along the main wheel track over a 16m stretch.</li>
+                        <li><strong>Oxidized Binder Layer:</strong> Surface binder matrix is depleted, allowing rainwater to pass directly into the underlying sub-base.</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h3>Consolidated Fix Plan</h3>
+                    <ul>
+                        <li><strong>High-Pressure Crack Sealing:</strong> Clean and fill all primary wheel-path crack networks with hot polymer-modified bituminous sealant.</li>
+                        <li><strong>Slurry Overlay:</strong> Apply a full-width slurry coat across the 16m approach to lock in loose aggregate and restore surface waterproofing.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>Road Infrastructure Assessment</span>
+            <span>Village 5 Series — 2 of 2</span>
+        </div>
+    </div>
+<!-- ==================== APPENDIX SLIDE 1: PRIORITIZATION MATRIX ==================== -->
+    <div class="slide">
+        <div class="slide-header">
+            <table>
+                <tr>
+                    <td>
+                        <div class="slide-title">Appendix A: Prioritization Framework</div>
+                        <div class="slide-subtitle">Criteria Matrix for Road Infrastructure Investment</div>
+                    </td>
+                    <td style="text-align: right;">
+                        <span class="tag">Technical Appendix</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="grid-table">
+            <tr>
+                <td style="width: 33%;">
+                    <div class="card-title">1. Structural Integrity <span class="badge">30%</span></div>
+                    <p><strong>Core Question:</strong> Is the underlying foundation/sub-base still sound, or is it actively eroding or failing?</p>
+                    <div class="card-subtitle">Critical Threshold:</div>
+                    <p>Sub-base washout, active mud pumping, edge scour trenches, subterranean voids, or total base collapse.</p>
+                    <div class="card-subtitle">Preventative Threshold:</div>
+                    <p>Intact sub-base with only surface binder oxidation or light weathering.</p>
+                </td>
+                <td style="width: 33%;">
+                    <div class="card-title">2. Hydraulic Exposure <span class="badge">25%</span></div>
+                    <p><strong>Core Question:</strong> Is water actively entering structural layers or undermining bridge deck/headwall footings?</p>
+                    <div class="card-subtitle">Critical Threshold:</div>
+                    <p>Trapped water against parapets, unsealed cracks on steep inclines, missing side drains, or edge scour.</p>
+                    <div class="card-subtitle">Preventative Threshold:</div>
+                    <p>Natural water shedding with functioning side drains and intact kerbs.</p>
+                </td>
+                <td style="width: 34%;">
+                    <div class="card-title">3. Progression Speed <span class="badge">20%</span></div>
+                    <p><strong>Core Question:</strong> How fast will this failure escalate during the next wet season if left unaddressed?</p>
+                    <div class="card-subtitle">Critical Threshold:</div>
+                    <p>Exponential deterioration (e.g., open cracks near river crossings or steep downhills turning into blowouts).</p>
+                    <div class="card-subtitle">Preventative Threshold:</div>
+                    <p>Linear, slow-moving deterioration (e.g., surface aggregate stripping).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="card-title">4. Traffic & Stress Load <span class="badge">20%</span></div>
+                    <p><strong>Core Question:</strong> Is this section subjected to heavy dynamic loads, turning shear, or high traffic volumes?</p>
+                    <div class="card-subtitle">Critical Threshold:</div>
+                    <p>Main access corridors, heavy turning aprons/intersections, steep gradient approaches, or bridge transitions.</p>
+                    <div class="card-subtitle">Preventative Threshold:</div>
+                    <p>Cul-de-sacs, quiet side lanes, or low-speed straightaways.</p>
+                </td>
+                <td colspan="2">
+                    <div class="card-title">5. Financial Exposure & Cost Escalation <span class="badge">5%</span></div>
+                    <p><strong>Core Question:</strong> What is the cost multiplier if we delay repairs by 12 months?</p>
+                    <div class="card-subtitle">High Multiplier Impact:</div>
+                    <p>Delaying a R10,000 crack seal today results in a R150,000 deep-lift base rebuild next year once water destroys the sub-base layer.</p>
+                    <div class="card-subtitle">Low Multiplier Impact:</div>
+                    <p>Delaying simple surface slurry coats on sound sub-bases has minimal impact on underlying asset value.</p>
+                </td>
+            </tr>
+        </table>
+
+        <div class="slide-footer">
+            <table>
+                <tr>
+                    <td>Cathkin Estates HOA — Infrastructure Operations Assessment</td>
+                    <td style="text-align: right;">Appendix A.1</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ==================== APPENDIX SLIDE 2: ACTION WINDOWS & TIERS ==================== -->
+    <div class="slide">
+        <div class="slide-header">
+            <table>
+                <tr>
+                    <td>
+                        <div class="slide-title">Appendix B: Action Window & Priority Tiers</div>
+                        <div class="slide-subtitle">Operational Triage Categories & Estate Corridor Examples</div>
+                    </td>
+                    <td style="text-align: right;">
+                        <span class="tag">Technical Appendix</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Priority Tier</th>
+                    <th style="width: 25%;">Definition & Action Window</th>
+                    <th style="width: 35%;">Key Structural Indicators</th>
+                    <th style="width: 25%;">Corridor Examples</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="tier-critical">Tier 1: Critical</td>
+                    <td><strong>Active Structural Loss</strong><br>(Immediate / 0–3 Months)</td>
+                    <td>Immediate threat of collapse, active embankment washout, or headwall scouring with soil support loss.</td>
+                    <td><strong>Bridge 6 & Bridge 8:</strong> Active earth washout, missing headwall support, edge scour trenches.</td>
+                </tr>
+                <tr>
+                    <td class="tier-high">Tier 2: High</td>
+                    <td><strong>Severe Base Threat</strong><br>(3–6 Months)</td>
+                    <td>Sub-base intact but highly vulnerable to immediate destruction during heavy seasonal rains.</td>
+                    <td><strong>Bridge 4, Bridge 5 & Champagne Ridge:</strong> Trapped deck water, block cracking, edge slumping.</td>
+                </tr>
+                <tr>
+                    <td class="tier-medium">Tier 3: Medium</td>
+                    <td><strong>High-Stress Fatigue</strong><br>(6–12 Months)</td>
+                    <td>Localised base cracking, turning shear, or longitudinal splits before wet-season water ingress occurs.</td>
+                    <td><strong>Arum Lane, Eland Way, Oribi Lane, Cathkin Dam:</strong> Intersection shear, slope splits, oxidation.</td>
+                </tr>
+                <tr>
+                    <td class="tier-low">Tier 4: Low</td>
+                    <td><strong>Preventative Maintenance</strong><br>(12–24+ Months)</td>
+                    <td>Aesthetic or early-stage binder drying with zero immediate sub-base or structural collapse risk.</td>
+                    <td><strong>Bridge 3 & Bridge 7:</strong> Minor sweeping curve fatigue, early longitudinal crack lines.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 15px; background-color: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 10px 12px;">
+            <span style="color: #38bdf8; font-weight: bold; font-size: 9pt;">Strategic Summary Note on Cathkin Dam Series:</span>
+            <p style="font-size: 8.5pt; margin-top: 4px; margin-bottom: 0;">Re-evaluated to Tier 3 (Medium) due to absence of active sub-grade mud pumping. Preventative crack routing, elastomeric sealing, and expansion joint tie-in will protect the sound concrete sub-base at a fraction of full reconstruction cost.</p>
+        </div>
+
+        <div class="slide-footer">
+            <table>
+                <tr>
+                    <td>Cathkin Estates HOA — Infrastructure Operations Assessment</td>
+                    <td style="text-align: right;">Appendix B.1</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
