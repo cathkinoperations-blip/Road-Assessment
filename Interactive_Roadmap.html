@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cathkin Estates - Interactive AI Roadmap Playground</title>
+<title>Cathkin Estates - Versioned AI Roadmap Playground</title>
 <style>
     :root {
         --primary-color: #1e293b;
@@ -33,7 +33,6 @@
         overflow: hidden;
     }
 
-    /* Sidebar / Chat Panel */
     .control-panel {
         background: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -63,13 +62,14 @@
         color: #475569;
     }
 
-    .form-group input, .form-group textarea {
+    .form-group input, .form-group textarea, .form-group select {
         width: 100%;
         padding: 8px 12px;
         border: 1px solid var(--border-color);
         border-radius: 6px;
         font-size: 0.85rem;
         box-sizing: border-box;
+        background: white;
     }
 
     .form-group textarea {
@@ -88,6 +88,7 @@
         width: 100%;
         font-size: 0.9rem;
         transition: background-color 0.2s;
+        margin-bottom: 8px;
     }
 
     .btn:hover {
@@ -108,6 +109,7 @@
         overflow-y: auto;
         margin-bottom: 15px;
         font-size: 0.8rem;
+        max-height: 150px;
     }
 
     .chat-msg {
@@ -133,7 +135,6 @@
         color: #991b1b;
     }
 
-    /* Preview Panel */
     .preview-panel {
         background: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -177,33 +178,30 @@
         margin-top: 10px;
     }
 </style>
-
-<script src="https://unpkg.com/@neondatabase/serverless@latest/umd/index.min.js"></script>
-<script>
-    // Ensure the neon export is mapped cleanly globally
-    window.neon = window.neon || (typeof neon !== 'undefined' ? neon : null);
-</script>
-
 </head>
 <body>
 
 <div class="app-container">
-    <!-- Control & Chat Panel -->
     <div class="control-panel">
-        <h2>AI Updates</h2>
+        <h2>AI Updates & Versioned Cloud</h2>
         
         <div class="form-group">
             <label for="model-select">Gemini Model</label>
-            <select id="model-select" style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.85rem; background: white;">
-                <option value="gemini-3.7-flash" selected>Gemini 3.7 Flash</option>
+            <select id="model-select">
+                <option value="gemini-3.5-flash-lite" selected>Gemini 3.5 Flash-Lite</option>
                 <option value="gemini-3.6-flash">Gemini 3.6 Flash</option>
-                <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite</option>
+                <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>    
             </select>
         </div>
 
         <div class="form-group">
-            <label for="neon-url">Neon Connection String</label>
-            <input type="password" id="neon-url" placeholder="postgresql://user:pass@host/db?sslmode=require" />
+            <label for="gh-repo">GitHub Repo (owner/repo)</label>
+            <input type="text" id="gh-repo" value="cathkinoperations-blip/Road-Assessment" placeholder="cathkinoperations-blip/Road-Assessment" />
+        </div>
+
+        <div class="form-group">
+            <label for="gh-token">GitHub Personal Access Token</label>
+            <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx" />
         </div>
 
         <div class="form-group">
@@ -224,22 +222,21 @@
         </div>
 
         <button id="send-btn" class="btn" onclick="sendPrompt()">Update Roadmap</button>
-        <button id="save-cloud-btn" class="btn" onclick="saveToNeon()">Save to Cloud</button>
+        <button id="save-cloud-btn" class="btn" onclick="saveNewVersionToGitHub()">Save New Version to Cloud</button>
 
         <div id="loading" class="loading-overlay">Gemini is updating your roadmap...</div>
     </div>
-    <!-- Live Preview Panel -->
+
     <div class="preview-panel">
         <div class="preview-header">
             <h3>Live Roadmap Preview</h3>
-            <button class="btn" style="width: auto; padding: 5px 10px; font-size: 0.75rem;" onclick="exportHTML()">Export HTML</button>
+            <button class="btn" style="width: auto; padding: 5px 10px; font-size: 0.75rem; margin-bottom: 0;" onclick="exportHTML()">Export HTML</button>
         </div>
         <iframe id="render-frame"></iframe>
     </div>
 </div>
 
 <script>
-    // Initial HTML Template state loaded into the iframe
     let currentHTML = `<!DOCTYPE html>
 <html>
 <head>
@@ -305,16 +302,6 @@
     }
     .header-card h1 { margin: 0; font-size: 1.5rem; }
     .header-card p { margin: 5px 0 0; color: #94a3b8; font-size: 0.9rem; }
-    .comm-strategy {
-        background-color: #ffffff;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 20px;
-        margin-top: 20px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    }
-    .comm-strategy h3 { margin-top: 0; color: var(--primary-color); }
-    .comm-strategy ul { margin-bottom: 0; color: #475569; font-size: 0.85rem; line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -348,245 +335,58 @@
                 <td colspan="10"></td>
             </tr>
             <tr>
-                <td class="sub-task-name">0.1 Site Audit & Photographic Analysis (Road damage & material review)</td>
+                <td class="sub-task-name">0.1 Site Audit & Photographic Analysis</td>
                 <td>2026-08-01</td>
                 <td>2026-08-31</td>
                 <td><strong>100%</strong></td>
                 <td class="completed">✓</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
-            <tr style="background-color: #e2e8f0; font-weight: bold;">
-                <td class="task-name" colspan="4">Phase 1: Procurement & Contractor Engagement</td>
-                <td colspan="10"></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">1.1 Contractor Sourcing & Briefings (Engage 3+ contractors vs Angelo)</td>
-                <td>2026-09-01</td>
-                <td>2026-10-31</td>
-                <td><strong>10%</strong></td>
-                <td></td>
-                <td class="in-progress">10%</td>
-                <td class="shaded">■</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">1.2 Tender Package & Financial Compliance (Verify pricing & terms)</td>
-                <td>2026-10-01</td>
-                <td>2026-11-30</td>
-                <td><strong>0%</strong></td>
-                <td></td><td></td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">1.3 Material Hedging (Order & stockpile 80mm pavers & edge curbs)</td>
-                <td>2026-11-01</td>
-                <td>2026-12-31</td>
-                <td><strong>0%</strong></td>
-                <td></td><td></td><td></td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            <tr style="background-color: #e2e8f0; font-weight: bold;">
-                <td class="task-name" colspan="4">Phase 2: Technical Preparation & In-House Mitigation</td>
-                <td colspan="10"></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">2.1 Champagne Ridge In-House Interim Fix</td>
-                <td>2026-09-01</td>
-                <td>2026-10-31</td>
-                <td><strong>0%</strong></td>
-                <td></td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">2.2 Drainage & Sub-Base Prep (U-drains, 150mm weep channels)</td>
-                <td>2026-09-01</td>
-                <td>2026-11-30</td>
-                <td><strong>0%</strong></td>
-                <td></td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">2.3 Wet-Season Holding Maintenance (Crack seals & mastic on Tiers 3-4)</td>
-                <td>2026-12-01</td>
-                <td>2027-02-28</td>
-                <td><strong>0%</strong></td>
-                <td></td><td></td><td></td><td></td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td></td><td></td><td></td>
-            </tr>
-            <tr style="background-color: #e2e8f0; font-weight: bold;">
-                <td class="task-name" colspan="4">Phase 3: Implementation & Construction Execution</td>
-                <td colspan="10"></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">3.1 Tier 1 Critical Rebuilds (Champagne Ridge, Bridge 6 & 8)</td>
-                <td>2027-03-01</td>
-                <td>2027-04-30</td>
-                <td><strong>0%</strong></td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">3.2 Tier 2 High Priority & Drainage Integration</td>
-                <td>2027-03-01</td>
-                <td>2027-04-30</td>
-                <td><strong>0%</strong></td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">3.3 Handover, Compaction Testing & Financial Reconciliation</td>
-                <td>2027-04-15</td>
-                <td>2027-04-30</td>
-                <td><strong>0%</strong></td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td class="shaded">■</td>
-                <td></td>
-            </tr>
-            <tr style="background-color: #e2e8f0; font-weight: bold;">
-                <td class="task-name" colspan="4">Phase 4: Communication & Stakeholder Management</td>
-                <td colspan="10"></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">4.1 Weekly Project Team Meetings (Operations & Finance Sync)</td>
-                <td>2026-09-01</td>
-                <td>2027-04-30</td>
-                <td><strong>0%</strong></td>
-                <td></td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">4.2 Early Aesthetic & Strategic Townhall (Homeowner Consultation on Pavers)</td>
-                <td>2026-09-15</td>
-                <td>2026-09-30</td>
-                <td><strong>0%</strong></td>
-                <td></td>
-                <td class="shaded">■</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">4.3 Board Approval Milestone (Submit tender comparison & financial plan)</td>
-                <td>2026-11-15</td>
-                <td>2026-11-30</td>
-                <td><strong>0%</strong></td>
-                <td></td><td></td><td></td>
-                <td class="milestone">◆</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">4.4 Pre-Construction Operational Townhall (Logistics & Access Briefing)</td>
-                <td>2027-02-01</td>
-                <td>2027-02-28</td>
-                <td><strong>0%</strong></td>
-                <td></td><td></td><td></td><td></td><td></td><td></td>
-                <td class="shaded">■</td>
-                <td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td class="sub-task-name">4.5 Monthly Progress Updates & Traffic Advisories (Homeowner Emails)</td>
-                <td>2027-03-01</td>
-                <td>2027-04-30</td>
-                <td><strong>0%</strong></td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td class="shaded">■</td>
-                <td class="shaded">■</td>
-                <td></td>
-            </tr>
         </tbody>
     </table>
 </body>
 </html>`;
 
-    // Initialize preview frame
     window.onload = async function() {
-        // Load saved API key if available
         const savedKey = localStorage.getItem('gemini_api_key');
-        if (savedKey) {
-            document.getElementById('api-key').value = savedKey;
-        }
+        if (savedKey) document.getElementById('api-key').value = savedKey;
 
-        // Load saved Neon connection string and fetch latest roadmap if available
-        const savedNeon = localStorage.getItem('neon_connection_string');
-        if (savedNeon) {
-            document.getElementById('neon-url').value = savedNeon;
-            await loadFromNeon(savedNeon);
-        } else {
-            updatePreview();
-        }
+        const savedToken = localStorage.getItem('gh_token');
+        if (savedToken) document.getElementById('gh-token').value = savedToken;
+
+        const savedRepo = localStorage.getItem('gh_repo');
+        if (savedRepo) document.getElementById('gh-repo').value = savedRepo;
+
+        await loadLatestRoadmapFromGitHub();
     };
 
-    async function loadFromNeon(connectionString) {
+    async function loadLatestRoadmapFromGitHub() {
+        const repo = document.getElementById('gh-repo').value.trim();
+        const token = document.getElementById('gh-token').value.trim();
+        if (!repo) return;
+
         try {
-            // window.neon is the function itself when loaded via UMD bundle
-            const sql = window.neon(connectionString);
-            const rows = await sql`SELECT html_content FROM roadmaps WHERE slug = 'cathkin-master'`;
-            if (rows && rows.length > 0) {
-                currentHTML = rows[0].html_content;
+            const headers = { 'Accept': 'application/vnd.github+json' };
+            if (token) headers['Authorization'] = `Bearer ${token}`;
+
+            // Check files inside the 'roadmaps' folder in the repository
+            const res = await fetch(`https://api.github.com/repos/${repo}/contents/roadmaps`, { headers });
+            if (res.ok) {
+                const files = await res.json();
+                // Filter HTML files and sort alphabetically/chronologically descending to grab the newest version
+                const htmlFiles = files.filter(f => f.name.endsWith('.html')).sort((a, b) => b.name.localeCompare(a.name));
+                
+                if (htmlFiles.length > 0) {
+                    const latestFileRes = await fetch(htmlFiles[0].download_url);
+                    if (latestFileRes.ok) {
+                        currentHTML = await latestFileRes.text();
+                    }
+                }
             }
         } catch (e) {
-            console.log('Could not load from Neon, using default template:', e.message);
+            console.log('No prior versioned roadmaps found in roadmaps/ folder.');
         }
         updatePreview();
-    }
-
-
-    async function saveToNeon() {
-        const connectionString = document.getElementById('neon-url').value.trim();
-        const saveBtn = document.getElementById('save-cloud-btn');
-
-        if (!connectionString) {
-            alert('Please enter your Neon Connection String first.');
-            return;
-        }
-
-        // Save connection string locally so you don't have to re-type it next time
-        localStorage.setItem('neon_connection_string', connectionString);
-        
-        saveBtn.textContent = 'Saving...';
-        saveBtn.disabled = true;
-
-        try {
-            // window.neon is the function itself when loaded via UMD bundle
-            const sql = window.neon(connectionString);
-            
-            // Upsert query directly from the browser
-            await sql`
-                INSERT INTO roadmaps (slug, html_content, updated_at) 
-                VALUES ('cathkin-master', ${currentHTML}, CURRENT_TIMESTAMP) 
-                ON CONFLICT (slug) 
-                DO UPDATE SET html_content = EXCLUDED.html_content, updated_at = CURRENT_TIMESTAMP
-            `;
-
-            alert('Roadmap successfully saved directly to Neon!');
-        } catch (err) {
-            alert('Database Error: ' + err.message);
-        } finally {
-            saveBtn.textContent = 'Save to Cloud';
-            saveBtn.disabled = false;
-        }
     }
 
     function updatePreview() {
@@ -597,14 +397,11 @@
         doc.close();
     }
 
-    // Helper function to keep only the last 5 conversations (10 messages)
     function trimChatHistory() {
         const historyEl = document.getElementById('chat-history');
         const messages = historyEl.querySelectorAll('.chat-msg');
-        // Limits to 10 bubbles to preserve exactly 5 conversation pairs (User + AI)
-        const maxMessages = 10; 
-        if (messages.length > maxMessages) {
-            for (let i = 0; i < messages.length - maxMessages; i++) {
+        if (messages.length > 10) {
+            for (let i = 0; i < messages.length - 10; i++) {
                 historyEl.removeChild(messages[i]);
             }
         }
@@ -625,29 +422,23 @@
         }
         if (!prompt) return;
 
-        // Save API key locally
         localStorage.setItem('gemini_api_key', apiKey);
 
-        // Append user prompt to log
         historyEl.innerHTML += `<div class="chat-msg user">${escapeHtml(prompt)}</div>`;
         promptInput.value = '';
-        
-        // Trim history immediately after user message added
         trimChatHistory();
-        
         historyEl.scrollTop = historyEl.scrollHeight;
 
-        // UI Loading state
         loadingEl.style.display = 'block';
         sendBtn.disabled = true;
 
-        const systemInstruction = "You are a specialized code-editing assistant. The user will provide instructions to modify an existing HTML roadmap. You must return ONLY the complete, valid updated HTML document, including all internal CSS and layout styles. Do not include markdown code block syntax (like ```html) in your response—output raw HTML text only.";
+        const systemInstruction = "You are a specialized code-editing assistant. The user will provide instructions to modify an existing HTML roadmap table document. You must return ONLY the complete, valid updated HTML document, including all internal CSS and layout styles. Do not include markdown code block syntax (like ```html) in your response—output raw HTML text only.";
 
         const requestBody = {
             contents: [
                 {
                     parts: [
-                        { text: systemInstruction + "\n\nCurrent HTML Document:\n" + currentHTML + "\n\nUser Instruction: " + prompt }
+                        { text: systemInstruction + "\n\nCurrent HTML Roadmap Document:\n" + currentHTML + "\n\nUser Instruction: " + prompt }
                     ]
                 }
             ]
@@ -658,7 +449,7 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(requestBody)
-            });
+            }); 
 
             if (!response.ok) {
                 const errText = await response.text();
@@ -669,22 +460,17 @@
             
             if (data.candidates && data.candidates[0].content.parts[0].text) {
                 let newCode = data.candidates[0].content.parts[0].text;
-                // Strip markdown wrappers if present
                 newCode = newCode.replace(/^```html\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '');
                 
                 currentHTML = newCode;
                 updatePreview();
-                historyEl.innerHTML += `<div class="chat-msg ai">Roadmap successfully updated.</div>`;
-                
-                // Trim history immediately after AI message added
+                historyEl.innerHTML += `<div class="chat-msg ai">Roadmap successfully updated locally.</div>`;
                 trimChatHistory();
             } else {
                 throw new Error(data.error ? data.error.message : 'Invalid response structure from API.');
             }
         } catch (err) {
             historyEl.innerHTML += `<div class="chat-msg error">Error: ${escapeHtml(err.message)}</div>`;
-            
-            // Trim history immediately after Error message added
             trimChatHistory();
         } finally {
             loadingEl.style.display = 'none';
@@ -693,12 +479,64 @@
         }
     }
 
+    async function saveNewVersionToGitHub() {
+        const repo = document.getElementById('gh-repo').value.trim();
+        const token = document.getElementById('gh-token').value.trim();
+        const btnEl = document.getElementById('save-cloud-btn');
+
+        if (!repo || !token) {
+            alert('Please enter both your GitHub Repository and Personal Access Token.');
+            return;
+        }
+
+        localStorage.setItem('gh_token', token);
+        localStorage.setItem('gh_repo', repo);
+
+        btnEl.textContent = 'Saving New Version...';
+        btnEl.disabled = true;
+
+        try {
+            const headers = {
+                'Accept': 'application/vnd.github+json',
+                'Authorization': `Bearer ${token}`
+            };
+
+            // Generate unique timestamp filename inside a 'roadmaps/' folder
+            const now = new Date();
+            const timestamp = now.toISOString().replace(/[:T]/g, '-').slice(0, 19);
+            const fileName = `roadmaps/roadmap_${timestamp}.html`;
+
+            const base64Content = btoa(unescape(encodeURIComponent(currentHTML)));
+
+            const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${fileName}`, {
+                method: 'PUT',
+                headers: headers,
+                body: JSON.stringify({
+                    message: `Add new version roadmap snapshot: ${timestamp}`,
+                    content: base64Content
+                })
+            });
+
+            if (!putRes.ok) {
+                const errJson = await putRes.json();
+                throw new Error(errJson.message || 'Failed to upload version file to GitHub.');
+            }
+
+            alert(`Successfully saved new version as '${fileName}' to GitHub!`);
+        } catch (err) {
+            alert('GitHub Versioning Error: ' + err.message);
+        } finally {
+            btnEl.textContent = 'Save New Version to Cloud';
+            btnEl.disabled = false;
+        }
+    }
+
     function exportHTML() {
         const blob = new Blob([currentHTML], { type: 'text/html' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'cathkin-road-roadmap.html';
+        a.download = 'roadmap_snapshot.html';
         a.click();
         URL.revokeObjectURL(url);
     }
