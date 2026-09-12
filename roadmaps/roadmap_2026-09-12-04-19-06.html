@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    :root {
+        --primary-color: #1e293b;
+        --accent-color: #0284c7;
+        --border-color: #e2e8f0;
+        --card-bg: #ffffff;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: #334155;
+        background-color: #faf8f5;
+        padding: 20px;
+    }
+    .gantt-spreadsheet {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        font-size: 0.8rem;
+    }
+    .gantt-spreadsheet th {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 10px;
+        text-align: center;
+        font-weight: 600;
+        border: none;
+    }
+    .gantt-spreadsheet td {
+        padding: 8px 10px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+        vertical-align: middle;
+    }
+    .gantt-spreadsheet tr:nth-child(even) { background-color: #f8fafc; }
+    .gantt-spreadsheet .task-name { 
+        text-align: left; 
+        font-weight: 600; 
+        color: var(--primary-color);
+        padding-left: 15px;
+    }
+    .gantt-spreadsheet .sub-task-name { 
+        text-align: left; 
+        color: #475569;
+        padding-left: 25px;
+        font-size: 0.75rem;
+    }
+    .gantt-spreadsheet .sub-sub-task-name { 
+        text-align: left; 
+        color: #64748b;
+        padding-left: 35px;
+        font-size: 0.7rem;
+    }
+    .shaded { background-color: var(--accent-color) !important; color: white; border-radius: 4px; }
+    .milestone { background-color: #ea580c !important; color: white; border-radius: 4px; font-weight: bold; }
+    .completed { background-color: #10b981 !important; color: white; border-radius: 4px; }
+    .in-progress { background-color: #3b82f6 !important; color: white; border-radius: 4px; }
+    .rainy-season { background-color: #0ea5e9 !important; color: white; border-radius: 4px; font-weight: bold; }
+    .header-card {
+        background-color: var(--primary-color);
+        color: #ffffff;
+        padding: 24px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+    .header-card h1 { margin: 0; font-size: 1.5rem; }
+    .header-card p { margin: 5px 0 0; color: #94a3b8; font-size: 0.9rem; }
+    details > summary {
+        cursor: pointer;
+        list-style: none;
+    }
+    details > summary::-webkit-details-marker {
+        display: none;
+    }
+    details > summary::before {
+        content: "▶ ";
+        font-size: 0.65rem;
+        display: inline-block;
+        transition: transform 0.2s;
+        margin-right: 4px;
+    }
+    details[open] > summary::before {
+        transform: rotate(90deg);
+    }
+</style>
+</head>
+<body>
+    <div class="header-card">
+        <h1>Project Plan & Budget Estimate</h1>
+        <p>Detailed Project Phasing & Implementation Roadmap with Monthly Cash Flow Allocation (Jul 2026 – May 2027)</p>
+    </div>
+    
+    <table class="dataframe gantt-spreadsheet">
+        <thead>
+            <tr>
+                <th class="task-name" style="width: 24%;">Task / Sub-Task</th>
+                <th style="width: 8%;">Start Date</th>
+                <th style="width: 8%;">End Date</th>
+                <th style="width: 6%;">% Complete</th>
+                <th style="width: 8%;">Est. Budget</th>
+                <th style="width: 4%;">Jul 26</th>
+                <th style="width: 4%;">Aug 26</th>
+                <th style="width: 4%;">Sep 26</th>
+                <th style="width: 4%;">Oct 26</th>
+                <th style="width: 4%;">Nov 26</th>
+                <th style="width: 4%;">Dec 26</th>
+                <th style="width: 4%;">Jan 27</th>
+                <th style="width: 4%;">Feb 27</th>
+                <th style="width: 4%;">Mar 27</th>
+                <th style="width: 4%;">Apr 27</th>
+                <th style="width: 4%;">May 27</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="background-color: #e2e8f0; font-weight: bold;">
+                <td class="task-name" colspan="5">Phase 0: Initial Assessment & Scoping</td>
+                <td colspan="11"></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">0.0 Rainy Season Period (Limited Road Work)</td>
+                <td>2026-11-01</td>
+                <td>2027-02-28</td>
+                <td><strong>0%</strong></td>
+                <td>-</td>
+                <td></td><td></td><td></td><td></td>
+                <td class="rainy-season">🌧</td>
+                <td class="rainy-season">🌧</td>
+                <td class="rainy-season">🌧</td>
+                <td class="rainy-season">🌧</td>
+                <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">0.1 Scoping technical and economic analysis</td>
+                <td>2026-07-15</td>
+                <td>2026-07-31</td>
+                <td><strong>100%</strong></td>
+                <td>-</td>
+                <td class="completed">✓</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">0.2 Comprehensive Area-by-Area Site Audit & Visual Condition Assessment</td>
+                <td>2026-08-01</td>
+                <td>2026-08-31</td>
+                <td><strong>100%</strong></td>
+                <td>-</td>
+                <td></td>
+                <td class="completed">✓</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr style="background-color: #e2e8f0; font-weight: bold;">
+                <td class="task-name" colspan="5">Phase 1: Procurement & Contractor Engagement</td>
+                <td colspan="11"></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name"><a href="https://financial-controls-engine.vercel.app/projects/6" target="_blank" style="color: inherit; text-decoration: underline;">1.1 Contractor Sourcing and Receipt of Proposals</a></td>
+                <td>2026-08-15</td>
+                <td>2026-09-15</td>
+                <td><strong>100%</strong></td>
+                <td>-</td>
+                <td></td>
+                <td class="completed">✓</td>
+                <td class="completed">✓</td>
+                <td></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">1.2 Vendor comparison and negotiations</td>
+                <td>2026-09-10</td>
+                <td>2026-09-25</td>
+                <td><strong>15%</strong></td>
+                <td>-</td>
+                <td></td><td></td>
+                <td class="in-progress">15%</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr style="background-color: #e2e8f0; font-weight: bold;">
+                <td class="task-name" colspan="5">Phase 2: Technical Preparation & In-House Mitigation</td>
+                <td colspan="11"></td>
+            </tr>
+            <tr>
+                <td colspan="16" style="padding: 0; border: none;">
+                    <details style="width: 100%;">
+                        <summary style="padding: 8px 10px; text-align: left;" class="sub-task-name">2.1 Holding Maintenance (Slurry, Emulsion and/or Concrete Stabilisation)</summary>
+                        <table style="width: 100%; border-collapse: collapse; border: none; table-layout: fixed;">
+                            <colgroup>
+                                <col style="width: 24%;">
+                                <col style="width: 8%;">
+                                <col style="width: 8%;">
+                                <col style="width: 6%;">
+                                <col style="width: 8%;">
+                                <col style="width: 4%;">
+                                <col style="width: 4%;">
+                                <col style="width: 4%;">
+                                <col style="width: 4%;">
+                                <col style="width: 4%;">
+                                <col style="width: 4%;">
+                                <col style="width: 4%;">
+                                <col style="width: 4%;">
+                                <col style="width: 4%;">
+                                <col style="width: 4%;">
+                                <col style="width: 4%;">
+                            </colgroup>
+                            <tr style="border: none;">
+                                <td class="sub-sub-task-name" style="border-top: none; border-left: none;">2.2.1 Village 5</td>
+                                <td style="border-top: none;">2026-09-21</td>
+                                <td style="border-top: none;">2026-10-04</td>
+                                <td style="border-top: none;"><strong>0%</strong></td>
+                                <td style="border-top: none;">R65k</td>
+                                <td style="border-top: none;"></td><td style="border-top: none;"></td>
+                                <td class="shaded" style="border-top: none;">R33k</td>
+                                <td class="shaded" style="border-top: none;">R32k</td>
+                                <td style="border-top: none;"></td><td style="border-top: none;"></td><td style="border-top: none;"></td><td style="border-top: none;"></td><td style="border-top: none;"></td><td style="border-top: none;"></td><td style="border-top: none; border-right: none;"></td>
+                            </tr>
+                            <tr style="border: none;">
+                                <td class="sub-sub-task-name" style="border-left: none;">2.2.2 Village 4</td>
+                                <td>2026-10-05</td>
+                                <td>2026-10-18</td>
+                                <td><strong>0%</strong></td>
+                                <td>R65k</td>
+                                <td></td><td></td><td></td>
+                                <td class="shaded">R65k</td>
+                                <td></td><td></td><td></td><td></td><td></td><td></td>
+                                <td style="border-right: none;"></td>
+                            </tr>
+                            <tr style="border: none;">
+                                <td class="sub-sub-task-name" style="border-left: none;">2.2.3 Village 3</td>
+                                <td>2026-10-19</td>
+                                <td>2026-11-01</td>
+                                <td><strong>0%</strong></td>
+                                <td>R65k</td>
+                                <td></td><td></td><td></td>
+                                <td class="shaded">R32k</td>
+                                <td class="shaded" style="border-top: none;">R33k</td>
+                                <td></td><td></td><td></td><td></td><td></td>
+                                <td style="border-right: none;"></td>
+                            </tr>
+                            <tr style="border: none;">
+                                <td class="sub-sub-task-name" style="border-bottom: none; border-left: none;">2.2.4 Village 2</td>
+                                <td style="border-bottom: none;">2026-11-02</td>
+                                <td style="border-bottom: none;">2026-11-15</td>
+                                <td style="border-bottom: none;"><strong>0%</strong></td>
+                                <td style="border-bottom: none;">R65k</td>
+                                <td style="border-bottom: none;"></td><td style="border-bottom: none;"></td><td style="border-bottom: none;"></td><td style="border-bottom: none;"></td>
+                                <td class="shaded" style="border-bottom: none;">R65k</td>
+                                <td style="border-bottom: none;"></td><td style="border-bottom: none;"></td><td style="border-bottom: none;"></td><td style="border-bottom: none;"></td><td style="border-bottom: none;"></td>
+                                <td style="border-bottom: none; border-right: none;"></td>
+                            </tr>
+                        </table>
+                    </details>
+                </td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">2.1 Storm Water Management & Drainage Infrastructure (U-drains & trenching)</td>
+                <td>2026-10-01</td>
+                <td>2026-12-31</td>
+                <td><strong>0%</strong></td>
+                <td>R55k</td>
+                <td></td><td></td><td></td>
+                <td class="shaded">R18k</td>
+                <td class="shaded">R19k</td>
+                <td class="shaded">R18k</td>
+                <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr style="background-color: #e2e8f0; font-weight: bold;">
+                <td class="task-name" colspan="5">Phase 3: Tier 1 (Critical/High) Priority Paving Implementation</td>
+                <td colspan="11"></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">3.1 Material Hedging (Order & stockpile 80mm pavers & edge kerbs)</td>
+                <td>2026-09-15</td>
+                <td>2026-10-31</td>
+                <td><strong>0%</strong></td>
+                <td>-</td>
+                <td></td><td></td>
+                <td class="shaded">■</td>
+                <td class="shaded">■</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">3.2 Tier 1 Critical Rebuild: Champagne Ridge, 280 m</td>
+                <td>2026-10-01</td>
+                <td>2026-10-31</td>
+                <td><strong>0%</strong></td>
+                <td>R950k</td>
+                <td></td><td></td><td></td>
+                <td class="shaded">R950k</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">3.3 Other Tier 1 Critical Rebuilds (Bridge 6, 60 m & 8, 140 m)</td>
+                <td>2027-03-01</td>
+                <td>2027-04-30</td>
+                <td><strong>0%</strong></td>
+                <td>R650k</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td class="shaded">R325k</td>
+                <td class="shaded">R325k</td>
+                <td></td>
+            </tr>
+            <tr style="background-color: #e2e8f0; font-weight: bold;">
+                <td class="task-name" colspan="5">Phase 4: Tier 2 (High) Priority Paving Implementation</td>
+                <td colspan="11"></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">4.1 Bridge 5, 15 m</td>
+                <td>2027-03-01</td>
+                <td>2027-03-15</td>
+                <td><strong>0%</strong></td>
+                <td>R50k</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td class="shaded">R50k</td>
+                <td></td><td></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">4.2 Bridge 4, 30 m</td>
+                <td>2027-03-15</td>
+                <td>2027-03-31</td>
+                <td><strong>0%</strong></td>
+                <td>R100k</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td class="shaded">R100k</td>
+                <td></td><td></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">4.3 Bridge 2, 95 m</td>
+                <td>2027-04-01</td>
+                <td>2027-04-30</td>
+                <td><strong>0%</strong></td>
+                <td>R300k</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td>
+                <td class="shaded">R300k</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">4.4 Cathkin Drive Dam, 30 m</td>
+                <td>2027-05-01</td>
+                <td>2027-05-15</td>
+                <td><strong>0%</strong></td>
+                <td>R100k</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td>
+                <td></td>
+                <td class="shaded">R100k</td>
+            </tr>
+            <tr style="background-color: #e2e8f0; font-weight: bold;">
+                <td class="task-name" colspan="5">Phase 5: Communication & Stakeholder Management</td>
+                <td colspan="11"></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">5.1 Weekly Project Team Meetings</td>
+                <td>2026-09-01</td>
+                <td>2027-05-23</td>
+                <td><strong>5%</strong></td>
+                <td>-</td>
+                <td></td><td></td>
+                <td class="in-progress">5%</td>
+                <td class="shaded">■</td>
+                <td class="shaded">■</td>
+                <td class="shaded">■</td>
+                <td class="shaded">■</td>
+                <td class="shaded">■</td>
+                <td class="shaded">■</td>
+                <td class="shaded">■</td>
+                <td class="shaded">■</td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">5.2 Virtual Homeowner Meeting (Approval on Budget & Work Scope)</td>
+                <td>2026-09-15</td>
+                <td>2026-09-30</td>
+                <td><strong>0%</strong></td>
+                <td>-</td>
+                <td></td><td></td>
+                <td class="milestone">◆</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">5.3 Board Approval Milestone (Submit tender comparison & financial plan)</td>
+                <td>2026-09-18</td>
+                <td>2026-09-18</td>
+                <td><strong>0%</strong></td>
+                <td>-</td>
+                <td></td><td></td>
+                <td class="milestone">◆</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td class="sub-task-name">5.5 Monthly Progress Updates & Traffic Advisories (Homeowner Emails)</td>
+                <td>2027-03-01</td>
+                <td>2027-05-23</td>
+                <td><strong>0%</strong></td>
+                <td>-</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td class="milestone">◆</td>
+                <td class="milestone">◆</td>
+                <td></td>
+            </tr>
+            <tr style="background-color: #cbd5e1; font-weight: bold;">
+                <td class="task-name" colspan="5" style="text-align: right; padding-right: 15px; color: var(--primary-color);">Monthly Budget Total:</td>
+                <td>-</td>
+                <td>-</td>
+                <td>R33k</td>
+                <td>R1,165k</td>
+                <td>R117k</td>
+                <td>R18k</td>
+                <td>-</td>
+                <td>-</td>
+                <td>R475k</td>
+                <td>R625k</td>
+                <td>R100k</td>
+            </tr>
+            <tr style="background-color: #b0c4de; font-weight: bold;">
+                <td class="task-name" colspan="5" style="text-align: right; padding-right: 15px; color: var(--primary-color);">FY 25/26 Total (Remaining Approved Budget R480k):</td>
+                <td colspan="8" style="text-align: center;">R1,300k</td>
+                <td colspan="3"></td>
+            </tr>
+            <tr style="background-color: #b0c4de; font-weight: bold;">
+                <td class="task-name" colspan="5" style="text-align: right; padding-right: 15px; color: var(--primary-color);">FY 26/27 Total:</td>
+                <td colspan="8"></td>
+                <td colspan="3" style="text-align: center;">R1,200k</td>
+            </tr>
+            <tr style="background-color: #94a3b8; font-weight: bold; color: white;">
+                <td class="task-name" colspan="4" style="text-align: right; padding-right: 15px;">Total Estimated Budget:</td>
+                <td>R2,500k</td>
+                <td colspan="11" style="text-align: center;"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
