@@ -70,20 +70,36 @@
         li {
             margin-bottom: 6px;
         }
-        .image-placeholder {
-            width: 100%;
-            height: 200px;
-            border: 2px dashed #cbd5e1;
-            background-color: #f1f5f9;
+        
+        /* --- Compact Image Row Layout --- */
+        .image-gallery {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #64748b;
-            font-size: 13px;
-            font-weight: 500;
-            margin: 16px 0;
-            border-radius: 4px;
+            gap: 12px;
+            margin: 20px 0;
+            justify-content: space-between;
         }
+        .gallery-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .gallery-item .image-caption {
+            font-size: 11px;
+            color: #64748b;
+            text-align: center;
+            margin-top: 6px;
+            line-height: 1.3;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -140,36 +156,47 @@
 <body>
 
     <div class="header">
-        <h1>Cathkin Estates Homeowners Association</h1>
+        <h1>Cathkin Estates HOA ROAD UPGRADE REVIEW --- DRAFT</h1>
         <div class="meta">
             <strong>Pre-Read Memorandum:</strong> Road Infrastructure Strategy & Multi-Year Funding Request <br>
-            <strong>Date:</strong> September 2026 | <strong>Target Meeting:</strong> Special General Meeting (SGM)
+            <strong>Date:</strong> 28th September 2026 | Special General Meeting (SGM)
         </div>
     </div>
 
     <div class="executive-summary">
         <h2>Executive Summary & Core Decision Requested</h2>
         <p>
-            The HOA Board has completed a site-wide engineering assessment to transition our road network from costly, temporary asphalt patching to a permanent Low-Total Cost of Ownership (Low-TCO) standard using 80mm heavy-duty interlocking pavers and concrete kerb containment.
+            The HOA Board has completed a site-wide engineering assessment to transition our road network from costly, temporary asphalt patching to a permanent Low-Total Cost of Ownership (Low-TCO) standard using <strong>80mm heavy-duty interlocking pavers and concrete kerb containment</strong> .
             <br><br>
             <strong>Key Decision Required:</strong> With our next AGM scheduled for July 2027, the Board requires formal homeowner approval for the total 2-FY Road Rehabilitation Program (<strong>R2.85M total including a 15% contingency</strong>) at this upcoming SGM. With <strong>c. R480k</strong> remaining in our current approved budget, this requires authorizing an additional <strong>R1.015M for FY 25/26</strong> (pre-rainy season Phase 1) and approving the <strong>FY 26/27 budget allocation of R1.38M</strong> to execute immediately following the rainy season.
         </p>
     </div>
 
-    <h2>1. Strategic Shift: Low-TCO Permanent Rebuilds</h2>
+    <h2>1. Strategic Shift: Low Long-Term Cost (TCO) Permanent Rebuilds</h2>
     <p>
         Repeated surface patching has proved ineffective against sub-base erosion, binder oxidation, and edge breakouts. To protect long-term estate value and avoid wasteful spending, all critical failure points will be rebuilt using engineered <strong>80mm interlocking pavers</strong> anchored by <strong>G2 aggregate sub-bases and concrete edge restraints</strong> designed to withstand multi-year construction traffic.
     </p>
+
+    <!-- COMPACT SIDE-BY-SIDE IMAGE ROW (NO DUPLICATION) -->
+    <div class="image-gallery">
+        <div class="gallery-item">
+            <img src="images/Cathkin_Ridge_Sep26_(4).jpg" alt="Deep hazardous pothole">
+            <div class="image-caption"><strong>Figure 1:</strong> Severe pothole erosion exposing sub-base layers.</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Cathkin_Ridge_Sep26_(8).jpg" alt="Edge and surface asphalt failure">
+            <div class="image-caption"><strong>Figure 2:</strong> Advanced binder disintegration and edge breakout.</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Cathkin_Ridge_Sep26_(1).jpg" alt="Broad perspective view of estate road">
+            <div class="image-caption"><strong>Figure 3:</strong> Broad view showing scope of required paver rebuild.</div>
+        </div>
+    </div>
 
     <h2>2. Immediate Priority: Champagne Ridge (Phase 1)</h2>
     <p>
         Champagne Ridge (~280m / 810m²) is our highest risk failure zone due to severe sub-base delamination, inner-curve shoulder breakout, and binder failure.
     </p>
-
-    <!-- PHOTO PLACEHOLDER -->
-    <div class="image-placeholder">
-        [ Insert Photo / Site Map of Champagne Ridge Priority Rebuild Area Here ]
-    </div>
 
     <p><strong>Vendor Evaluation & Recommendation:</strong></p>
     <ul>
