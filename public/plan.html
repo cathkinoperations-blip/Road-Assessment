@@ -70,6 +70,40 @@
     }
     .header-card h1 { margin: 0; font-size: 1.5rem; }
     .header-card p { margin: 5px 0 0; color: #94a3b8; font-size: 0.9rem; }
+    .footnote-card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        margin-top: 20px;
+        font-size: 0.85rem;
+    }
+    .footnote-card h3 {
+        margin-top: 0;
+        color: var(--primary-color);
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    .footnote-card p {
+        margin: 5px 0 12px 0;
+        color: #475569;
+    }
+    .footnote-card ul {
+        margin: 0;
+        padding-left: 20px;
+        color: #334155;
+    }
+    .footnote-card li {
+        margin-bottom: 4px;
+    }
+    .footnote-card .total-row {
+        margin-top: 15px;
+        font-weight: 600;
+        color: var(--primary-color);
+        border-top: 1px solid var(--border-color);
+        padding-top: 10px;
+    }
     details > summary {
         cursor: pointer;
         list-style: none;
@@ -433,5 +467,24 @@
             </tr>
         </tbody>
     </table>
+
+    <div class="footnote-card">
+        <h3>Deferred Capital Expenditure Breakdown</h3>
+        <p>This is the capital that needs to be deferred in order to enable the project.</p>
+        <ul>
+            <li>Tractor (Landini): R400,000</li>
+            <li>Electric Fence (18km): R300,000</li>
+            <li>Park Development: R300,000</li>
+            <li>Solar Off-Grid Solution: R120,000 (out of R180,000 current budget)</li>
+            <li>Dirt Roads: R100,000</li>
+            <li>Water Boreholes: R100,000</li>
+            <li>Trailer: R65,000</li>
+            <li>Carport: R50,000</li>
+            <li>Bus Shelter: R30,000</li>
+        </ul>
+        <div class="total-row">
+            Total Deferred Amount: R1,465,000 (out of R1,525,000 current budget)
+        </div>
+    </div>
 </body>
 </html>
