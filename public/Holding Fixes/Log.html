@@ -18,7 +18,7 @@
             background-color: var(--bg-color);
             color: #334155;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
         }
         .container {
             max-width: 1200px;
@@ -27,105 +27,110 @@
         .header-card {
             background-color: var(--primary-color);
             color: #ffffff;
-            padding: 32px;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
         .header-card h1 {
-            margin: 0 0 10px 0;
-            font-size: 2rem;
+            margin: 0 0 8px 0;
+            font-size: 1.5rem;
             color: #ffffff;
+            line-height: 1.3;
         }
         .header-card p {
             margin: 0;
             color: #94a3b8;
-            font-size: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
         .section-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 24px;
+            padding: 16px;
+            margin-bottom: 16px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
         .section-title {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             color: var(--primary-color);
             margin-top: 0;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 8px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 8px;
         }
         .location-badge {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             background-color: #e0f2fe;
             color: #0369a1;
-            padding: 4px 10px;
+            padding: 6px 10px;
             border-radius: 6px;
             border: 1px solid #bae6fd;
             text-decoration: none;
             font-weight: 600;
+            align-self: stretch;
+            text-align: center;
         }
         .location-badge:hover {
             background-color: #bae6fd;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 12px;
+        
+        /* Mobile-first card layout for table data */
+        .table-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
         }
-        th, td {
+        .action-item-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
         }
-        th {
-            background-color: #f1f5f9;
-            color: #475569;
-            font-weight: 600;
-            font-size: 0.85rem;
-            text-transform: uppercase;
+        .action-item-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
-        td img {
-            width: 120px;
-            height: 90px;
+        .action-item-card img {
+            width: 100%;
+            height: auto;
+            max-height: 220px;
             object-fit: cover;
             border-radius: 6px;
             border: 1px solid var(--border-color);
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
             display: block;
-        }
-        td img:hover {
-            transform: scale(1.05);
         }
         .action-tag {
             display: inline-block;
             background-color: #fef3c7;
             color: #92400e;
-            padding: 4px 8px;
+            padding: 6px 10px;
             border-radius: 4px;
             font-size: 0.85rem;
             font-weight: 500;
             border: 1px solid #fde68a;
-            margin-bottom: 6px;
             line-height: 1.4;
         }
         .execution-badge {
             display: inline-block;
-            padding: 4px 8px;
+            padding: 6px 10px;
             border-radius: 4px;
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
+            text-align: center;
         }
         .exec-inhouse {
             background-color: #ecfdf5;
@@ -148,16 +153,87 @@
         }
         .assessment-content ul {
             margin: 0;
-            padding-left: 20px;
+            padding-left: 18px;
         }
         .assessment-content li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
         .footer {
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #94a3b8;
-            margin-top: 40px;
+            margin-top: 30px;
+            padding: 0 10px;
+        }
+
+        /* Desktop media query enhancements */
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            .header-card {
+                padding: 32px;
+            }
+            .header-card h1 {
+                font-size: 2rem;
+            }
+            .header-card p {
+                font-size: 1rem;
+            }
+            .section-box {
+                padding: 24px;
+            }
+            .section-title {
+                flex-direction: row;
+                align-items: center;
+                font-size: 1.25rem;
+            }
+            .location-badge {
+                align-self: auto;
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+            .table-card-list {
+                display: block;
+                overflow-x: auto;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 12px;
+            }
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid var(--border-color);
+                vertical-align: middle;
+            }
+            th {
+                background-color: #f1f5f9;
+                color: #475569;
+                font-weight: 600;
+                font-size: 0.85rem;
+                text-transform: uppercase;
+            }
+            td img {
+                width: 120px;
+                height: 90px;
+                object-fit: cover;
+                border-radius: 6px;
+                border: 1px solid var(--border-color);
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                transition: transform 0.2s;
+                display: block;
+                max-height: none;
+            }
+            td img:hover {
+                transform: scale(1.05);
+            }
+            .action-item-card {
+                all: unset;
+            }
         }
     </style>
 </head>
@@ -188,32 +264,23 @@
             </ul>
         </div>
 
-        <!-- Location Breakdown Tables with Execution Allocation -->
+        <!-- Location Breakdown Tables/Cards with Execution Allocation -->
         <div class="section-box">
             <div class="section-title">
                 <span>Location 1 (Champagne Ridge / Start)</span>
                 <a href="https://maps.google.com/?q=-29.0336191,29.4459918" target="_blank" class="location-badge">📍 GPS: -29.0336191,29.4459918 ↗</a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 140px;">Photo</th>
-                        <th>Required Action</th>
-                        <th style="width: 150px;">Execution Strategy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0006.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0006.jpg" alt="IMG-20260910-WA0006.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Construct asphalt/concrete water-diverting hump for paving integration</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced (Paving Cont.)</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-card-list">
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0006.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0006.jpg" alt="IMG-20260910-WA0006.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Construct asphalt/concrete water-diverting hump for paving integration</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced (Paving Cont.)</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="section-box">
@@ -221,26 +288,17 @@
                 <span>Location 2</span>
                 <a href="https://maps.google.com/?q=-29.033018,29.4457747" target="_blank" class="location-badge">📍 GPS: -29.033018,29.4457747 ↗</a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 140px;">Photo</th>
-                        <th>Required Action</th>
-                        <th style="width: 150px;">Execution Strategy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0008.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0008.jpg" alt="IMG-20260910-WA0008.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Excavate and cast concrete stormwater trench (monitor post-rainfall run-off paths before final placement)</span></td>
-                        <td><span class="execution-badge exec-inhouse">In-House (Drainage)</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-card-list">
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0008.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0008.jpg" alt="IMG-20260910-WA0008.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Excavate and cast concrete stormwater trench (monitor post-rainfall run-off paths before final placement)</span></div>
+                        <div><span class="execution-badge exec-inhouse">In-House (Drainage)</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="section-box">
@@ -248,53 +306,44 @@
                 <span>Location 3</span>
                 <a href="https://maps.google.com/?q=-29.0343778,29.4489" target="_blank" class="location-badge">📍 GPS: -29.0343778,29.4489 ↗</a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 140px;">Photo</th>
-                        <th>Required Action</th>
-                        <th style="width: 150px;">Execution Strategy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0010.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0010.jpg" alt="IMG-20260910-WA0010.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply thick dense slurry seal as a temporary surface stabilization fix</span></td>
-                        <td><span class="execution-badge exec-inhouse">In-House (Supervised Slurry)</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0013.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0013.jpg" alt="IMG-20260910-WA0013.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Conduct general sub-base inspection and layer preparation</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0015.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0015.jpg" alt="IMG-20260910-WA0015.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Execute crusher-run and cement layerworks stabilization</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0019.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0019.jpg" alt="IMG-20260910-WA0019.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply bitumen emulsion to isolated crocodile cracking; construct edge restraint and patch small slurry/tar section</span></td>
-                        <td><span class="execution-badge exec-hybrid">Hybrid (Tar In-House / Slurry In-House)</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-card-list">
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0010.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0010.jpg" alt="IMG-20260910-WA0010.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply thick dense slurry seal as a temporary surface stabilization fix</span></div>
+                        <div><span class="execution-badge exec-inhouse">In-House (Supervised Slurry)</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0013.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0013.jpg" alt="IMG-20260910-WA0013.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Conduct general sub-base inspection and layer preparation</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0015.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0015.jpg" alt="IMG-20260910-WA0015.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Execute crusher-run and cement layerworks stabilization</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0019.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0019.jpg" alt="IMG-20260910-WA0019.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply bitumen emulsion to isolated crocodile cracking; construct edge restraint and patch small slurry/tar section</span></div>
+                        <div><span class="execution-badge exec-hybrid">Hybrid (Tar In-House / Slurry In-House)</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="section-box">
@@ -302,53 +351,44 @@
                 <span>Location 4</span>
                 <a href="https://maps.google.com/?q=-29.0351341,29.4499089" target="_blank" class="location-badge">📍 GPS: -29.0351341,29.4499089 ↗</a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 140px;">Photo</th>
-                        <th>Required Action</th>
-                        <th style="width: 150px;">Execution Strategy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0021.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0021.jpg" alt="IMG-20260910-WA0021.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Construct brick-lined drainage channel</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0023.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0023.jpg" alt="IMG-20260910-WA0023.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Inspect and clear accumulated debris from drainage system</span></td>
-                        <td><span class="execution-badge exec-inhouse">In-House (Clearing)</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0025.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0025.jpg" alt="IMG-20260910-WA0025.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Perform crusher-run and cement sub-base stabilization</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0027.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0027.jpg" alt="IMG-20260910-WA0027.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply crusher-run cement stabilizing mix</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-card-list">
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0021.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0021.jpg" alt="IMG-20260910-WA0021.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Construct brick-lined drainage channel</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0023.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0023.jpg" alt="IMG-20260910-WA0023.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Inspect and clear accumulated debris from drainage system</span></div>
+                        <div><span class="execution-badge exec-inhouse">In-House (Clearing)</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0025.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0025.jpg" alt="IMG-20260910-WA0025.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Perform crusher-run and cement sub-base stabilization</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0027.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0027.jpg" alt="IMG-20260910-WA0027.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply crusher-run cement stabilizing mix</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="section-box">
@@ -356,53 +396,44 @@
                 <span>Location 5</span>
                 <a href="https://maps.google.com/?q=-29.0345305,29.4509059" target="_blank" class="location-badge">📍 GPS: -29.0345305,29.4509059 ↗</a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 140px;">Photo</th>
-                        <th>Required Action</th>
-                        <th style="width: 150px;">Execution Strategy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0029.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0029.jpg" alt="IMG-20260910-WA0029.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Execute cold-tar pothole patch repair</span></td>
-                        <td><span class="execution-badge exec-inhouse">In-House (Cold Tar)</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0031.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0031.jpg" alt="IMG-20260910-WA0031.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Perform crusher-run and cement base repair</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0033.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0033.jpg" alt="IMG-20260910-WA0033.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply surface slurry seal</span></td>
-                        <td><span class="execution-badge exec-inhouse">In-House (Supervised Slurry)</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0035.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0035.jpg" alt="IMG-20260910-WA0035.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Execute combined crusher-run cement and slurry stabilization</span></td>
-                        <td><span class="execution-badge exec-hybrid">Hybrid (Base Out / Slurry In)</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-card-list">
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0029.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0029.jpg" alt="IMG-20260910-WA0029.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Execute cold-tar pothole patch repair</span></div>
+                        <div><span class="execution-badge exec-inhouse">In-House (Cold Tar)</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0031.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0031.jpg" alt="IMG-20260910-WA0031.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Perform crusher-run and cement base repair</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0033.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0033.jpg" alt="IMG-20260910-WA0033.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply surface slurry seal</span></div>
+                        <div><span class="execution-badge exec-inhouse">In-House (Supervised Slurry)</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0035.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0035.jpg" alt="IMG-20260910-WA0035.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Execute combined crusher-run cement and slurry stabilization</span></div>
+                        <div><span class="execution-badge exec-hybrid">Hybrid (Base Out / Slurry In)</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="section-box">
@@ -410,44 +441,35 @@
                 <span>Location 6</span>
                 <a href="https://maps.google.com/?q=-29.0334606,29.4528893" target="_blank" class="location-badge">📍 GPS: -29.0334606,29.4528893 ↗</a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 140px;">Photo</th>
-                        <th>Required Action</th>
-                        <th style="width: 150px;">Execution Strategy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0037.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0037.jpg" alt="IMG-20260910-WA0037.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply crusher-run cement stabilization layer</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0039.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0039.jpg" alt="IMG-20260910-WA0039.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply protective slurry seal</span></td>
-                        <td><span class="execution-badge exec-inhouse">In-House (Supervised Slurry)</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0041.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0041.jpg" alt="IMG-20260910-WA0041.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply bitumen emulsion seal</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-card-list">
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0037.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0037.jpg" alt="IMG-20260910-WA0037.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply crusher-run cement stabilization layer</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0039.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0039.jpg" alt="IMG-20260910-WA0039.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply protective slurry seal</span></div>
+                        <div><span class="execution-badge exec-inhouse">In-House (Supervised Slurry)</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0041.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0041.jpg" alt="IMG-20260910-WA0041.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply bitumen emulsion seal</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="section-box">
@@ -455,26 +477,17 @@
                 <span>Location 7</span>
                 <a href="https://maps.google.com/?q=-29.0324705,29.4534873" target="_blank" class="location-badge">📍 GPS: -29.0324705,29.4534873 ↗</a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 140px;">Photo</th>
-                        <th>Required Action</th>
-                        <th style="width: 150px;">Execution Strategy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0043.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0043.jpg" alt="IMG-20260910-WA0043.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply bitumen emulsion and construct bell-mouth flares on both sides</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-card-list">
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0043.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0043.jpg" alt="IMG-20260910-WA0043.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply bitumen emulsion and construct bell-mouth flares on both sides</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="section-box">
@@ -482,35 +495,26 @@
                 <span>Location 8</span>
                 <a href="https://maps.google.com/?q=-29.0319618,29.457537" target="_blank" class="location-badge">📍 GPS: -29.0319618,29.457537 ↗</a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 140px;">Photo</th>
-                        <th>Required Action</th>
-                        <th style="width: 150px;">Execution Strategy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0046.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0046.jpg" alt="IMG-20260910-WA0046.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply crusher-run cement stabilization</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0048.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0048.jpg" alt="IMG-20260910-WA0048.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply surface slurry seal</span></td>
-                        <td><span class="execution-badge exec-inhouse">In-House (Supervised Slurry)</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-card-list">
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0046.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0046.jpg" alt="IMG-20260910-WA0046.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply crusher-run cement stabilization</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0048.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0048.jpg" alt="IMG-20260910-WA0048.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply surface slurry seal</span></div>
+                        <div><span class="execution-badge exec-inhouse">In-House (Supervised Slurry)</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="section-box">
@@ -518,44 +522,35 @@
                 <span>Location 9</span>
                 <a href="https://maps.google.com/?q=-29.0319818,29.4591698" target="_blank" class="location-badge">📍 GPS: -29.0319818,29.4591698 ↗</a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 140px;">Photo</th>
-                        <th>Required Action</th>
-                        <th style="width: 150px;">Execution Strategy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0050.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0050.jpg" alt="IMG-20260910-WA0050.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Execute crusher-run cement layerworks</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0052.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0052.jpg" alt="IMG-20260910-WA0052.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply surface slurry seal</span></td>
-                        <td><span class="execution-badge exec-inhouse">In-House (Supervised Slurry)</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0054.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0054.jpg" alt="IMG-20260910-WA0054.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Construct stormwater gully and associated concrete works</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-card-list">
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0050.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0050.jpg" alt="IMG-20260910-WA0050.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Execute crusher-run cement layerworks</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0052.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0052.jpg" alt="IMG-20260910-WA0052.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply surface slurry seal</span></div>
+                        <div><span class="execution-badge exec-inhouse">In-House (Supervised Slurry)</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0054.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0054.jpg" alt="IMG-20260910-WA0054.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Construct stormwater gully and associated concrete works</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="section-box">
@@ -563,71 +558,53 @@
                 <span>Location 10</span>
                 <a href="https://maps.google.com/?q=-29.0307766,29.4599749" target="_blank" class="location-badge">📍 GPS: -29.0307766,29.4599749 ↗</a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 140px;">Photo</th>
-                        <th>Required Action</th>
-                        <th style="width: 150px;">Execution Strategy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0056.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0056.jpg" alt="IMG-20260910-WA0056.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply surface slurry seal</span></td>
-                        <td><span class="execution-badge exec-inhouse">In-House (Supervised Slurry)</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0058.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0058.jpg" alt="IMG-20260910-WA0058.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Apply bitumen emulsion seal</span></td>
-                        <td><span class="execution-badge exec-outsourced">Outsourced</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0060.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0060.jpg" alt="IMG-20260910-WA0060.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Repair potholes using cold-mix asphalt</span></td>
-                        <td><span class="execution-badge exec-inhouse">In-House (Cold Tar)</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-card-list">
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0056.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0056.jpg" alt="IMG-20260910-WA0056.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply surface slurry seal</span></div>
+                        <div><span class="execution-badge exec-inhouse">In-House (Supervised Slurry)</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0058.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0058.jpg" alt="IMG-20260910-WA0058.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Apply bitumen emulsion seal</span></div>
+                        <div><span class="execution-badge exec-outsourced">Outsourced</span></div>
+                    </div>
+                </div>
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0060.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0060.jpg" alt="IMG-20260910-WA0060.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Repair potholes using cold-mix asphalt</span></div>
+                        <div><span class="execution-badge exec-inhouse">In-House (Cold Tar)</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="section-box">
             <div class="section-title">
                 <span>Location 11 (End Series)</span>
-                <a href="https://maps.google.com/?q=-29.0299319,29.4606634" target="_blank" class="location-badge">📍 GPS: -29.0299319,29.4606634 ↗</a>
+                <a href="https://maps.google.com/?q=-29.0299319,29.4606634" target="_blank" class="link location-badge">📍 GPS: -29.0299319,29.4606634 ↗</a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 140px;">Photo</th>
-                        <th>Required Action</th>
-                        <th style="width: 150px;">Execution Strategy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="IMG-20260910-WA0062.jpg" target="_blank" title="Click to view full size">
-                                <img src="IMG-20260910-WA0062.jpg" alt="IMG-20260910-WA0062.jpg">
-                            </a>
-                        </td>
-                        <td><span class="action-tag">Execute cold-tar patching, slurry seal, and construct bell-mouth transition</span></td>
-                        <td><span class="execution-badge exec-hybrid">Hybrid (Tar/Slurry In-House / Bell-Mouth Out)</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-card-list">
+                <div class="action-item-card">
+                    <a href="IMG-20260910-WA0062.jpg" target="_blank" title="Click to view full size">
+                        <img src="IMG-20260910-WA0062.jpg" alt="IMG-20260910-WA0062.jpg">
+                    </a>
+                    <div class="action-item-content">
+                        <div><span class="action-tag">Execute cold-tar patching, slurry seal, and construct bell-mouth transition</span></div>
+                        <div><span class="execution-badge exec-hybrid">Hybrid (Tar/Slurry In-House / Bell-Mouth Out)</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="footer">
