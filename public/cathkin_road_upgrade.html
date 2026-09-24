@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cathkin Estates Infrastructure Review</title>
+<style>
+
+  @media print {
+    @page {
+      size: A4 landscape; /* Sets PDF layout to landscape */
+      margin: 0;          /* Removes default browser print headers/footers */
+    }
+
+    body {
+      background-color: #ffffff !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important; /* Preserves colors, backgrounds, and badges */
+    }
+
+    .slide-container {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      margin-bottom: 0 !important;
+      page-break-after: always !important; /* Forces each slide onto its own PDF page */
+      break-after: page !important;
+      page-break-inside: avoid !important; /* Prevents content inside a slide from splitting */
+      break-inside: avoid !important;
+    }
+
+    /* Prevents page break after the very last slide to avoid trailing blank page */
+    .slide-container:last-child {
+      page-break-after: auto !important;
+      break-after: auto !important;
+    }
+  }
+
+  :root {
+    --bg-color: #f7f6f0;
+    --card-bg: #ffffff;
+    --text-primary: #1c2826;
+    --text-secondary: #4a5568;
+    --brand-green: #1b6b3a;
+    --brand-navy: #273444;
+    --brand-teal: #1f7a8c;
+    --brand-orange: #e07a00;
+    --brand-purple: #6b21a8;
+    --brand-light-green: #eef5f0;
+    --table-header-bg: #1c2430;
+    --border-color: #e2e8f0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  }
+
+  body {
+    background-color: #0d1117;
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .slide-container {
+    width: 100%;
+    max-width: 1000px;
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 40px;
+  }
+
+  .top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--brand-green) 0%, var(--brand-navy) 50%, var(--brand-orange) 100%);
+  }
+
+  .bottom-pattern {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, transparent 50%, rgba(235, 230, 220, 0.7) 50%);
+    pointer-events: none;
+  }
+
+  .slide-header {
+    margin-bottom: 10px;
+  }
+
+  .tag {
+    display: inline-block;
+    background-color: #e2ede5;
+    color: var(--brand-green);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 4px 16px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    color: var(--brand-green);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    color: var(--brand-navy);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  p.subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  .title-slide {
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .title-slide h1 {
+    font-size: 2.8rem;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    flex-grow: 1;
+    align-items: center;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .card-icon {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 10px;
+  }
+
+  .card h3 {
+    font-size: 1.1rem;
+    color: var(--brand-navy);
+    margin-bottom: 8px;
+  }
+
+  .card p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .chart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .bar-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .bar-label {
+    width: 270px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: var(--text-primary);
+  }
+
+  .bar-track {
+    flex-grow: 1;
+    background-color: #e2e8f0;
+    height: 26px;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bar-fill {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 12px;
+    color: white;
+    font-weight: 700;
+    font-size: 0.8rem;
+    border-radius: 6px;
+  }
+
+  .bg-green { background-color: var(--brand-green); }
+  .bg-teal { background-color: var(--brand-teal); }
+  .bg-navy { background-color: var(--brand-navy); }
+  .bg-orange { background-color: var(--brand-orange); }
+  .bg-purple { background-color: var(--brand-purple); }
+
+  .chart-note {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.68rem;
+  }
+
+  th {
+    background-color: var(--table-header-bg);
+    color: white;
+    padding: 6px 6px;
+    font-weight: 600;
+  }
+
+  td {
+    padding: 6px 6px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+  }
+
+  tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+
+  .badge {
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.65rem;
+    display: inline-block;
+  }
+
+  .badge-red { background-color: #fee2e2; color: #991b1b; }
+  .badge-yellow { background-color: #fef3c7; color: #92400e; }
+  .badge-blue { background-color: #e0f2fe; color: #0369a1; }
+  .badge-green { background-color: #dcfce7; color: #166534; }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .process-step {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+  }
+
+  .step-number {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--brand-light-green);
+    color: var(--brand-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.7rem;
+    margin-bottom: 6px;
+  }
+
+  .process-step h4 {
+    font-size: 0.8rem;
+    color: var(--brand-navy);
+    margin-bottom: 3px;
+  }
+
+  .process-step p {
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    line-height: 1.3;
+  }
+
+</style>
+</head>
+<body>
+
+  <!-- Slide 0 -->
+  <div class="slide-container title-slide">
+    <div class="top-bar"></div>
+    <div>
+      <span class="tag">CATHKIN ESTATES INFRASTRUCTURE REVIEW</span>
+      <h1>Road Upgrade Kick Off</h1>
+      <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 10px; font-weight: 500;">21st July 2026</p>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+<!-- Slide 1: Objectives & Agenda -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Objectives & Agenda</h2>
+      <p class="subtitle">Road Infrastructure Repair & Sub-Base Reinstatement Strategy</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="#1b6b3a" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <h3>Objectives</h3>
+        <p style="margin-bottom: 8px;"><strong>1. Assessment of Options:</strong> Technical evaluation across flexible seals, Cape Seals, pavers, and reinforced concrete options.</p>
+        <p><strong>2. Action Plan:</strong> Formulate a structured, phased operational rollout utilizing specialized external contractor support and civil engineering oversight[cite: 1].</p>
+      </div>
+      <div class="card">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="#273444" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <h3>Agenda</h3>
+        <p style="margin-bottom: 6px;"><strong>• Foundation & Budget:</strong> Sub-base preparation rules and R1M budget coverage.</p>
+        <p style="margin-bottom: 6px;"><strong>• Issues & Solutions Review (Round-Table):</strong> Open discussion on current road failures (e.g., concrete cracking, clay sub-base movement) and proposed options for consideration.</p>
+        <p style="margin-bottom: 6px;"><strong>• Comparative Feasibility:</strong> Single-access logistics, weather risks, contractor fit, and lifecycle costs.</p>
+        <p><strong>• Action Plan & BOQs:</strong> Technical appendices, financial breakdowns, and rollout phases.</p>
+      </div>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+  <!-- Slide 2: Two Solution Pathways -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Flexible vs. Rigid Pavement Pathways</h2>
+      <p class="subtitle">Comparing how flexible sprayed seals versus rigid paver/concrete slabs distribute heavy vehicle loads</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="#e07a00" stroke-width="2">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 3-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <h3>Flexible Seals (Asphalt, Chip & Spray, Cape Seal)</h3>
+        <p>Possess zero bridging strength. If the underlying sub-base shifts even 5mm under a 10-cube cement truck, the surface splits instantly. Mandatory sub-base stabilization is required to avoid severe crack propagation.</p>
+      </div>
+      <div class="card">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="#1b6b3a" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <h3>Rigid Systems (Pavers & Cast Concrete)</h3>
+        <p>Transfer weight across high structural beam and joint shear capacity. Reinforced cast concrete and interlocking pavers bridge soft clay spots effectively, reducing deep subgrade excavation requirements in steep zones.</p>
+      </div>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+<!-- Slide: Overview of Solutions (Equal Card Sizes) -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Overview of Surfacing Options</h2>
+      <p class="subtitle">Defining the five primary technical methodologies evaluated for Cathkin Estates</p>
+    </div>
+    <div class="grid-2" style="grid-template-columns: repeat(3, 1fr); gap: 12px; align-items: stretch;">
+      <div class="card" style="padding: 14px;">
+        <h3 style="font-size: 0.95rem; margin-bottom: 6px;">Double Chip & Spray</h3>
+        <p style="font-size: 0.75rem; line-height: 1.4;">Bituminous binder sprayed onto base, followed by two sequential stone chip layers rolled to lock aggregate mosaic.</p>
+      </div>
+      <div class="card" style="padding: 14px;">
+        <h3 style="font-size: 0.95rem; margin-bottom: 6px;">Cape Seal (Colas Spec)</h3>
+        <p style="font-size: 0.75rem; line-height: 1.4;">Single-chip aggregate layer (13.2/19mm) sealed and locked with a rich bitumen slurry overlay to resist tire shear.</p>
+      </div>
+      <div class="card" style="padding: 14px;">
+        <h3 style="font-size: 0.95rem; margin-bottom: 6px;">Hot-Mix Asphalt</h3>
+        <p style="font-size: 0.75rem; line-height: 1.4;">Continuous 30mm factory hot asphalt mat laid via paver screed and steel rolled for a smooth riding surface.</p>
+      </div>
+      <div class="card" style="padding: 14px; border-left: 4px solid var(--brand-orange);">
+        <h3 style="font-size: 0.95rem; margin-bottom: 6px; color: var(--brand-orange);">60mm Interlocking Pavers</h3>
+        <p style="font-size: 0.75rem; line-height: 1.4;">High-strength (35 MPa) precast blocks laid in 90° Herringbone pattern over river sand bed with side concrete kerbs.</p>
+      </div>
+      <div class="card" style="padding: 14px; border-left: 4px solid var(--brand-purple);">
+        <h3 style="font-size: 0.95rem; margin-bottom: 6px; color: var(--brand-purple);">In-Situ Reinforced Concrete</h3>
+        <p style="font-size: 0.75rem; line-height: 1.4;">Heavy-duty 150mm slab (30 MPa) cast with Ref 193 steel mesh reinforcement and dowelled saw-cut joints for steep inclines.</p>
+      </div>
+      <div class="card" style="padding: 14px; background-color: #f8fafc; border-style: dashed;">
+      <h3 style="font-size: 0.95rem; margin-bottom: 6px; color: var(--text-secondary);">Option for Consideration</h3>
+<p style="font-size: 0.75rem; line-height: 1.4; color: var(--text-secondary);">Combine <strong>Pavers</strong> for general flat corridors with <strong>Concrete</strong> on steep slopes and water crossings—subject to traffic bypass viability, proper sub-base prep, and engineered expansion joints to mitigate cracking.</p>  
+      </div>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+  <!-- Slide 3: Sub-Base Realities & Budget Reach -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Sub-Base Realities & Budget Reach</h2>
+      <p class="subtitle">R1M Budget Coverage Comparison Across All Evaluated Options</p>
+    </div>
+    <div class="chart-container">
+      <div class="bar-group">
+        <div class="bar-label">Double "Chip & Spray" + Base</div>
+        <div class="bar-track">
+          <div class="bar-fill bg-green" style="width: 100%;">1,100 m</div>
+        </div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-label">Cape Seal (Chip + Slurry) + Base</div>
+        <div class="bar-track">
+          <div class="bar-fill bg-teal" style="width: 77%;">850 m</div>
+        </div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-label">Hot-Mix Asphalt + Base</div>
+        <div class="bar-track">
+          <div class="bar-fill bg-navy" style="width: 61%;">670 m</div>
+        </div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-label">60mm Pavers (Contractor Base Prep)</div>
+        <div class="bar-track">
+          <div class="bar-fill bg-orange" style="width: 55%;">610 m</div>
+        </div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-label">In-Situ Reinforced Concrete (150mm)</div>
+        <div class="bar-track">
+          <div class="bar-fill bg-purple" style="width: 42%;">450 m</div>
+        </div>
+      </div>
+    </div>
+    <p class="chart-note">Note: While cast concrete has a lower initial distance reach (~450m/R1M), its 35+ year lifespan and complete immunity to water ingress make it the ultimate long-term investment for critical steep gradients.</p>
+    <div class="bottom-pattern"></div>
+  </div>
+
+<!-- Slide 4: Lifecycle Cost Comparison Matrix with Footnotes -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Lifecycle Cost Comparison Matrix</h2>
+      <p class="subtitle">Comparative initial outlay vs. 10-Year, 20-Year, and 30+ Year Total Cost of Ownership (per m²)</p>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Road Option</th>
+            <th>Surface / m²</th>
+            <th>Base Prep / m²</th>
+            <th>Initial Outlay</th>
+            <th>Lifespan</th>
+            <th>10-Year TCO / m²</th>
+            <th>20-Year TCO / m²</th>
+            <th>30+ Year TCO / m²</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Double Chip & Spray</strong></td>
+            <td>R90 – R140</td>
+            <td>R150 – R250</td>
+            <td>R240 – R390</td>
+            <td>7 – 10 Yrs</td>
+            <td>R380 – R520¹</td>
+            <td>R640 – R900²</td>
+            <td>R1,000+ (Rebuild)³</td>
+          </tr>
+          <tr>
+            <td><strong>Cape Seal (Colas Spec)</strong></td>
+            <td>R180 – R290</td>
+            <td>R150 – R200</td>
+            <td>R330 – R490</td>
+            <td>10 – 12 Yrs</td>
+            <td><strong>R380 – R540 (Lowest 10Y)⁴</strong></td>
+            <td>R580 – R840⁵</td>
+            <td>R900 – R1,200³</td>
+          </tr>
+          <tr>
+            <td><strong>Hot-Mix Asphalt</strong></td>
+            <td>R250 – R350</td>
+            <td>R150 – R250</td>
+            <td>R400 – R600</td>
+            <td>15 – 20 Yrs</td>
+            <td>R450 – R680⁶</td>
+            <td>R620 – R880⁷</td>
+            <td>R1,100+ (Milling)³</td>
+          </tr>
+          <tr style="background-color: #f0fdf4;">
+            <td><strong>60mm Pavers (35 MPa)</strong></td>
+            <td>R300 – R400</td>
+            <td>R150 – R250</td>
+            <td>R450 – R650</td>
+            <td>20 – 30 Yrs</td>
+            <td>R480 – R680⁸</td>
+            <td><strong>R500 – R750 (Lowest 20Y)⁹</strong></td>
+            <td>R550 – R800¹⁰</td>
+          </tr>
+          <tr style="background-color: #f3e8ff;">
+            <td><strong>Concrete (150mm / 30 MPa)</strong></td>
+            <td>R400 – R550</td>
+            <td>R150 – R250</td>
+            <td>R550 – R800</td>
+            <td>35 – 50+ Yrs</td>
+            <td>R560 – R820¹¹</td>
+            <td>R570 – R850¹¹</td>
+            <td><strong>R570 – R850 (Lowest 30Y+)¹²</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  <!-- Footnotes Section Breakdown -->
+    <div style="margin-top: 8px; padding: 8px 12px; background: #ffffff; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.62rem; color: var(--text-secondary); line-height: 1.35;">
+      <p style="font-weight: 700; color: var(--brand-navy); margin-bottom: 2px;">* TCO Maintenance Assumptions & Intervention Schedules:</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px;">
+        <div>¹ <strong>Double Chip (10Y):</strong> Includes 1x mandatory fog spray / re-seal cycle at Year 6 + routine crack patching.</div>
+        <div>² <strong>Double Chip (20Y):</strong> Includes 2x full re-seals (Y6, Y14) + localized base repairs under heavy truck traffic.</div>
+        <div>³ <strong>30+ Year Rebuild:</strong> Flexible bituminous seals reach end-of-life and require complete milling & structural base rebuilding.</div>
+        <div>⁴ <strong>Cape Seal (10Y):</strong> Includes minor crack sealing and 1x slurry dilution rejuvenation spray at Year 8.</div>
+        <div>⁵ <strong>Cape Seal (20Y):</strong> Includes 1x full slurry overlay / re-seal cycle at Year 12 + routine edge maintenance.</div>
+        <div>⁶ <strong>Asphalt (10Y):</strong> Includes routine asphalt joint sealing and localized pothole/edge repairs.</div>
+        <div>⁷ <strong>Asphalt (20Y):</strong> Includes 1x thin asphalt overlay or micro-surfacing treatment at Year 15.</div>
+        <div>⁸ <strong>Pavers (10Y/20Y):</strong> Includes periodic joint sand sweeping/replenishment & localized edge beam fixes. Zero re-sealing required.</div>
+        <div>⁹ <strong>Pavers (20Y Leader):</strong> Lowest TCO over 20 years on standard flat/general estate road sections.</div>
+        <div>¹⁰ <strong>Pavers (30Y+):</strong> May require minor lifting & re-bedding in soft clay spots, but blocks are fully reusable.</div>
+        <div>¹¹ <strong>Concrete (10Y/20Y):</strong> Maintenance limited strictly to elastomeric joint sealant replacement every 8–10 years.</div>
+        <div>¹² <strong>Concrete (30Y+ Leader):</strong> Undisputed lowest TCO over 30–50 years. Zero structural resurfacing required.</div>
+        <div style="grid-column: 1 / -1; margin-top: 4px; padding-top: 4px; border-top: 1px dashed var(--border-color);">
+          * <strong>Base Prep Variance:</strong> Cape Seal base prep (R150–R200/m²) utilizes targeted BSM (Bitumen Stabilised Material) blending on existing sub-base rather than full-depth aggregate replacement.
+        </div>
+      </div>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+
+<!-- Slide 5: Comprehensive Feasibility Matrix with Footnote Commentary -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Comprehensive Feasibility Matrix</h2>
+      <p class="subtitle">Multi-Criteria Engineering & Logistical Evaluation across all 5 Options</p>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Double Chip & Spray</th>
+            <th>Cape Seal</th>
+            <th>Hot-Mix Asphalt</th>
+            <th>60mm Pavers</th>
+            <th>Reinforced Concrete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Single-Access Logistics¹</strong></td>
+            <td>Moderate: Short road closures needed.</td>
+            <td>Moderate: Slurry curing breaks.</td>
+            <td>High: Cold joints if trucks delay.</td>
+            <td><strong>Zero Risk: Immediate drive-on.</strong></td>
+            <td>Managed: Half-width 24h rapid-set.</td>
+          </tr>
+          <tr>
+            <td><strong>Weather Dependency²</strong></td>
+            <td>High: Rain ruins adhesion.</td>
+            <td>Moderate: Slurry needs dry day.</td>
+            <td>Extreme: Wind kills compaction.</td>
+            <td>None: Pauses during rain.</td>
+            <td>Low: Rain protection during cure.</td>
+          </tr>
+          <tr>
+            <td><strong>Contractor Compatibility³</strong></td>
+            <td>Requires specialist bitumen distributor rigs.</td>
+            <td>Standard civil road contractor scope.</td>
+            <td>Requires commercial paving equipment.</td>
+            <td>High: Turnkey paving subcontractor.</td>
+            <td>High: Turnkey concrete contractor.</td>
+          </tr>
+          <tr>
+            <td><strong>Traffic Resiliency⁴</strong></td>
+            <td>Infeasible: Tippers shear stone.</td>
+            <td>Good: Slurry binds stone layer.</td>
+            <td>Moderate: Summer tire rutting.</td>
+            <td>Exceptional: Handles turning trucks.</td>
+            <td>Maximum: Structural slab strength.</td>
+          </tr>
+          <tr>
+            <td><strong>Project Verdict⁵</strong></td>
+            <td><span class="badge badge-red">INFEASIBLE</span></td>
+            <td><span class="badge badge-blue">VIABLE HYBRID</span></td>
+            <td><span class="badge badge-yellow">HIGH RISK</span></td>
+            <td><span class="badge badge-green">OPTIMAL (FLAT/GENERAL)</span></td>
+            <td><span class="badge badge-green">OPTIMAL (STEEP/BRIDGES)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footnotes & Commentary Breakdown -->
+    <div style="margin-top: 8px; padding: 8px 12px; background: #ffffff; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.62rem; color: var(--text-secondary); line-height: 1.35;">
+      <p style="font-weight: 700; color: var(--brand-navy); margin-bottom: 2px;">* Engineering & Operational Commentary:</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px;">
+        <div>¹ <strong>Single-Access Logistics:</strong> Single-road access requires continuous resident availability. Pavers allow zero-delay traffic. Concrete uses rapid-hardening cement (CEM I 52.5R) in half-width pours to reopen lanes within 24–48 hours. Asphalt risks cold joints if transit trucks stall.</div>
+        <div>² <strong>Weather Dependency:</strong> Drakensberg rain and cold snaps severely threaten sprayed bitumen emulsions (chip seals and asphalt cooling). Pavers and cast concrete can be halted or protected with plastic sheeting during rain without ruining laid sections.</div>
+        <div>³ <strong>Contractor Compatibility:</strong> Evaluates external contractor capacity and equipment requirements. Contractor team utilizes heavy graders, rollers, and specialist machinery for 100% of sub-base and surface preparation work.</div>
+        <div>⁴ <strong>Traffic Resiliency:</strong> Heavy 10-cube cement trucks ($8.2\text{ t}$ axle load) exert severe shear force on steep inclines and sharp turns. Rigid surfaces (pavers and concrete) resist subgrade rutting and edge cracking far better than flexible bituminous seals.</div>
+        <div>⁵ <strong>Verdict Rationale:</strong> A hybrid strategy is recommended: <strong>60mm Pavers</strong> for main flat corridors (zero access disruption) and <strong>150mm Reinforced Concrete</strong> for steep inclines, stormwater channels, and bridge approaches[cite: 1].</div>
+      </div>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+  <!-- Slide: Appendix Divider -->
+  <div class="slide-container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #ffffff;">
+    <div class="top-bar"></div>
+    <div style="max-width: 800px; padding: 40px;">
+      <p style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; color: #e07a00; margin-bottom: 15px; font-weight: 600;">Supplementary Documentation</p>
+      <h1 style="font-size: 3rem; margin-bottom: 20px; color: #ffffff; border: none;">Technical Appendix</h1>
+      <p style="font-size: 1.1rem; color: #94a3b8; line-height: 1.6;">Detailed bills of quantities, material specifications, and engineering breakdowns supporting the estate road infrastructure evaluation. Based on available reference data and intended for scoping purposes only.</p>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+  <!-- Slide 7: Executing Double Chip & Spray -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Executing Double Chip & Spray</h2>
+      <p class="subtitle">Sequential On-Site Implementation Workflow</p>
+    </div>
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px; flex-grow: 1; align-items: stretch; margin-top: 10px;">
+      
+      <!-- Left: 2x2 Step Process Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">1</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Base Prep (Contractor)</h4>
+          <p style="font-size: 0.75rem;">Rip soft spots using heavy plant equipment. Stabilize gravel with 42.5N cement, water, shape crown, and compact with roller[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">2</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Prime Coat</h4>
+          <p style="font-size: 0.75rem;">Broom dust off base[cite: 1]. Spray fluid bitumen primer to soak 10mm into base, creating a solid waterproof seal[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">3</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Bitumen & Stones</h4>
+          <p style="font-size: 0.75rem;">Spray hot polymer bitumen[cite: 1]. Drop 13.2mm stone chips and roll[cite: 1]. Repeat with secondary binder and 6.7mm stones[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">4</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Keying & Brooming</h4>
+          <p style="font-size: 0.75rem;">PTR pneumatic rollers knead stones into mosaic[cite: 1]. Restrict traffic for 3 days, then sweep away loose aggregate[cite: 1].</p>
+        </div>
+      </div>
+
+      <!-- Right: Technical Context & Equipment Box -->
+      <div class="card" style="padding: 16px; background-color: var(--brand-light-green); border-color: #bbf7d0; justify-content: flex-start;">
+        <h3 style="font-size: 0.95rem; color: var(--brand-green); margin-bottom: 8px;">Key Operational Notes</h3>
+        <ul style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; padding-left: 14px;">
+          <li style="margin-bottom: 6px;"><strong>Equipment Required:</strong> Heavy Grader/Tractor, Bitumen Distributor Truck, Chip Spreader, PTR Rubber Roller[cite: 1].</li>
+          <li style="margin-bottom: 6px;"><strong>Traffic Control:</strong> 24h lane restrictions post-application[cite: 1]; 3-day restriction before heavy trucks.</li>
+          <li style="margin-bottom: 6px;"><strong>Quality Gate:</strong> Base compaction must reach 98% Mod AASHTO before priming[cite: 1].</li>
+          <li><strong>Weather Window:</strong> Requires dry weather and ambient surface temp > 20°C.</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+  <!-- Slide 8: Executing Cape Seal -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Executing Cape Seal (Colas Spec)</h2>
+      <p class="subtitle">Sequential On-Site Implementation Workflow</p>
+    </div>
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px; flex-grow: 1; align-items: stretch; margin-top: 10px;">
+      
+      <!-- Left: 2x2 Step Process Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">1</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Base Prep (Contractor)</h4>
+          <p style="font-size: 0.75rem;">Stabilize existing base using civil earthmoving equipment with cement blending to fix deep-lift failures and shape drainage crowns[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">2</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Single Chip Layer</h4>
+          <p style="font-size: 0.75rem;">Spray heavy polymer binder emulsion and drop single 13.2mm or 19mm aggregate stone chips[cite: 1]. Roll with rubber roller[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">3</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Slurry Seal Overlay</h4>
+          <p style="font-size: 0.75rem;">Squeegee bitumen slurry into chip voids[cite: 1]. Encapsulates stones and seals surface against water ingress[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">4</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Cure & Smooth Finish</h4>
+          <p style="font-size: 0.75rem;">Allow slurry to break from brown to jet black[cite: 1]. Final rolling creates a smooth riding surface resistant to scuffing[cite: 1].</p>
+        </div>
+      </div>
+
+      <!-- Right: Technical Context & Equipment Box -->
+      <div class="card" style="padding: 16px; background-color: var(--brand-light-green); border-color: #bbf7d0; justify-content: flex-start;">
+        <h3 style="font-size: 0.95rem; color: var(--brand-green); margin-bottom: 8px;">Key Operational Notes</h3>
+        <ul style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; padding-left: 14px;">
+          <li style="margin-bottom: 6px;"><strong>Equipment Required:</strong> Earthmoving Plant, Pneumatic Roller, Specialist Squeegee Crew / Slurry Mixer Rig[cite: 1].</li>
+          <li style="margin-bottom: 6px;"><strong>Cure Time:</strong> 4–6 hours for slurry break before opening to light vehicle access[cite: 1].</li>
+          <li style="margin-bottom: 6px;"><strong>Quality Gate:</strong> Ensure base moisture < 50% OMC prior to spraying binder[cite: 1].</li>
+          <li><strong>Weather Window:</strong> Requires ambient temp > 15°C and zero rain forecast within 12h[cite: 1].</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+  <!-- Slide 9: Executing Hot-Mix Asphalt -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Executing Hot-Mix Asphalt</h2>
+      <p class="subtitle">Sequential On-Site Implementation Workflow</p>
+    </div>
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px; flex-grow: 1; align-items: stretch; margin-top: 10px;">
+      
+      <!-- Left: 2x2 Step Process Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">1</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Base Prep (Contractor)</h4>
+          <p style="font-size: 0.75rem;">Mandatory sub-base stabilization using contractor machinery to rip failing spots, blend cement, wet, shape, and compact[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">2</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Tack Coat Glue</h4>
+          <p style="font-size: 0.75rem;">Sweep cement base clean[cite: 1]. Spray light tack coat of liquid bitumen emulsion to act as chemical glue[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">3</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Paving & Roll</h4>
+          <p style="font-size: 0.75rem;">Discharge ~140°C asphalt into paver hopper[cite: 1]. Screed continuous 30mm mat and roll immediately behind screed[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">4</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Kneading & Cooldown</h4>
+          <p style="font-size: 0.75rem;">Run heavy rubber pneumatic rollers to compact aggregates and seal surface pores before opening to traffic[cite: 1].</p>
+        </div>
+      </div>
+
+      <!-- Right: Technical Context & Equipment Box -->
+      <div class="card" style="padding: 16px; background-color: #fef3c7; border-color: #fde68a; justify-content: flex-start;">
+        <h3 style="font-size: 0.95rem; color: #92400e; margin-bottom: 8px;">Key Operational Notes</h3>
+        <ul style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; padding-left: 14px;">
+          <li style="margin-bottom: 6px;"><strong>Equipment Required:</strong> Heavy Earthmoving Plant, Mechanical Asphalt Paver, Steel Drum Roller, PTR Roller[cite: 1].</li>
+          <li style="margin-bottom: 6px;"><strong>Thermal Window:</strong> Asphalt must arrive > 130°C from Estcourt plant[cite: 1]; cold joints form if delays occur[cite: 1].</li>
+          <li style="margin-bottom: 6px;"><strong>Cure Time:</strong> Surface cools in 2–4 hours for immediate vehicle access.</li>
+          <li><strong>Quality Gate:</strong> Strict compaction density checks required to prevent premature rutting[cite: 1].</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+  <!-- Slide 10: Executing Interlocking Pavers -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Executing Interlocking Pavers</h2>
+      <p class="subtitle">Sequential On-Site Implementation Workflow</p>
+    </div>
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px; flex-grow: 1; align-items: stretch; margin-top: 10px;">
+      
+      <!-- Left: 2x2 Step Process Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">1</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Base Prep (Contractor)</h4>
+          <p style="font-size: 0.75rem;">Rip failed clay spots using heavy plant equipment. Backfill with stable soil, add cement to soft zones, and heavily compact[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">2</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Edge Kerbs & Sand</h4>
+          <p style="font-size: 0.75rem;">Cast thick concrete edge beams on both sides[cite: 1]. Screed a precise 20mm–25mm dry, washed river sand bedding layer[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">3</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Herringbone Laying</h4>
+          <p style="font-size: 0.75rem;">Lay heavy 60mm (35 MPa) interlocking bricks in a tight 90° Herringbone pattern to resist braking shear forces[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">4</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Locking & Vibration</h4>
+          <p style="font-size: 0.75rem;">Sweep dry silica sand into joint gaps[cite: 1]. Run plate compactor to vibrate sand deep into joints, locking blocks[cite: 1].</p>
+        </div>
+      </div>
+
+      <!-- Right: Technical Context & Equipment Box -->
+      <div class="card" style="padding: 16px; background-color: #f0fdf4; border-color: #bbf7d0; justify-content: flex-start;">
+        <h3 style="font-size: 0.95rem; color: var(--brand-green); margin-bottom: 8px;">Key Operational Notes</h3>
+        <ul style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; padding-left: 14px;">
+          <li style="margin-bottom: 6px;"><strong>Equipment Required:</strong> Heavy Earthmoving Plant, Screed Rails, Heavy Plate Compactor with rubber mat[cite: 1].</li>
+          <li style="margin-bottom: 6px;"><strong>Zero Access Risk:</strong> Cars can drive over laid sections immediately[cite: 1]; ideal for single-road zones[cite: 1].</li>
+          <li style="margin-bottom: 6px;"><strong>Turnkey Execution:</strong> High match for specialist paving sub-contractor Teams[cite: 1].</li>
+          <li><strong>Quality Gate:</strong> Lateral concrete kerbs must cure 48h prior to block vibration[cite: 1].</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+  <!-- Slide 11: Executing In-Situ Reinforced Concrete -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Executing In-Situ Reinforced Cast Concrete</h2>
+      <p class="subtitle">Sequential On-Site Implementation Workflow</p>
+    </div>
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px; flex-grow: 1; align-items: stretch; margin-top: 10px;">
+      
+      <!-- Left: 2x2 Step Process Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">1</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Half-Width Excavation</h4>
+          <p style="font-size: 0.75rem;">Box out half roadway to 150mm depth using contractor earthmoving equipment[cite: 1]. Fix side shutters to establish exact fall and cross-fall gradients[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">2</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Subgrade & Mesh Ref 193</h4>
+          <p style="font-size: 0.75rem;">Compact subgrade, lay 250-micron plastic DPM, and set steel Mesh Ref 193 with dowel bars for lateral joint transfer[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">3</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Rapid-Set 30 MPa Pour</h4>
+          <p style="font-size: 0.75rem;">Pour CEM I 52.5R 30 MPa ready-mix concrete, vibrate, beam screed, and finish with broom texture for wet tire grip[cite: 1].</p>
+        </div>
+        <div class="process-step" style="height: 100%; padding: 14px;">
+          <div class="step-number">4</div>
+          <h4 style="font-size: 0.9rem; margin-bottom: 4px;">Joints & 24h Opening</h4>
+          <p style="font-size: 0.75rem;">Saw-cut expansion joints within 12h, seal with elastomeric silicone, and open lane to light cars within 24–48 hours[cite: 1].</p>
+        </div>
+      </div>
+
+      <!-- Right: Technical Context & Equipment Box -->
+      <div class="card" style="padding: 16px; background-color: #f3e8ff; border-color: #e9d5ff; justify-content: flex-start;">
+        <h3 style="font-size: 0.95rem; color: var(--brand-purple); margin-bottom: 8px;">Key Operational Notes</h3>
+        <ul style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; padding-left: 14px;">
+          <li style="margin-bottom: 6px;"><strong>Equipment Required:</strong> Civil Earthmoving Plant, Timber/Steel Shutters, Concrete Poker Vibrator, Beam Screed[cite: 1].</li>
+          <li style="margin-bottom: 6px;"><strong>Single-Road Management:</strong> Half-width pours allow resident bypass traffic on open lane[cite: 1].</li>
+          <li style="margin-bottom: 6px;"><strong>Target Zones:</strong> Optimal for steep inclines, drainage channels, and bridge approaches[cite: 1].</li>
+          <li><strong>Quality Gate:</strong> Saw-cut expansion joints must be cut within 12 hours to prevent random cracking[cite: 1].</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+  <!-- Slide 12: Double Chip & Spray BOQ -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Technical Appendix: Double Chip & Spray BOQ</h2>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Item Category</th>
+            <th>Work Description / Materials Spec</th>
+            <th>Sourcing / Resource</th>
+            <th>Low Cost / m²</th>
+            <th>High Cost / m²</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Base Prep (Stage 1)</td>
+            <td>Contractor clay excavation and profiling to 2% cross-fall crown</td>
+            <td>External Civil Contractor</td>
+            <td>R40.00</td>
+            <td>R70.00</td>
+          </tr>
+          <tr>
+            <td>Base Prep (Stage 2)</td>
+            <td>Supply & blending of Grade 42.5N cement for stabilization</td>
+            <td>Materials Procurement</td>
+            <td>R60.00</td>
+            <td>R100.00</td>
+          </tr>
+          <tr>
+            <td>Base Prep (Stage 3)</td>
+            <td>Moisture stabilization and vibratory soil compaction</td>
+            <td>Civil Contractor & roller</td>
+            <td>R30.00</td>
+            <td>R55.00</td>
+          </tr>
+          <tr>
+            <td>Prime Application</td>
+            <td>Surface dust clearing and spraying fluid bitumen primer</td>
+            <td>Specialist Subcontractor</td>
+            <td>R20.00</td>
+            <td>R35.00</td>
+          </tr>
+          <tr>
+            <td>1st Aggregate Seal</td>
+            <td>Hot polymer binder spray & 13.2mm stone chip laying</td>
+            <td>Specialist Subcontractor</td>
+            <td>R40.00</td>
+            <td>R65.00</td>
+          </tr>
+          <tr>
+            <td>2nd Aggregate Seal</td>
+            <td>Secondary hot binder spray & 6.7mm gap-locking stone chips</td>
+            <td>Specialist Subcontractor</td>
+            <td>R30.00</td>
+            <td>R45.00</td>
+          </tr>
+          <tr>
+            <td>Finish & Rolling</td>
+            <td>Pneumatic rubber roller compacting & sweeping</td>
+            <td>Subcontractor / Crew</td>
+            <td>R20.00</td>
+            <td>R20.00</td>
+          </tr>
+          <tr>
+            <td><strong>TOTAL OUTLAY</strong></td>
+            <td><strong>Complete Double Chip & Spray road system</strong></td>
+            <td><strong>Contractor Execution</strong></td>
+            <td><strong>R240.00 / m²</strong></td>
+            <td><strong>R390.00 / m²</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+  <!-- Slide 13: Cape Seal BOQ -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Technical Appendix: Cape Seal BOQ (Colas Spec)</h2>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Item Category</th>
+            <th>Work Description / Materials Spec</th>
+            <th>Sourcing / Resource</th>
+            <th>Low Cost / m²</th>
+            <th>High Cost / m²</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Base Stabilization (BSM)</td>
+            <td>Deep-lift patching, cement/foamed bitumen blending, grading</td>
+            <td>Civil Contractor & Plant</td>
+            <td>R100.00</td>
+            <td>R140.00</td>
+          </tr>
+          <tr>
+            <td>Foundation Compaction</td>
+            <td>Heavy rolling, moisture conditioning, and priming</td>
+            <td>Contractor Plant & roller</td>
+            <td>R50.00</td>
+            <td>R60.00</td>
+          </tr>
+          <tr>
+            <td>Single Chip Seal Layer</td>
+            <td>Polymer emulsion spray and 13.2mm/19mm chip spread</td>
+            <td>Turnkey Subcontractor (Colas)</td>
+            <td>R90.00</td>
+            <td>R140.00</td>
+          </tr>
+          <tr>
+            <td>Bitumen Slurry Overlay</td>
+            <td>Bitumen slurry squeegee application into chip voids</td>
+            <td>Turnkey Subcontractor (Colas)</td>
+            <td>R90.00</td>
+            <td>R150.00</td>
+          </tr>
+          <tr>
+            <td><strong>TOTAL OUTLAY</strong></td>
+            <td><strong>Complete Cape Seal System with Base Stabilization</strong></td>
+            <td><strong>Contractor Execution</strong></td>
+            <td><strong>R330.00 / m²</strong></td>
+            <td><strong>R490.00 / m²</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+  <!-- Slide 14: Hot-Mix Asphalt BOQ -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Technical Appendix: Hot-Mix Asphalt BOQ</h2>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Item Category</th>
+            <th>Work Description / Materials Spec</th>
+            <th>Sourcing / Resource</th>
+            <th>Low Cost / m²</th>
+            <th>High Cost / m²</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sub-base Preparation</td>
+            <td>Ripping old subgrade, blending, grading, compacting</td>
+            <td>Civil Contractor Plant</td>
+            <td>R30.00</td>
+            <td>R50.00</td>
+          </tr>
+          <tr>
+            <td>Stabilizing Base</td>
+            <td>Cement Treatment Base agent blending (5% cement)</td>
+            <td>Materials Procurement</td>
+            <td>R60.00</td>
+            <td>R90.00</td>
+          </tr>
+          <tr>
+            <td>Foundation Compaction</td>
+            <td>Watering, rolling, and grading target areas</td>
+            <td>Contractor Plant & roller</td>
+            <td>R30.00</td>
+            <td>R50.00</td>
+          </tr>
+          <tr>
+            <td>Tack Coat Glue</td>
+            <td>High-pressure sweeping and liquid tack coat spray</td>
+            <td>Specialist Subcontractor</td>
+            <td>R15.00</td>
+            <td>R30.00</td>
+          </tr>
+          <tr>
+            <td>Asphalt Materials</td>
+            <td>Medium-grade continuous hot asphalt mix (Estcourt)</td>
+            <td>Contractor Materials</td>
+            <td>R160.00</td>
+            <td>R220.00</td>
+          </tr>
+          <tr>
+            <td>Transport & Logistics</td>
+            <td>Insulated thermal bulk transport premium from Estcourt</td>
+            <td>Contractor Transport</td>
+            <td>R65.00</td>
+            <td>R100.00</td>
+          </tr>
+          <tr>
+            <td>Mat Laying & Rolling</td>
+            <td>Mechanical paver machine screeding 30mm thick mat</td>
+            <td>Specialist Subcontractor</td>
+            <td>R40.00</td>
+            <td>R60.00</td>
+          </tr>
+          <tr>
+            <td><strong>TOTAL OUTLAY</strong></td>
+            <td><strong>Premium 30mm Hot-Mix Asphalt overlay surface</strong></td>
+            <td><strong>Contractor Execution</strong></td>
+            <td><strong>R400.00 / m²</strong></td>
+            <td><strong>R600.00 / m²</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+  <!-- Slide 15: 60mm Interlocking Pavers BOQ -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Technical Appendix: 60mm Interlocking Pavers BOQ</h2>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Item Category</th>
+            <th>Work Description / Materials Spec</th>
+            <th>Sourcing / Resource</th>
+            <th>Low Cost / m²</th>
+            <th>High Cost / m²</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Deep Foundation Fixes</td>
+            <td>Spot ripping, deep clay excavation, base preparation</td>
+            <td>Civil Contractor / Earthmoving Plant</td>
+            <td>R150.00</td>
+            <td>R250.00</td>
+          </tr>
+          <tr>
+            <td>Lateral Edge Beams</td>
+            <td>Casting flush in-situ concrete kerbs / haunching</td>
+            <td>Paving Subcontractor</td>
+            <td>R45.00</td>
+            <td>R75.00</td>
+          </tr>
+          <tr>
+            <td>Screeded Sand Bed</td>
+            <td>Procurement and screeding washed river sand (25mm)</td>
+            <td>Materials Supply & Contractor</td>
+            <td>R35.00</td>
+            <td>R55.00</td>
+          </tr>
+          <tr>
+            <td>Paver Material Supply</td>
+            <td>60mm structural concrete blocks (35 MPa SABS)</td>
+            <td>Materials Procurement</td>
+            <td>R220.00</td>
+            <td>R270.00</td>
+          </tr>
+          <tr>
+            <td><strong>TOTAL OUTLAY</strong></td>
+            <td><strong>35 MPa Interlocking Pavement system</strong></td>
+            <td><strong>Contractor Execution</strong></td>
+            <td><strong>R450.00 / m²</strong></td>
+            <td><strong>R650.00 / m²</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+  <!-- Slide 16: In-Situ Reinforced Concrete BOQ -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Technical Appendix: In-Situ Reinforced Concrete BOQ (150mm Slab)</h2>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Item Category</th>
+            <th>Work Description / Materials Spec</th>
+            <th>Sourcing / Resource</th>
+            <th>Low Cost / m²</th>
+            <th>High Cost / m²</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Subgrade Prep & Boxing</td>
+            <td>Contractor excavation to 150mm depth, leveling, compaction</td>
+            <td>Civil Contractor / Earthmoving Plant</td>
+            <td>R40.00</td>
+            <td>R70.00</td>
+          </tr>
+          <tr>
+            <td>Formwork & DPM</td>
+            <td>Side shutter fixing, 250um DPM underlay, & 16mm dowel bars</td>
+            <td>Civil Concrete Contractor</td>
+            <td>R45.00</td>
+            <td>R65.00</td>
+          </tr>
+          <tr>
+            <td>Steel Mesh Reinforcement</td>
+            <td>Ref 193 welded steel fabric mesh & support spacers</td>
+            <td>Materials Supply</td>
+            <td>R65.00</td>
+            <td>R95.00</td>
+          </tr>
+          <tr>
+            <td>30 MPa Rapid-Set Concrete</td>
+            <td>30 MPa concrete (CEM I 52.5R), placing, & vibration</td>
+            <td>Local Batch Plant / Contractor</td>
+            <td>R340.00</td>
+            <td>R450.00</td>
+          </tr>
+          <tr>
+            <td>Joints & Finishing</td>
+            <td>Broom finishing, 3m saw-cut joints, & elastomeric sealer</td>
+            <td>Contractor / Specialist</td>
+            <td>R40.00</td>
+            <td>R60.00</td>
+          </tr>
+          <tr style="background-color: #f3e8ff;">
+            <td><strong>TOTAL OUTLAY</strong></td>
+            <td><strong>Complete Heavy-Duty 150mm Reinforced 30 MPa Concrete Slab</strong></td>
+            <td><strong>Contractor Execution</strong></td>
+            <td><strong>R530.00 / m²</strong></td>
+            <td><strong>R740.00 / m²</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+  <!-- Slide 17: Reference Material Summary & Discussion -->
+  <div class="slide-container">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+      <h2>Reference Material Summary</h2>
+    </div>
+    <div class="grid-2" style="margin-bottom: 15px;">
+      <div class="card">
+        <h3>Historical Contracts & Audits</h3>
+        <p><strong>JAVSEAL (2017):</strong> Establishes baseline pricing & environmental rules.<br>
+        <strong>Gert Rautenbach & Colas (2021–2022):</strong> Audits recommended targeted deep-lift patching and Cape Seals to prevent premature base failure.</p>
+      </div>
+      <div class="card">
+        <h3>Strategic & Commercial Specs</h3>
+        <p><strong>Manager Brad Mack & BoQ Sheets:</strong> Area calculations, clay tilling, sub-base requirements, and traffic weighting.<br>
+        <strong>Action Asphalt Estimates (2022–2023):</strong> Gate repairs & sub-soil drainage crossings at ~30m intervals.</p>
+      </div>
+    </div>
+    <div style="background: var(--table-header-bg); color: white; padding: 12px 20px; border-radius: 8px; text-align: center;">
+      <h3 style="color: #ffffff; font-size: 1rem;">Questions & Discussion</h3>
+    </div>
+    <div class="bottom-pattern"></div>
+  </div>
+
+</body>
+</html>
