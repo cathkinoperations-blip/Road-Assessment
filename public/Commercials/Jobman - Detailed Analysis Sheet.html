@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobman - Detailed Analysis Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Password Gate Styles */
+        #password-screen {
+            max-width: 450px;
+            margin: 80px auto;
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            text-align: center;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        #password-screen h2 { margin-top: 0; font-size: 22px; color: #1e293b; }
+        #password-screen p { color: #6c757d; font-size: 14px; margin-bottom: 24px; }
+        #password-input {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+        }
+        #unlock-btn {
+            width: 100%;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #unlock-btn:hover { background-color: #0b5ed7; }
+        #error-msg { color: #dc3545; font-size: 13px; margin-top: 12px; display: none; }
+        .main-content { display: none; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen p-8 text-slate-800">
+
+    <!-- Password Screen -->
+    <div id="password-screen">
+        <h2>Protected Document</h2>
+        <p>Please enter the password to view the Jobman Analysis Sheet.</p>
+        <input type="password" id="password-input" placeholder="Enter password..." autofocus onkeydown="if(event.key === 'Enter') checkPassword()">
+        <button id="unlock-btn" onclick="checkPassword()">Unlock Document</button>
+        <div id="error-msg">Incorrect password. Please try again.</div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const pass = document.getElementById('password-input').value;
+            if (pass === 'Cathkin2026') {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('main-app').style.display = 'block';
+            } else {
+                const err = document.getElementById('error-msg');
+                err.style.display = 'block';
+                document.getElementById('password-input').value = '';
+                document.getElementById('password-input').focus();
+            }
+        }
+    </script>
+
+    <div id="main-app" class="main-content">
+        <div class="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-md border border-slate-200">
+            <div class="mb-6 pb-4 border-b border-slate-200 flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-slate-900">Jobman Analysis Sheet</h1>
+                <button onclick="window.print()" class="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium">Print / Export PDF</button>
+            </div>
+            <div class="analysis-sheet-content">
+                <div class="analysis-sheet bg-white text-slate-800 p-6 rounded-lg shadow-md max-w-5xl mx-auto font-sans">
+  <h1 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-3">Procurement Due Diligence Analysis: Jobman Construction</h1>
+
+  <!-- 1. Executive Summary & Supplier Metadata -->
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold text-slate-700 mb-3 bg-slate-50 p-2 rounded">1. Executive Summary & Supplier Metadata</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-slate-50 p-4 rounded border">
+      <div><strong>Vendor Name:</strong> JOBMAN CONSTRUCTION (PTY) LTD</div>
+      <div><strong>Registration No:</strong> 2025 / 551825 / 07</div>
+      <div><strong>Proposal Reference:</strong> Q11669</div>
+      <div><strong>Proposal Date:</strong> 27th August 2026</div>
+      <div><strong>Client Addressed:</strong> CATHKIN ESTATE</div>
+      <div><strong>Validity Period:</strong> 30 Days</div>
+      <div><strong>Payment Terms:</strong> 80% Deposit, 20% on Completion</div>
+      <div><strong>Project Lead / Contact:</strong> Addie Mpofu (Operations Manager) / Jonathan Mponda (Technical Services)</div>
+    </div>
+  </section>
+
+  <!-- 2. Financial & Pricing Summary Table -->
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold text-slate-700 mb-3 bg-slate-50 p-2 rounded">2. Financial & Pricing Summary</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse border border-slate-300 text-sm">
+        <tr class="bg-slate-100">
+          <th class="border border-slate-300 p-2 text-left">Description</th>
+          <th class="border border-slate-300 p-2 text-right">Amount (ZAR)</th>
+        </tr>
+        <tr>
+          <td class="border border-slate-300 p-2">Total Excl. VAT (Quoted Lump Sum)</td>
+          <td class="border border-slate-300 p-2 text-right">R 2,366,000.00</td>
+        </tr>
+        <tr>
+          <td class="border border-slate-300 p-2">VAT (15% - Estimated / Excluded per terms)</td>
+          <td class="border border-slate-300 p-2 text-right">R 354,900.00</td>
+        </tr>
+        <tr class="font-bold bg-slate-50">
+          <td class="border border-slate-300 p-2">Total Incl. VAT</td>
+          <td class="border border-slate-300 p-2 text-right">R 2,720,900.00</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 3. Line Item Breakdown Table & Normalization (3a) -->
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold text-slate-700 mb-3 bg-slate-50 p-2 rounded">3. Line Item Breakdown & Normalization (Base Basis: 810 m²)</h2>
+    <p class="text-xs text-slate-600 mb-3">Note: The vendor quote lists a unit rate of R826.70 / m² leading to a total of R2,366,000.00, which mathematically implies a scope of approximately 2,862 m² based on their unit rate, OR a discrepancy in their quoted lump sum versus unit rate.</p>
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse border border-slate-300 text-sm">
+        <thead>
+          <tr class="bg-slate-100">
+            <th class="border border-slate-300 p-2 text-left">Item Description</th>
+            <th class="border border-slate-300 p-2 text-center">Quantity</th>
+            <th class="border border-slate-300 p-2 text-right">Unit Price Ex. VAT (ZAR)</th>
+            <th class="border border-slate-300 p-2 text-right">Total Ex. VAT (ZAR)</th>
+            <th class="border border-slate-300 p-2 text-center">Spec Alignment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border border-slate-300 p-2">80mm Interlocking Pavers Grey - Class 30/2.0 s-a (Corobrick's) + Sand, Curbs (FIG 8), Transport, Cement, Site Establishment, Machines, Team, Accommodation, Subcontractors</td>
+            <td class="border border-slate-300 p-2 text-center">2,862 m² <span class="text-xs block text-slate-500">(Implied by lump sum/rate)</span><br/><strong class="text-blue-600">810 m² (Normalized)</strong></td>
+            <td class="border border-slate-300 p-2 text-right">R 826.70 / m²</td>
+            <td class="border border-slate-300 p-2 text-right">R 2,366,000.00 (Quoted)<br/><strong class="text-blue-600">R 669,627.00 (Normalized to 810 m²)</strong></td>
+            <td class="border border-slate-300 p-2 text-center text-green-600 font-semibold">Compliant</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 3b. Technical Evaluation & Engineering Assessment -->
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold text-slate-700 mb-3 bg-slate-50 p-2 rounded">3b. Technical Evaluation & Engineering Assessment</h2>
+    <ul class="list-disc pl-5 text-sm space-y-2 text-slate-700">
+      <li><strong>Material Specifications:</strong> Proposes 80mm Interlocking Pavers Grey - Class 30/2.0 s-a (Corobrick's), suitable for heavy traffic as per ASTM C936 standards.</li>
+      <li><strong>Methodology:</strong> Paving overlaying existing asphalt surface, including 25mm sand bedding and FIG 8 curbs.</li>
+      <li><strong>Work Diagram Integrity:</strong> Standard structural cross-section provided (compacted soil subgrade, geotextile, compacted aggregate/stabilized base, bedding sand, pavers with sand-filled joints, edge restraint/curb).</li>
+      <li><strong>Engineering Risk:</strong> Overlaying existing asphalt without explicit milling or sub-base geotechnical testing data introduces risk of reflective cracking or sub-base failure if existing asphalt is compromised.</li>
+    </ul>
+  </section>
+
+  <!-- 3c. Assessment of Commercial and Contractual Terms -->
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold text-slate-700 mb-3 bg-slate-50 p-2 rounded">3c. Commercial and Contractual Assessment</h2>
+    <ul class="list-disc pl-5 text-sm space-y-2 text-slate-700">
+      <li><strong>High Cash-Flow Risk:</strong> Demanding an <strong>80% upfront deposit</strong> and only 20% on completion exposes participants to severe financial risk and contractor default. Standard commercial practice typically requires maximum 20-30% deposit with milestone/retention structures.</li>
+      <li><strong>Retention Restrictions:</strong> Clause explicitly states <em>"No retention money is to be held unless agreed in writing"</em> — highly disadvantageous given the lack of defect liability withholding.</li>
+      <li><strong>Warranty:</strong> Offers a 36-month project guarantee, which is favorable.</li>
+      <li><strong>Ownership Retention:</strong> Materials remain the property of JB Construction until paid in full (standard, but tied to heavy deposit terms).</li>
+    </ul>
+  </section>
+
+  <!-- 4. Key Exclusions & Fine Print Caveats -->
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold text-slate-700 mb-3 bg-slate-50 p-2 rounded">4. Key Exclusions & Fine Print Caveats</h2>
+    <ul class="list-disc pl-5 text-sm space-y-2 text-slate-700">
+      <li>All prices exclude VAT (Value Added Tax).</li>
+      <li>Prices are subject to exchange rate fluctuations.</li>
+      <li>Timeline estimated at 30 to 60 working days, subject to weather and timely payments.</li>
+      <li>Site will be left tidy and rubble removed "unless otherwise discussed".</li>
+    </ul>
+  </section>
+
+  <!-- 5. Discrepancies & Audit Findings -->
+  <section class="mb-4">
+    <h2 class="text-lg font-semibold text-slate-700 mb-3 bg-slate-50 p-2 rounded">5. Discrepancies & Audit Findings</h2>
+    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 text-sm text-amber-900 space-y-2">
+      <div><strong>⚠️ Scope Ambiguity:</strong> The total quoted price is R2,366,000.00 with a stated unit rate of R826.70 / m². Mathematically, this dictates a project size of ~2,862 m². If evaluating for an 810 m² scope, the lump sum must be clarified.</div>
+      <div><strong>⚠️ Registration / Legal Discrepancy:</strong> The company registration number on page 1 is listed as <code class="bg-amber-100 px-1 rounded">2025 / 551825 / 07</code> (indicating a future-dated or placeholder CIPC registration year of 2025, while proposal dates are in August 2026), warranting formal verification of corporate legal standing.</div>
+      <div><strong>⚠️ Contact Information Discrepancy:</strong> Operations Manager Addie Mpofu provides a personal Gmail address (<code class="bg-amber-100 px-1 rounded">ediempofu@gmail.com</code>) alongside a corporate email (<code class="bg-amber-100 px-1 rounded">Addie.Mpofu@jobmanconstruction.co.za</code>), which reduces institutional professionalism.</div>
+    </div>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

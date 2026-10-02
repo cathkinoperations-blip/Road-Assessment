@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raciti - Detailed Analysis Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Password Gate Styles */
+        #password-screen {
+            max-width: 450px;
+            margin: 80px auto;
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            text-align: center;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        #password-screen h2 { margin-top: 0; font-size: 22px; color: #1e293b; }
+        #password-screen p { color: #6c757d; font-size: 14px; margin-bottom: 24px; }
+        #password-input {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+        }
+        #unlock-btn {
+            width: 100%;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #unlock-btn:hover { background-color: #0b5ed7; }
+        #error-msg { color: #dc3545; font-size: 13px; margin-top: 12px; display: none; }
+        .main-content { display: none; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen p-8 text-slate-800">
+
+    <!-- Password Screen -->
+    <div id="password-screen">
+        <h2>Protected Document</h2>
+        <p>Please enter the password to view the Raciti Analysis Sheet.</p>
+        <input type="password" id="password-input" placeholder="Enter password..." autofocus onkeydown="if(event.key === 'Enter') checkPassword()">
+        <button id="unlock-btn" onclick="checkPassword()">Unlock Document</button>
+        <div id="error-msg">Incorrect password. Please try again.</div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const pass = document.getElementById('password-input').value;
+            if (pass === 'Cathkin2026') {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('main-app').style.display = 'block';
+            } else {
+                const err = document.getElementById('error-msg');
+                err.style.display = 'block';
+                document.getElementById('password-input').value = '';
+                document.getElementById('password-input').focus();
+            }
+        }
+    </script>
+
+    <div id="main-app" class="main-content">
+        <div class="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-md border border-slate-200">
+            <div class="mb-6 pb-4 border-b border-slate-200 flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-slate-900">Raciti Analysis Sheet</h1>
+                <button onclick="window.print()" class="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium">Print / Export PDF</button>
+            </div>
+            <div class="analysis-sheet-content">
+                <div class="analysis-sheet max-w-5xl mx-auto p-6 bg-white font-sans text-gray-800">
+  
+  <!-- 1. Executive Summary & Supplier Metadata -->
+  <div class="mb-8 border-b pb-6">
+    <div class="flex justify-between items-start">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">Procurement Due Diligence Analysis</h1>
+        <p class="text-sm text-gray-500 mt-1">Vendor Quote Evaluation & Engineering Assessment</p>
+      </div>
+      <div class="text-right">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 bg-gray-50 p-4 rounded-lg border">
+      <div>
+        <span class="block text-xs font-medium text-gray-500 uppercase">Vendor Name</span>
+        <span class="text-sm font-semibold text-gray-900">Jenrac Plant Hire and Paving cc t/a Raciti's Paving & Construction</span>
+      </div>
+      <div>
+        <span class="block text-xs font-medium text-gray-500 uppercase">Proposal Reference</span>
+        <span class="text-sm font-semibold text-gray-900">Proposed Paving of Roads</span>
+      </div>
+      <div>
+        <span class="block text-xs font-medium text-gray-500 uppercase">Proposal Date</span>
+        <span class="text-sm font-semibold text-gray-900">03/09/2026</span>
+      </div>
+      <div>
+        <span class="block text-xs font-medium text-gray-500 uppercase">Commercial Terms</span>
+        <span class="text-sm font-semibold text-gray-900">Not Specified (Fuel Price Dependent)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Financial & Pricing Summary Table -->
+  <div class="mb-8">
+    <h2 class="text-lg font-bold text-gray-900 mb-3">Financial & Pricing Summary</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse border border-gray-300">
+        <tr class="bg-gray-100">
+          <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700">Financial Component</th>
+          <th class="border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 text-right">Amount (ZAR)</th>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2 text-sm">Sub-Total (Excl. VAT)</td>
+          <td class="border border-gray-300 px-4 py-2 text-sm text-right font-medium">R 646,750.00</td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2 text-sm">VAT (15%)</td>
+          <td class="border border-gray-300 px-4 py-2 text-sm text-right font-medium">R 97,012.50</td>
+        </tr>
+        <tr class="bg-gray-50 font-bold">
+          <td class="border border-gray-300 px-4 py-2 text-sm text-gray-900">Total (Incl. VAT)</td>
+          <td class="border border-gray-300 px-4 py-2 text-sm text-right text-gray-900">R 743,762.50</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3. Line Item Breakdown Table & 3a Pro-rata Base -->
+  <div class="mb-8">
+    <h2 class="text-lg font-bold text-gray-900 mb-1">Line Item Breakdown & Standardization</h2>
+    <p class="text-xs text-gray-500 mb-3">Note: As the vendor quote matches the baseline evaluation scope of 810m², no pro-rating adjustment is required.</p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse border border-gray-300">
+        <tr class="bg-gray-100">
+          <th class="border border-gray-300 px-3 py-2 text-xs font-semibold text-gray-700">Item Description</th>
+          <th class="border border-gray-300 px-3 py-2 text-xs font-semibold text-gray-700 text-center">Qty</th>
+          <th class="border border-gray-300 px-3 py-2 text-xs font-semibold text-gray-700 text-right">Unit Price Ex VAT</th>
+          <th class="border border-gray-300 px-3 py-2 text-xs font-semibold text-gray-700 text-right">Total Ex VAT</th>
+          <th class="border border-gray-300 px-3 py-2 text-xs font-semibold text-gray-700 text-center">Spec Alignment</th>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-3 py-2 text-xs">1. Site Establishment, transport costs & Ps & Gs</td>
+          <td class="border border-gray-300 px-3 py-2 text-xs text-center">Lump Sum</td>
+          <td class="border border-gray-300 px-3 py-2 text-xs text-right">-</td>
+          <td class="border border-gray-300 px-3 py-2 text-xs text-right">R 46,000.00</td>
+          <td class="border border-gray-300 px-3 py-2 text-xs text-center"><span class="text-green-600 font-semibold">Aligned</span></td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-3 py-2 text-xs">2. Supply and lay Fig 10 Kerbs on a concrete foundation 50mm thick</td>
+          <td class="border border-gray-300 px-3 py-2 text-xs text-center">540m</td>
+          <td class="border border-gray-300 px-3 py-2 text-xs text-right">R 370 / m</td>
+          <td class="border border-gray-300 px-3 py-2 text-xs text-right">R 199,800.00</td>
+          <td class="border border-gray-300 px-3 py-2 text-xs text-center"><span class="text-green-600 font-semibold">Aligned</span></td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-3 py-2 text-xs">3. Supply and lay 80mm G-Block Pavers on 20mm sand bedding including cutting & sand grouting</td>
+          <td class="border border-gray-300 px-3 py-2 text-xs text-center">810m²</td>
+          <td class="border border-gray-300 px-3 py-2 text-xs text-right">R 495 / m²</td>
+          <td class="border border-gray-300 px-3 py-2 text-xs text-right">R 400,950.00</td>
+          <td class="border border-gray-300 px-3 py-2 text-xs text-center"><span class="text-green-600 font-semibold">Aligned</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3b. TECHNICAL EVALUATION & ENGINEERING ASSESSMENT -->
+  <div class="mb-8 bg-gray-50 p-4 rounded-lg border">
+    <h2 class="text-lg font-bold text-gray-900 mb-2">Technical Evaluation & Engineering Assessment</h2>
+    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700">
+      <li><strong>Kerb Foundation Spec:</strong> The proposal specifies a 50mm thick concrete foundation for Fig 10 Kerbs. Engineering review should verify if 50mm provides adequate structural support against vehicular loads, as standard specifications often call for a minimum of 75mm–100mm unreinforced concrete haunching/base.</li>
+      <li><strong>Paver Structural Profile:</strong> 80mm G-Block pavers are specified, which are well-suited for medium-to-heavy vehicular traffic expected on estate roads.</li>
+      <li><strong>Bedding & Jointing:</strong> 20mm sand bedding with sand grouting is standard, though long-term performance will depend heavily on sub-grade compaction (not explicitly detailed in the scope).</li>
+      <li><strong>Measurement Methodology:</strong> Note 4 dictates that areas will be measured inclusive of wastage due to edge cutting. This is standard practice but increases the unit cost exposure per net square meter laid.</li>
+    </ul>
+  </div>
+
+  <!-- 3c. COMMERCIAL & CONTRACTUAL ASSESSMENT -->
+  <div class="mb-8 bg-gray-50 p-4 rounded-lg border">
+    <h2 class="text-lg font-bold text-gray-900 mb-2">Commercial & Contractual Terms Assessment</h2>
+    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700">
+      <li><strong>Price Vulnerability:</strong> Note 1 subjects all prices to fluctuating fuel prices with no explicit cap, validity period, or formula provided, creating budget uncertainty.</li>
+      <li><strong>Scope Creep Risk:</strong> Note 2 dictates that any "remedial work" must be priced separately prior to commencement. Stakeholders should audit site conditions beforehand to define baseline sub-grade readiness and avoid surprise variation orders.</li>
+      <li><strong>Quantity Risk:</strong> Note 3 establishes that all areas are subject to re-measurement upon completion, meaning final project cost may vary from the current quotation.</li>
+    </ul>
+  </div>
+
+  <!-- 4. Key Exclusions & Fine Print Caveats -->
+  <div class="mb-8">
+    <h2 class="text-lg font-bold text-gray-900 mb-2">Key Exclusions & Fine Print Caveats</h2>
+    <ul class="list-disc pl-5 space-y-1 text-sm text-gray-700">
+      <li>Prices tied to current fuel pricing with an open-ended escalation clause.</li>
+      <li>Remedial/prep work excluded from current baseline and subject to separate ad-hoc pricing.</li>
+      <li>Final billing is strictly subject to re-measurement on completion.</li>
+      <li>Wastage for edge-cutting is billed directly into the measured areas.</li>
+    </ul>
+  </div>
+
+  <!-- 5. Discrepancies & Audit Findings -->
+  <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+    <h2 class="text-lg font-bold text-amber-900 mb-2">Discrepancies & Audit Findings</h2>
+    <ul class="list-disc pl-5 space-y-1 text-sm text-amber-800">
+      <li><strong>Lack of Terms:</strong> The quote completely omits standard commercial clauses such as payment milestones, retention percentages, project timeline/duration, and penalty clauses for late delivery.</li>
+      <li><strong>Geotechnical Risk:</strong> No mention of sub-base stabilization or compaction testing certificates, leaving potential exposure to structural failure if existing road bases are sub-standard.</li>
+    </ul>
+  </div>
+
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

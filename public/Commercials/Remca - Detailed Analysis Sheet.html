@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remca - Detailed Analysis Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Password Gate Styles */
+        #password-screen {
+            max-width: 450px;
+            margin: 80px auto;
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            text-align: center;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        #password-screen h2 { margin-top: 0; font-size: 22px; color: #1e293b; }
+        #password-screen p { color: #6c757d; font-size: 14px; margin-bottom: 24px; }
+        #password-input {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+        }
+        #unlock-btn {
+            width: 100%;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #unlock-btn:hover { background-color: #0b5ed7; }
+        #error-msg { color: #dc3545; font-size: 13px; margin-top: 12px; display: none; }
+        .main-content { display: none; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen p-8 text-slate-800">
+
+    <!-- Password Screen -->
+    <div id="password-screen">
+        <h2>Protected Document</h2>
+        <p>Please enter the password to view the Remca Analysis Sheet.</p>
+        <input type="password" id="password-input" placeholder="Enter password..." autofocus onkeydown="if(event.key === 'Enter') checkPassword()">
+        <button id="unlock-btn" onclick="checkPassword()">Unlock Document</button>
+        <div id="error-msg">Incorrect password. Please try again.</div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const pass = document.getElementById('password-input').value;
+            if (pass === 'Cathkin2026') {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('main-app').style.display = 'block';
+            } else {
+                const err = document.getElementById('error-msg');
+                err.style.display = 'block';
+                document.getElementById('password-input').value = '';
+                document.getElementById('password-input').focus();
+            }
+        }
+    </script>
+
+    <div id="main-app" class="main-content">
+        <div class="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-md border border-slate-200">
+            <div class="mb-6 pb-4 border-b border-slate-200 flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-slate-900">Remca Analysis Sheet</h1>
+                <button onclick="window.print()" class="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium">Print / Export PDF</button>
+            </div>
+            <div class="analysis-sheet-content">
+                <div class="analysis-sheet max-w-5xl mx-auto p-6 bg-white font-sans text-gray-800 shadow-lg rounded-lg">
+  
+  <!-- Header / Executive Summary & Supplier Metadata -->
+  <div class="border-b pb-6 mb-6">
+    <div class="flex justify-between items-start">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">Procurement Due Diligence Analysis</h1>
+        <p class="text-sm text-gray-500 mt-1">Vendor Proposal Review</p>
+      </div>
+      <div class="text-right">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+      <div>
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-500">Supplier Metadata</h2>
+        <p class="mt-1"><span class="font-medium">Vendor Name:</span> Remca Construction cc</p>
+        <p class="mt-0.5"><span class="font-medium">Contact Person:</span> Ray Renzi (0832593185)</p>
+        <p class="mt-0.5"><span class="font-medium">Address:</span> PO Box 160, Estcourt, 3310, KZN</p>
+        <p class="mt-0.5"><span class="font-medium">Email:</span> remcaconst@gmail.com</p>
+      </div>
+      <div>
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-500">Proposal Reference & Terms</h2>
+        <p class="mt-1"><span class="font-medium">Proposal Reference:</span> Quotation: 80mm Paving and figure 10 Kerbs to Roads</p>
+        <p class="mt-0.5"><span class="font-medium">Proposal Date:</span> 7th September 2026</p>
+        <p class="mt-0.5"><span class="font-medium">Payment Terms:</span> Not Specified (Excludes VAT)</p>
+        <p class="mt-0.5"><span class="font-medium">Validity Period:</span> Not Specified</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Financial & Pricing Summary Table -->
+  <div class="mb-8">
+    <h2 class="text-lg font-bold text-gray-900 mb-3">1. Financial & Pricing Summary</h2>
+    <div class="overflow-x-auto border border-gray-200 rounded-lg">
+      <table class="min-w-full divide-y divide-gray-200 text-sm">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Component</th>
+            <th class="px-6 py-3 text-right font-medium text-gray-500 uppercase tracking-wider">Amount (ZAR)</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 bg-white">
+          <tr>
+            <td class="px-6 py-4 font-medium text-gray-900">Subtotal (Excluding VAT)</td>
+            <td class="px-6 py-4 text-right text-gray-900">R 729,350.00</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 font-medium text-gray-900">VAT (Standard Rate - Estimated 15%)</td>
+            <td class="px-6 py-4 text-right text-gray-900">R 109,402.50</td>
+          </tr>
+          <tr class="bg-gray-50 font-bold">
+            <td class="px-6 py-4 text-gray-900">Total (Including VAT)</td>
+            <td class="px-6 py-4 text-right text-gray-900">R 838,752.50</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Line Item Breakdown Table & Pro-Rating (810m2 baseline) -->
+  <div class="mb-8">
+    <h2 class="text-lg font-bold text-gray-900 mb-2">2. Line Item Breakdown & Normalization (810m² Baseline)</h2>
+    <p class="text-xs text-gray-500 mb-3">Note: The quote specifies 800m² for paving. Below reflects original pricing alongside a pro-rated adjustment calculated to a baseline requirement of 810m² where applicable.</p>
+    
+    <div class="overflow-x-auto border border-gray-200 rounded-lg">
+      <table class="min-w-full divide-y divide-gray-200 text-sm">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Item Description</th>
+            <th class="px-4 py-3 text-center font-medium text-gray-500 uppercase tracking-wider">Quoted Qty</th>
+            <th class="px-4 py-3 text-center font-medium text-gray-500 uppercase tracking-wider">Normalized Qty</th>
+            <th class="px-4 py-3 text-right font-medium text-gray-500 uppercase tracking-wider">Unit Price Ex VAT</th>
+            <th class="px-4 py-3 text-right font-medium text-gray-500 uppercase tracking-wider">Total Ex VAT (ZAR)</th>
+            <th class="px-4 py-3 text-center font-medium text-gray-500 uppercase tracking-wider">Spec Alignment</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 bg-white">
+          <tr>
+            <td class="px-4 py-4 text-gray-900">Excavate for footing, concrete footing, & lay fig 10 kerb</td>
+            <td class="px-4 py-4 text-center text-gray-600">550m</td>
+            <td class="px-4 py-4 text-center text-gray-600">550m</td>
+            <td class="px-4 py-4 text-right text-gray-600">N/A (Lump Sum)</td>
+            <td class="px-4 py-4 text-right text-gray-900">R 222,750.00</td>
+            <td class="px-4 py-4 text-center"><span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Aligned</span></td>
+          </tr>
+          <tr>
+            <td class="px-4 py-4 text-gray-900">Supply & fit 80mm paving blocks on river sand over existing tar road</td>
+            <td class="px-4 py-4 text-center text-gray-600">800 m²</td>
+            <td class="px-4 py-4 text-center text-gray-600">810 m²</td>
+            <td class="px-4 py-4 text-right text-gray-600">R 552.00 / m²</td>
+            <td class="px-4 py-4 text-right text-gray-900">R 447,128.00 <span class="text-xs text-gray-400 block">(Pro-rated)</span></td>
+            <td class="px-4 py-4 text-center"><span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded">Pro-rated</span></td>
+          </tr>
+          <tr>
+            <td class="px-4 py-4 text-gray-900">Travel and supervision</td>
+            <td class="px-4 py-4 text-center text-gray-600">1 Item</td>
+            <td class="px-4 py-4 text-center text-gray-600">1 Item</td>
+            <td class="px-4 py-4 text-right text-gray-600">N/A</td>
+            <td class="px-4 py-4 text-right text-gray-900">R 65,000.00</td>
+            <td class="px-4 py-4 text-center"><span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Aligned</span></td>
+          </tr>
+          <tr class="bg-gray-50 font-bold">
+            <td colspan="4" class="px-4 py-4 text-right text-gray-900">Adjusted Total (Excl. VAT at 810m² baseline):</td>
+            <td colspan="2" class="px-4 py-4 text-left text-gray-900">R 734,878.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Technical Evaluation & Engineering Assessment -->
+  <div class="mb-8">
+    <h2 class="text-lg font-bold text-gray-900 mb-2">3. Technical Evaluation & Engineering Assessment</h2>
+    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 space-y-3 text-sm text-gray-700">
+      <p><strong class="text-gray-900">Sub-base Suitability:</strong> Laying interlocking pavers directly on an existing tar road using a river sand bedding layer requires careful evaluation. If the existing asphalt has structural failures, cracking, or severe rutting, reflection cracking or localized settling may occur without milling or a leveling layer.</p>
+      <p><strong class="text-gray-900">Kerb Installation:</strong> Excavating and concreting footings for Figure 10 kerbs is standard practice, but drainage gradients and tie-ins with existing stormwater infrastructure are not explicitly detailed in the scope.</p>
+      <p><strong class="text-gray-900">Material Specs:</strong> The quotation lacks precise specifications regarding the paver strength (e.g., 25MPa or 30MPa heavy-duty traffic ratings) and edge restraints beyond the Figure 10 kerbs.</p>
+    </div>
+  </div>
+
+  <!-- Commercial and Contractual Terms Assessment -->
+  <div class="mb-8">
+    <h2 class="text-lg font-bold text-gray-900 mb-2">4. Commercial & Contractual Terms Assessment</h2>
+    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 space-y-3 text-sm text-gray-700">
+      <p><strong class="text-gray-900">Risk Allocation:</strong> The contract terms are informal. There are no clauses defining retention money, defect liability periods (warranty), penalties for delay (liquidated damages), or escalation terms.</p>
+      <p><strong class="text-gray-900">Payment Schedule:</strong> No milestones or deposit structures are defined. A formal contract must outline progress payment terms to mitigate financial exposure.</p>
+    </div>
+  </div>
+
+  <!-- Key Exclusions & Fine Print Caveats -->
+  <div class="mb-8">
+    <h2 class="text-lg font-bold text-gray-900 mb-2">5. Key Exclusions & Fine Print Caveats</h2>
+    <ul class="list-disc list-inside space-y-1 text-sm text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-100">
+      <li>Value Added Tax (VAT) is added separately; quote states totals are "plus vat".</li>
+      <li>No mention of geotechnical testing or sub-base repair contingencies if bad underlying material is exposed during kerb excavation.</li>
+      <li>Excludes potential municipal permits, traffic accommodation/diversion costs during construction, and waste disposal fees.</li>
+    </ul>
+  </div>
+
+  <!-- Discrepancies & Audit Findings -->
+  <div class="mb-4">
+    <h2 class="text-lg font-bold text-gray-900 mb-2">6. Discrepancies & Audit Findings</h2>
+    <div class="border-l-4 border-amber-500 bg-amber-50 p-4 rounded-r-lg">
+      <ul class="list-disc list-inside space-y-1 text-sm text-amber-900">
+        <li><strong>Area Discrepancy:</strong> The request/baseline assumes an 810m² area, whereas the supplier's quote explicitly prices for 800m² (R441,600.00). This requires a commercial adjustment (pro-rated increase of R5,520.00 ex VAT).</li>
+        <li><strong>Lack of Formal Validity:</strong> The quotation does not state a validity period, leaving pricing vulnerable to material cost fluctuations (cement, aggregates, concrete blocks).</li>
+        <li><strong>Missing Compliance Documentation:</strong> No proof of CIDB grading, Letter of Good Standing (COIDA), or tax clearance certificates are attached to the proposal.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
