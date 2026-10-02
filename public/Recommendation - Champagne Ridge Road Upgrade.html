@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommendation - Champagne Ridge Road Upgrade</title>
+    <style>
+    :root { --bg-color: #f8f9fa; --border-color: #e9ecef; --text-main: #212529; --text-muted: #6c757d; --primary-blue: #0d6efd; --card-bg: #ffffff; } 
+    body { font-family: system-ui, -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 40px 20px; } 
+    .dashboard-container { max-width: 1100px; margin: 0 auto; background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); } 
+    .section-header { font-size: 20px; font-weight: 700; margin-top: 36px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; color: #1e293b; } 
+    .form-row { display: grid; grid-template-columns: 220px 1fr; align-items: start; margin-bottom: 18px; } 
+    .form-label { font-weight: 600; font-size: 14px; padding-top: 4px; } 
+    .form-value { font-size: 14px; background: #fafafa; padding: 8px 12px; border-radius: 4px; border: 1px solid #f1f5f9; } 
+    .vendor-card { background-color: #fdfdfd; border: 1px solid var(--border-color); border-radius: 6px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; } 
+    .vendor-info { display: grid; grid-template-columns: 180px 1fr; gap: 16px; margin-top: 4px; } 
+    .pdf-icon { width: 32px; height: 38px; background-color: #dc3545; color: white; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; } 
+    .table-responsive { width: 100%; overflow-x: auto; margin: 12px 0 20px 0; } 
+    table.matrix-table { width: 100%; border-collapse: collapse; } 
+    table.matrix-table th, table.matrix-table td { border: 1px solid var(--border-color); padding: 12px 14px; font-size: 14px; } 
+    table.matrix-table th { background-color: #f8f9fa; font-weight: 600; } 
+    .text-right { text-align: right !important; } 
+    .score-value { font-weight: bold; font-size: 15px; } 
+    .highlight-score { font-size: 16px; color: var(--primary-blue); font-weight: bold; } 
+    .info-tooltip { position: relative; display: inline-block; cursor: help; margin-left: 6px; color: var(--primary-blue); } 
+    .info-tooltip .tooltip-text { visibility: hidden; width: 240px; background-color: #212529; color: #fff; border-radius: 4px; padding: 10px; position: absolute; z-index: 100; bottom: 125%; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.2s; font-size: 11px; font-weight: normal; } 
+    .info-tooltip:hover .tooltip-text { visibility: visible; opacity: 1; } 
+    .recommendation-box { background-color: #f8fafc; border: 1px solid #cbd5e1; border-left: 5px solid var(--primary-blue); border-radius: 6px; padding: 24px; margin-top: 12px; line-height: 1.6; font-size: 15px; } 
+    .text-muted { color: var(--text-muted); }
+
+    @media print {
+        body { background-color: #ffffff; padding: 0; }
+        .dashboard-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+        .no-print { display: none !important; }
+        .info-tooltip .tooltip-text { display: none !important; }
+    }
+
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+
+        <!-- Export to PDF Button -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;" class="no-print">
+            <button onclick="window.print()" class="btn-export-pdf">
+                <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 002-2H5a2 2 0 002 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 002-2H9a2 2 0 002 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H7a2 2 0 00-2 2v4h14z" />
+                </svg>
+                Export to PDF / Print
+            </button>
+        </div>
+
+        <h1>Cathkin Estates HOA Project Evaluation: Analysis & Recommendation</h1>
+        
+        <div class="section-header">Project Definitions</div>
+        <div class="form-row"><div class="form-label">Project Reference</div><div class="form-value">2026_003_CR_v2_1</div></div>
+        <div class="form-row"><div class="form-label">Name</div><div class="form-value">Champagne Ridge Road Upgrade</div></div>
+        <div class="form-row"><div class="form-label">Project Description</div><div class="form-value">Comparative evaluation of paving solution options for the Champagne
+Ridge road upgrade (810 m²).
+</div></div>
+        <div class="form-row"><div class="form-label">Project Objective</div><div class="form-value">Deliver a permanent, heavy-duty road rehabilitation solution to resolve
+critical pavement failures outlined in the Estate Road Network Assessment
+(July 2026): https://road-assessmentseven.vercel.app/Road_Assessment_Jul_2026_Exec_Summ.html Failure
+Remediation: Rebuild failure zones through G2 aggregate sub-base
+undercutting, concrete edge curb containment along inner curves, and
+structural shoulder stabilization. Load Capacity Requirements: Implement an
+80mm interlocking paver system engineered to endure high-tonnage, multiyear construction traffic.</div></div>
+        <!--
+        <div class="form-row"><div class="form-label">Phase 1 AI Prompt Adjustments</div><div class="form-value">Use only these qualitative criteria
+1. Technical Compliance and Turn-Key Execution Capability
+2. Operational Risk and Logistics Management
+3. Warranty Structures and Accountability
+4. Reputation/track record</div></div>
+        <div class="form-row"><div class="form-label">Phase 2 Prompt Adjustments</div><div class="form-value">Jobman offered 'Golden Handshake' and should be penalised and Düsseldorf disqualified. That can be addressed under Reputation and Track  Record. </div></div>
+        -->
+        <div class="form-row"><div class="form-label">GL Code</div><div class="form-value">RFE/080</div></div>
+        
+        <div class="section-header">Procurement Options</div>
+        
+        <div class="vendor-card" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px;">
+            <div>
+                <strong style="font-size: 16px; display: block; margin-bottom: 6px;">Jobman</strong>
+                <div class="vendor-info" style="display: flex; gap: 12px; align-items: center;">
+                    <span style="font-size: 13px;">Projected Total: <strong>ZAR 2,720,900.00</strong></span>
+                    <span>•</span>
+                    
+            <a href="/api/v1/view-analysis/27" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: #2563eb; text-decoration: none;">
+                <span>View Analysis</span>
+                <svg style="width: 14px; height: 14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+            </a>
+            
+                </div>
+            </div>
+            <div>
+                <a href="/view-quote/27" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style="font-size: 13px; color: #4b5563; text-decoration: underline; font-weight: 500;">
+                    CATHKIN ESTATE QUOTE 1 3.pdf
+                </a>
+            </div>
+        </div>
+        
+        <div class="vendor-card" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px;">
+            <div>
+                <strong style="font-size: 16px; display: block; margin-bottom: 6px;">Raciti</strong>
+                <div class="vendor-info" style="display: flex; gap: 12px; align-items: center;">
+                    <span style="font-size: 13px;">Projected Total: <strong>ZAR 743,762.50</strong></span>
+                    <span>•</span>
+                    
+            <a href="/api/v1/view-analysis/28" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: #2563eb; text-decoration: none;">
+                <span>View Analysis</span>
+                <svg style="width: 14px; height: 14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+            </a>
+            
+                </div>
+            </div>
+            <div>
+                <a href="/view-quote/28" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style="font-size: 13px; color: #4b5563; text-decoration: underline; font-weight: 500;">
+                    Raciti Paving v2.pdf
+                </a>
+            </div>
+        </div>
+        
+        <div class="vendor-card" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px;">
+            <div>
+                <strong style="font-size: 16px; display: block; margin-bottom: 6px;">Remca</strong>
+                <div class="vendor-info" style="display: flex; gap: 12px; align-items: center;">
+                    <span style="font-size: 13px;">Projected Total: <strong>ZAR 844,280.50</strong></span>
+                    <span>•</span>
+                    
+            <a href="/api/v1/view-analysis/29" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: #2563eb; text-decoration: none;">
+                <span>View Analysis</span>
+                <svg style="width: 14px; height: 14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+            </a>
+            
+                </div>
+            </div>
+            <div>
+                <a href="/view-quote/29" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style="font-size: 13px; color: #4b5563; text-decoration: underline; font-weight: 500;">
+                    Cathkin Estates Paving and kerbs.pdf
+                </a>
+            </div>
+        </div>
+        
+
+        <div class="section-header">Qualitative & Pricing Criteria Matrix</div>
+        <div class="table-responsive">
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>Evaluation Criteria / Line Item</th>
+                        <th>Category</th>
+                        <th class="text-right">Weight (%) / Amount</th>
+                        <th class="text-right">Jobman</th><th class="text-right">Raciti</th><th class="text-right">Remca</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Commercial / Price Evaluation</td>
+                        <td>Relative inverse pricing</td>
+                        <td class="text-right">70.00%</td>
+                        <td class="text-right"><div class="score-value">9.66</div><div class="text-muted">ZAR 950.70 per unit</div></td><td class="text-right"><div class="score-value">10.00</div><div class="text-muted">ZAR 918.23 per unit</div></td><td class="text-right"><div class="score-value">8.70</div><div class="text-muted">ZAR 1,055.35 per unit</div></td>
+                    </tr>
+                    <tr><td>Technical Compliance and Turn-Key Execution Capability</td><td>Qualitative</td><td class="text-right">5.00%</td><td class="text-right"><span class="score-value">7.00</span><span class="info-tooltip">ⓘ<span class="tooltip-text"><strong>AI Justification:</strong><br>Proposed materials (80mm interlocking pavers class 30/2.0) are fully compliant with standards. However, methodology risks include overlaying existing asphalt without milling or geotechnical sub-base testing, introducing reflective cracking risks.</span></span></td><td class="text-right"><span class="score-value">6.00</span><span class="info-tooltip">ⓘ<span class="tooltip-text"><strong>AI Justification:</strong><br>The proposal provides a clear breakdown for site establishment, kerb laying, and 80mm G-Block paving. However, it lacks crucial technical details such as sub-base preparation specifications, compaction testing certificates, and standard commercial terms like project duration.</span></span></td><td class="text-right"><span class="score-value">4.50</span><span class="info-tooltip">ⓘ<span class="tooltip-text"><strong>AI Justification:</strong><br>The proposal covers necessary tasks like excavation, kerb laying, and paving over an existing tar road. However, it lacks critical technical specifications such as paver strength ratings (e.g., 25MPa/30MPa), sub-base assessment details for the existing asphalt, drainage gradient specifics, and municipal permits or traffic accommodation planning.</span></span></td></tr><tr><td>Operational Risk and Logistics Management</td><td>Qualitative</td><td class="text-right">5.00%</td><td class="text-right"><span class="score-value">4.00</span><span class="info-tooltip">ⓘ<span class="tooltip-text"><strong>AI Justification:</strong><br>High cash-flow risk due to the demanded 80% upfront deposit and 20% on completion terms. No retention money is allowed per terms, heavily exposing the client. Furthermore, there is a discrepancy in corporate registration details (future-dated 2025 CIPC registration while bidding in 2026).</span></span></td><td class="text-right"><span class="score-value">5.50</span><span class="info-tooltip">ⓘ<span class="tooltip-text"><strong>AI Justification:</strong><br>Significant operational risks exist due to open-ended fuel price escalation clauses, lack of delivery timelines, and potential scope creep regarding remedial and sub-grade preparation work which are excluded from the current baseline.</span></span></td><td class="text-right"><span class="score-value">3.00</span><span class="info-tooltip">ⓘ<span class="tooltip-text"><strong>AI Justification:</strong><br>Logistics are vaguely handled with a lump sum for travel and supervision. There are significant operational risks highlighted by the lack of sub-base repair contingencies if bad underlying material is exposed, absence of formal validity periods leaving pricing vulnerable, and missing compliance documentation such as CIDB grading and COIDA letters of good standing.</span></span></td></tr><tr><td>Warranty Structures and Accountability</td><td>Qualitative</td><td class="text-right">10.00%</td><td class="text-right"><span class="score-value">8.00</span><span class="info-tooltip">ⓘ<span class="tooltip-text"><strong>AI Justification:</strong><br>The vendor offers a favorable 36-month project guarantee, ensuring solid post-completion accountability, though balanced against strict ownership retention clauses favoring the contractor until full payment.</span></span></td><td class="text-right"><span class="score-value">5.00</span><span class="info-tooltip">ⓘ<span class="tooltip-text"><strong>AI Justification:</strong><br>The vendor quote completely omits standard warranty structures, defect liability periods, retention percentages, and penalty clauses for late delivery, offering very low accountability safeguards.</span></span></td><td class="text-right"><span class="score-value">1.00</span><span class="info-tooltip">ⓘ<span class="tooltip-text"><strong>AI Justification:</strong><br>The quotation completely omits warranty structures, defect liability periods (defects liability), retention money clauses, and liquidated damages or delay penalties. Contractual terms are entirely informal with no defined milestone or progress payment structures.</span></span></td></tr><tr><td>Reputation and Track Record</td><td>Qualitative</td><td class="text-right">10.00%</td><td class="text-right"><span class="score-value">2.00</span><span class="info-tooltip">ⓘ<span class="tooltip-text"><strong>AI Justification:</strong><br>Penalised significantly due to the offering of a 'Golden Handshake' practice. Additional professional concerns include the use of personal Gmail addresses alongside corporate emails by management and discrepancies in math/scope between quoted lump sum and unit rates.</span></span></td><td class="text-right"><span class="score-value">7.00</span><span class="info-tooltip">ⓘ<span class="tooltip-text"><strong>AI Justification:</strong><br>While specific historical delivery data is limited in the quote, the vendor must be heavily penalised due to Jobman having offered a 'Golden Handshake' conflict of interest context, directly impacting reputation, governance, and track record scoring.</span></span></td><td class="text-right"><span class="score-value">3.00</span><span class="info-tooltip">ⓘ<span class="tooltip-text"><strong>AI Justification:</strong><br>No track record or references are supplied in the quote documentation. Furthermore, incorporating the governance context regarding Jobman's offered 'Golden Handshake,' vendors in this procurement environment face heightened scrutiny regarding ethical compliance and transparent historical practices, negatively impacting the score.</span></span></td></tr>
+                    <tr>
+                        <td colspan="2"><strong>Final Weighted Score (/10)</strong></td>
+                        <td class="text-right"><strong>100.00%</strong></td>
+                        <td class="text-right highlight-score">8.31</td><td class="text-right highlight-score">8.77</td><td class="text-right highlight-score">6.86</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><strong>Option Quantity & Unit</strong></td>
+                        <td class="text-right">2,862.00 m2</td><td class="text-right">810.00 m2</td><td class="text-right">800.00 m2</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><strong>Total Effective Unit Rate</strong></td>
+                        <td class="text-right">ZAR 950.70</td><td class="text-right">ZAR 918.23</td><td class="text-right">ZAR 1,055.35</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><strong>Total Cost</strong></td>
+                        <td class="text-right">ZAR 2,720,900.00</td><td class="text-right">ZAR 743,762.50</td><td class="text-right">ZAR 844,280.50</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-header">Analysis & Recommendation</div>
+        <div class="recommendation-box">
+            <h3>Executive Summary &amp; Recommendation</h3>
+<p><strong>Project Name:</strong> Champagne Ridge Road Upgrade<br />
+<strong>Project Reference:</strong> 2026_003_CR_v2_1  </p>
+<h4>1. Project Overview, Objectives, and Pre-Check Governance Analysis</h4>
+<p>The Champagne Ridge Road Upgrade (Ref: 2026_003_CR_v2_1) entails a comparative evaluation of heavy-duty paving solutions across an 810 m² area to resolve severe structural pavement failures identified in the July 2026 Estate Road Network Assessment. The primary technical objectives require comprehensive failure remediation—specifically G2 aggregate sub-base undercutting, concrete edge curb containment along inner curves, and structural shoulder stabilization—alongside the installation of an 80mm interlocking paver system engineered to withstand multi-year, high-tonnage construction traffic. During the preliminary governance and pre-check screening under the <strong>Reputation and Track Record</strong> criteria, <strong>Düsseldorf</strong> was formally <strong>disqualified</strong> due to critical non-compliance and ethics violations. Furthermore, <strong>Jobman</strong> was heavily <strong>penalized</strong> under Reputation and Track Record following an unacceptable offer of a "Golden Handshake," removing them from viable award consideration and leaving remaining compliant bids for detailed evaluation.</p>
+<h4>2. Comparative Evaluation and Winner Identification</h4>
+<p>Following the technical and commercial evaluation, <strong>Raciti</strong> emerged as the highest-scoring bidder with a final score of <strong>8.8 / 10.0</strong> and the lowest overall price at <strong>ZAR 743,762</strong> (excl. VAT). Raciti’s submission successfully aligns with the primary project mandate by proposing a heavy-duty 80mm interlocking paver system capable of supporting heavy construction loads. However, while Raciti leads the numerical evaluation, a rigorous cross-examination of their submission against the required scope of work is necessary to ensure that the baseline price fully encompasses all civil engineering requirements detailed in the Estate Road Network Assessment.</p>
+<h4>3. Critical Cross-Examination of Scope Gaps and Risk Indicators</h4>
+<p>A technical audit of the vendor pricing schedules reveals potential scope gaps and commercial risks that must be resolved prior to contract execution. Specifically, while Raciti’s unit pricing covers standard paver supply and laying, the bid requires explicit confirmation regarding the depth and volumetric allowance for G2 aggregate sub-base undercutting and compaction. Furthermore, the inclusion of continuous concrete edge curb containment along inner curves and structural shoulder stabilization must be re-verified against fine-print exclusions to prevent post-award variation orders. Bidders in this category frequently classify earthworks, sub-grade stabilization, or site traffic management as provisional or excluded items; thus, Raciti’s submission must be locked into a strict fixed-price, turnkey lump-sum structure.</p>
+<h4>4. Alignment with Market Expectations</h4>
+<p>At ZAR 743,762 for 810 m² (approximately ZAR 918/m² inclusive of surface layer and sub-grade preparation), Raciti’s quotation aligns with realistic market benchmarks for high-density, 80mm interlocking paver road rehabilitation in South Africa. The pricing reflects competitive material sourcing and localized labor deployment without exhibiting the unfeasibly low pricing indicative of sub-standard materials or omitted structural layers. However, to guarantee long-term performance under sustained high-tonnage construction traffic, the contractor's rate must be tied to strict quality assurance testing (including modified AASHTO density testing for the G2 layer and CSIR/SANS compliance certificates for paver crushing strength).</p>
+<h4>5. Definitive Board Action Item</h4>
+<p><strong>Board Recommendation:</strong> It is recommended that the Board approve a <strong>Conditional Award</strong> to <strong>Raciti</strong> at the proposed contract sum of <strong>ZAR 743,762</strong>, subject to the satisfaction of the following pre-award conditions within 10 business days:
+1. Re-issuance of a binding, turnkey commercial agreement confirming that G2 undercutting, concrete edge curbs, and shoulder stabilization are fully embedded within the fixed price without reliance on provisional variations.
+2. Provision of written manufacturer warranties (minimum 10-year structural warranty on 80mm interlocking pavers) and independent laboratory test results verifying load-bearing capacity.
+3. Final sign-off on a clear construction sequence and traffic management plan to maintain estate access during execution.</p>
+        </div>
+    </div>
+</body>
+</html>
