@@ -1,37 +1,32 @@
-import { NeonHTTPPool } from '@neondatabase/serverless';
+// api/submit-review.js
+import { Pool } from '@neondatabase/serverless';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
+    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
     try {
         const {
-            engineer_name = '',
-            company_name = '',
-            email = '',
-            phone = '',
-            ecsa_number = '',
-            review_date = null,
-            question_responses = {},
-            general_feedback = '',
-            status = 'submitted' // Accepts 'draft' or 'submitted'
+            engineer_name,
+            company_name,
+            email,
+            phone,
+            ecsa_number,
+            review_date,
+            general_feedback,
+            question_responses,
+            status
         } = req.body;
 
-        // Validation: Required fields only enforced on final submission
-        if (status === 'submitted') {
-            if (!engineer_name.trim() || !email.trim()) {
-                return res.status(400).json({ 
-                    error: 'Engineer Name and Email are required for final submission.' 
-                });
-            }
+        // Validation for NOT NULL fields in schema
+        if (!engineer_name || !email) {
+            return res.status(400).json({ error: 'Engineer name and email are required.' });
         }
 
-        // Initialize Neon HTTP connection pool
-        const sql = NeonHTTPPool(process.env.DATABASE_URL);
-
-        // Insert submission record into Neon PostgreSQL
-        const result = await sql`
+        const query = `
             INSERT INTO engineering_reviews (
                 engineer_name, 
                 company_name, 
@@ -40,36 +35,39 @@ export default async function handler(req, res) {
                 ecsa_number, 
                 review_date, 
                 question_responses, 
-                general_feedback,
-                status
-            ) VALUES (
-                ${engineer_name.trim() || null}, 
-                ${company_name.trim() || null}, 
-                ${email.trim() || null}, 
-                ${phone.trim() || null}, 
-                ${ecsa_number.trim() || null}, 
-                ${review_date || null}, 
-                ${JSON.stringify(question_responses)}, 
-                ${general_feedback.trim() || null},
-                ${status}
-            )
-            RETURNING id, status, submitted_at;
+                general_feedback, 
+                status, 
+                submitted_at
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7::jsonb, $8, $9, CURRENT_TIMESTAMP)
+            RETURNING id;
         `;
 
-        const isDraft = status === 'draft';
+        const values = [
+            engineer_name,
+            company_name || null,
+            email,
+            phone || null,
+            ecsa_number || null,
+            review_date || null,
+            JSON.stringify(question_responses || {}),
+            general_feedback || null,
+            status || 'submitted'
+        ];
+
+        const result = await pool.query(query, values);
+
         return res.status(200).json({
             success: true,
-            message: isDraft 
-                ? 'Draft review saved successfully!' 
-                : 'Engineering review submitted successfully!',
-            submission_id: result[0].id,
-            status: result[0].status
+            id: result.rows[0].id,
+            message: status === 'draft' ? 'Draft saved successfully' : 'Review submitted successfully'
         });
 
     } catch (error) {
-        console.error('Database query execution error:', error);
+        console.error('Neon Database Execution Error:', error);
         return res.status(500).json({ 
-            error: 'Failed to process database entry. Please try again.' 
+            error: error.message || 'Database query failed' 
         });
+    } finally {
+        await pool.end();
     }
 }
