@@ -669,13 +669,13 @@ function getFormData() {
     });
 
     return {
-        engineer_name: document.getElementById('eng-name').value.trim(),
-        company_name: document.getElementById('eng-company').value.trim(),
-        email: document.getElementById('eng-email').value.trim(),
-        phone: document.getElementById('eng-phone').value.trim(),
-        ecsa_number: document.getElementById('eng-ecsa').value.trim(),
-        review_date: document.getElementById('review-date').value,
-        general_feedback: document.getElementById('general-feedback').value.trim(),
+        engineer_name: document.getElementById('eng-name')?.value.trim() || '',
+        company_name: document.getElementById('eng-company')?.value.trim() || '',
+        email: document.getElementById('eng-email')?.value.trim() || '',
+        phone: document.getElementById('eng-phone')?.value.trim() || '',
+        ecsa_number: document.getElementById('eng-ecsa')?.value.trim() || '',
+        review_date: document.getElementById('review-date')?.value || '',
+        general_feedback: document.getElementById('general-feedback')?.value.trim() || '',
         question_responses: questionResponses
     };
 }
@@ -684,11 +684,20 @@ function getFormData() {
 async function sendPayload(payload, statusType) {
     payload.status = statusType;
 
+    // Use absolute URL path to resolve correctly from subfolders
     const response = await fetch('/api/submit-review', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
     });
+
+    // Check if response is valid JSON before parsing to avoid Unexpected token '<'
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+        const textError = await response.text();
+        console.error('Server returned non-JSON response:', textError);
+        throw new Error(`API Route Not Found (HTTP ${response.status}). Ensure submit-review.js is in /api/ at root.`);
+    }
 
     const result = await response.json();
     if (!response.ok) {
@@ -722,15 +731,12 @@ function restoreLocalDraft() {
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Restore saved progress when page loads/refreshes
     restoreLocalDraft();
 
-    // 2. Auto-save typing changes locally
     document.querySelectorAll('#reviewForm input, #reviewForm textarea').forEach(input => {
         input.addEventListener('input', saveLocalDraft);
     });
 
-    // 3. Save Draft Button Click Handler
     const saveDraftBtn = document.getElementById('saveDraftBtn');
     if (saveDraftBtn) {
         saveDraftBtn.addEventListener('click', async () => {
@@ -760,7 +766,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Final Submit Form Handler
     const reviewForm = document.getElementById('reviewForm');
     if (reviewForm) {
         reviewForm.addEventListener('submit', async (e) => {
@@ -785,7 +790,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 if (submitBtn) submitBtn.innerText = 'Submitted';
 
-                // Clear local storage draft after successful final submission
                 localStorage.removeItem(DRAFT_KEY);
             } catch (err) {
                 if (statusMsg) {
