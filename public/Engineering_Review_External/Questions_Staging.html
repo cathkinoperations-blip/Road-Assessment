@@ -635,15 +635,7 @@
                 <label for="general-feedback">Overall Engineering Assessment & General Executive Comments</label>
                 <textarea id="general-feedback" name="general-feedback" placeholder="Provide overall summary comments, macro risks, scope adjustments, or additional recommendations for the Cathkin Estates HOA Operations Committee..."></textarea>
             </div>
-            
-            
-            <div class="button-group" style="display: flex; gap: 12px; margin-top: 16px;">
-                <button type="button" id="saveDraftBtn" class="draft-btn">Save Draft</button>
-                <button type="submit" id="submitBtn" class="submit-btn">Submit Final Review</button>
-            </div>
         </div>
-
-        
 
         <!-- FOOTER -->
         <div class="footer">
@@ -651,62 +643,6 @@
         </div>
 
     </div>
-
-<script>
-document.getElementById('reviewForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const submitBtn = document.getElementById('submitBtn');
-    const statusMsg = document.getElementById('statusMessage');
-    
-    submitBtn.disabled = true;
-    submitBtn.innerText = 'Submitting...';
-    statusMsg.innerText = '';
-
-    // Collect all question feedback textareas
-    const questionResponses = {};
-    document.querySelectorAll('.feedback-box textarea').forEach(textarea => {
-        if (textarea.value.trim() !== '') {
-            questionResponses[textarea.id] = textarea.value.trim();
-        }
-    });
-
-    // Build payload
-    const payload = {
-        engineer_name: document.getElementById('eng-name').value.trim(),
-        company_name: document.getElementById('eng-company').value.trim(),
-        email: document.getElementById('eng-email').value.trim(),
-        phone: document.getElementById('eng-phone').value.trim(),
-        ecsa_number: document.getElementById('eng-ecsa').value.trim(),
-        review_date: document.getElementById('review-date').value,
-        general_feedback: document.getElementById('general-feedback').value.trim(),
-        question_responses: questionResponses
-    };
-
-    try {
-        const response = await fetch('/api/submit-review', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-            statusMsg.style.color = '#15803d';
-            statusMsg.innerText = 'Review submitted and saved successfully!';
-            submitBtn.innerText = 'Submitted';
-        } else {
-            throw new Error(result.error || 'Submission failed');
-        }
-    } catch (err) {
-        statusMsg.style.color = '#b91c1c';
-        statusMsg.innerText = 'Error: ' + err.message;
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Submit Engineering Review';
-    }
-});
-</script>
 
 </body>
 </html>
