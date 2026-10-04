@@ -297,7 +297,7 @@
     </style>
 </head>
 <body>
-
+<form id="reviewForm">
     <div class="container">
 
         <!-- HEADER -->
@@ -638,10 +638,14 @@
             
             
             <div class="button-group" style="display: flex; gap: 12px; margin-top: 16px;">
-                <button type="button" id="saveDraftBtn" class="draft-btn">Save Draft</button>
-                <button type="submit" id="submitBtn" class="submit-btn">Submit Final Review</button>
-            </div>
+          <button type="button" id="saveDraftBtn" class="draft-btn">Save Draft</button>
+          <button type="submit" id="submitBtn" class="submit-btn">Submit Final Review</button>
         </div>
+        <div id="statusMessage" class="status-msg" style="margin-top: 10px; font-weight: 600;"></div>
+      </div>
+
+    </div>
+  </form>
 
         
 
@@ -653,17 +657,10 @@
     </div>
 
 <script>
-document.getElementById('reviewForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
+const DRAFT_KEY = 'cathkin_engineer_review_draft';
 
-    const submitBtn = document.getElementById('submitBtn');
-    const statusMsg = document.getElementById('statusMessage');
-    
-    submitBtn.disabled = true;
-    submitBtn.innerText = 'Submitting...';
-    statusMsg.innerText = '';
-
-    // Collect all question feedback textareas
+// Helper: Collect all form input values
+function getFormData() {
     const questionResponses = {};
     document.querySelectorAll('.feedback-box textarea').forEach(textarea => {
         if (textarea.value.trim() !== '') {
@@ -671,8 +668,7 @@ document.getElementById('reviewForm').addEventListener('submit', async function(
         }
     });
 
-    // Build payload
-    const payload = {
+    return {
         engineer_name: document.getElementById('eng-name').value.trim(),
         company_name: document.getElementById('eng-company').value.trim(),
         email: document.getElementById('eng-email').value.trim(),
@@ -682,28 +678,126 @@ document.getElementById('reviewForm').addEventListener('submit', async function(
         general_feedback: document.getElementById('general-feedback').value.trim(),
         question_responses: questionResponses
     };
+}
 
+// Helper: Post payload to Vercel/Neon API endpoint
+async function sendPayload(payload, statusType) {
+    payload.status = statusType;
+
+    const response = await fetch('/api/submit-review', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    if (!response.ok) {
+        throw new Error(result.error || 'Request failed');
+    }
+    return result;
+}
+
+// Local Storage auto-save on typing (prevents loss on page refresh)
+function saveLocalDraft() {
+    const inputs = {};
+    document.querySelectorAll('#reviewForm input, #reviewForm textarea').forEach(el => {
+        if (el.id) inputs[el.id] = el.value;
+    });
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(inputs));
+}
+
+function restoreLocalDraft() {
+    const saved = localStorage.getItem(DRAFT_KEY);
+    if (!saved) return;
     try {
-        const response = await fetch('/api/submit-review', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+        const inputs = JSON.parse(saved);
+        Object.keys(inputs).forEach(id => {
+            const field = document.getElementById(id);
+            if (field) field.value = inputs[id];
         });
+    } catch (e) {
+        console.error('Failed to restore local draft:', e);
+    }
+}
 
-        const result = await response.json();
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Restore saved progress when page loads/refreshes
+    restoreLocalDraft();
 
-        if (response.ok) {
-            statusMsg.style.color = '#15803d';
-            statusMsg.innerText = 'Review submitted and saved successfully!';
-            submitBtn.innerText = 'Submitted';
-        } else {
-            throw new Error(result.error || 'Submission failed');
-        }
-    } catch (err) {
-        statusMsg.style.color = '#b91c1c';
-        statusMsg.innerText = 'Error: ' + err.message;
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Submit Engineering Review';
+    // 2. Auto-save typing changes locally
+    document.querySelectorAll('#reviewForm input, #reviewForm textarea').forEach(input => {
+        input.addEventListener('input', saveLocalDraft);
+    });
+
+    // 3. Save Draft Button Click Handler
+    const saveDraftBtn = document.getElementById('saveDraftBtn');
+    if (saveDraftBtn) {
+        saveDraftBtn.addEventListener('click', async () => {
+            const statusMsg = document.getElementById('statusMessage');
+
+            saveDraftBtn.disabled = true;
+            saveDraftBtn.innerText = 'Saving...';
+            if (statusMsg) statusMsg.innerText = '';
+
+            try {
+                const payload = getFormData();
+                await sendPayload(payload, 'draft');
+                
+                if (statusMsg) {
+                    statusMsg.style.color = '#0284c7';
+                    statusMsg.innerText = 'Draft saved successfully to database!';
+                }
+            } catch (err) {
+                if (statusMsg) {
+                    statusMsg.style.color = '#b91c1c';
+                    statusMsg.innerText = 'Draft Error: ' + err.message;
+                }
+            } finally {
+                saveDraftBtn.disabled = false;
+                saveDraftBtn.innerText = 'Save Draft';
+            }
+        });
+    }
+
+    // 4. Final Submit Form Handler
+    const reviewForm = document.getElementById('reviewForm');
+    if (reviewForm) {
+        reviewForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusMsg = document.getElementById('statusMessage');
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'Submitting...';
+            }
+            if (statusMsg) statusMsg.innerText = '';
+
+            try {
+                const payload = getFormData();
+                await sendPayload(payload, 'submitted');
+
+                if (statusMsg) {
+                    statusMsg.style.color = '#15803d';
+                    statusMsg.innerText = 'Review submitted successfully!';
+                }
+                if (submitBtn) submitBtn.innerText = 'Submitted';
+
+                // Clear local storage draft after successful final submission
+                localStorage.removeItem(DRAFT_KEY);
+            } catch (err) {
+                if (statusMsg) {
+                    statusMsg.style.color = '#b91c1c';
+                    statusMsg.innerText = 'Submission Error: ' + err.message;
+                }
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'Submit Final Review';
+                }
+            }
+        });
     }
 });
 </script>
