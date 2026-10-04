@@ -21,11 +21,6 @@ export default async function handler(req, res) {
             status
         } = req.body;
 
-        // Validation for NOT NULL fields in schema
-        if (!engineer_name || !email) {
-            return res.status(400).json({ error: 'Engineer name and email are required.' });
-        }
-
         const query = `
             INSERT INTO engineering_reviews (
                 engineer_name, 
@@ -43,15 +38,15 @@ export default async function handler(req, res) {
         `;
 
         const values = [
-            engineer_name,
+            engineer_name || 'Anonymous / Unspecified', // Satisfies NOT NULL schema constraint on engineer_name
             company_name || null,
-            email,
+            email || 'unspecified@cathkin.local',      // Satisfies NOT NULL schema constraint on email
             phone || null,
             ecsa_number || null,
             review_date || null,
-            JSON.stringify(question_responses || {}),
+            JSON.stringify(question_responses || {}),     // Satisfies NOT NULL schema constraint on question_responses
             general_feedback || null,
-            status || 'submitted'
+            status || 'draft'
         ];
 
         const result = await pool.query(query, values);
