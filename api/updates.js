@@ -4,7 +4,7 @@ const sql = neon(process.env.DATABASE_URL);
 
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     if (req.method === 'OPTIONS') {
@@ -59,6 +59,17 @@ export default async function handler(req, res) {
             `;
 
             return res.status(200).json(result[0]);
+        }
+
+        if (req.method === 'DELETE') {
+            const { id } = req.body;
+
+            if (!id) {
+                return res.status(400).json({ error: 'Missing update id for deletion' });
+            }
+
+            await sql`DELETE FROM location_updates WHERE id = ${id};`;
+            return res.status(200).json({ success: true });
         }
 
         return res.status(405).json({ error: 'Method not allowed' });
