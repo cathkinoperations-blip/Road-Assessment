@@ -263,25 +263,29 @@
                 if (loc.updates && loc.updates.length > 0) {
                     loc.updates.forEach(u => {
                         updatesHtml += `
-                            <div class="update-card" id="update-card-${u.id}">
-                                <div class="update-header-row">
-                                    <div class="update-date">📅 ${u.update_date}</div>
-                                    <button class="edit-btn" onclick="openEditForm(${u.id}, ${loc.id})">✏️ Edit</button>
-                                </div>
-                                <div id="update-text-${u.id}">${u.notes}</div>
-                                ${u.attachment_url ? `<div style="margin-top:6px;"><a href="${u.attachment_url}" target="_blank"><img src="${u.attachment_url}" style="max-height:120px; border-radius:4px; border:1px solid #e2e8f0;" /></a></div>` : ''}
-                                
-                                <!-- Inline Edit Form -->
-                                <div id="edit-form-${u.id}" class="update-form">
-                                    <h5 style="margin: 0 0 6px 0; color: #1e293b;">Edit Progress Update</h5>
-                                    <input type="date" id="edit-date-${u.id}" value="${u.update_date}">
-                                    <textarea id="edit-notes-${u.id}" rows="2">${u.notes}</textarea>
-                                    <label style="font-size:0.75rem; color:#64748b; display:block; margin-bottom:4px;">Replace Image / Attachment (optional):</label>
-                                    <input type="file" id="edit-file-${u.id}" accept="image/*">
-                                    <button class="btn-success" onclick="saveEdit(${u.id}, ${loc.id})">Save Changes</button>
-                                </div>
-                            </div>
-                        `;
+      <div class="update-card" id="update-card-${u.id}">
+        <div class="update-header-row">
+            <div class="update-date">📅 ${u.update_date}</div>
+            <div style="display: flex; gap: 4px;">
+                <button class="edit-btn" onclick="openEditForm(${u.id})">✏️ Edit</button>
+                <button class="edit-btn" style="color: #dc2626; border-color: #fca5a5;" onclick="deleteUpdate(${u.id})">🗑️ Delete</button>
+            </div>
+        </div>
+        <div id="update-text-${u.id}">${u.notes}</div>
+        ${u.attachment_url ? `<div style="margin-top:6px;"><a href="${u.attachment_url}" target="_blank"><img src="${u.attachment_url}" style="max-height:120px; border-radius:4px; border:1px solid #e2e8f0;" /></a></div>` : ''}
+        
+        <!-- Inline Edit Form -->
+        <div id="edit-form-${u.id}" class="update-form">
+            <h5 style="margin: 0 0 6px 0; color: #1e293b;">Edit Progress Update</h5>
+            <input type="date" id="edit-date-${u.id}" value="${u.update_date}">
+            <textarea id="edit-notes-${u.id}" rows="2">${u.notes}</textarea>
+            <label style="font-size:0.75rem; color:#64748b; display:block; margin-bottom:4px;">Replace Image / Attachment (optional):</label>
+            <input type="file" id="edit-file-${u.id}" accept="image/*">
+            <button class="btn-success" onclick="saveEdit(${u.id})">Save Changes</button>
+        </div>
+    </div>
+`;
+
                     });
                 } else {
                     updatesHtml = '<p style="font-size: 0.85rem; color: #94a3b8; font-style: italic;">No progress updates logged yet.</p>';
