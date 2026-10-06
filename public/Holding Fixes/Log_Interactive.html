@@ -406,6 +406,30 @@
             }
         }
 
+        async function deleteUpdate(updateId) {
+    if (!confirm('Are you sure you want to delete this update?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(API_ENDPOINT, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: updateId })
+        });
+
+        if (response.ok) {
+            fetchLogs(); // Refresh UI dynamically
+        } else {
+            alert('Failed to delete update.');
+        }
+    } catch (error) {
+        console.error('Error deleting update:', error);
+        alert('Network error while deleting update.');
+    }
+}
+
+
         fetchLogs();
     </script>
 </body>
