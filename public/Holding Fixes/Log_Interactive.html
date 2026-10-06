@@ -90,7 +90,6 @@
             font-weight: 500;
             border: 1px solid #fde68a;
         }
-        /* Updates Timeline Styling */
         .updates-container {
             margin-top: 12px;
             border-top: 1px dashed var(--border-color);
@@ -111,7 +110,6 @@
             font-size: 0.8rem;
             margin-bottom: 4px;
         }
-        /* Update Form Trigger & Modal/Box */
         .add-update-btn {
             background-color: var(--accent-color);
             color: white;
@@ -172,7 +170,7 @@
     </div>
 
     <script>
-        const API_ENDPOINT = '/api/updates'; // Replace with your full Vercel deployment URL if hosted separately
+        const API_ENDPOINT = '/api/updates';
 
         async function fetchLogs() {
             try {
@@ -190,6 +188,23 @@
             wrapper.innerHTML = '';
 
             locations.forEach(loc => {
+                let actionCardsHtml = '';
+                if (loc.action_items && loc.action_items.length > 0) {
+                    loc.action_items.forEach(item => {
+                        actionCardsHtml += `
+                            <div class="action-item-card">
+                                <a href="${item.photo_url}" target="_blank" title="Click to view full size">
+                                    <img src="${item.photo_url}" alt="${item.photo_url}">
+                                </a>
+                                <div class="action-item-content">
+                                    <div><span class="action-tag">${item.action_tag}</span></div>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                        `;
+                    });
+                }
+
                 let updatesHtml = '';
                 if (loc.updates && loc.updates.length > 0) {
                     loc.updates.forEach(u => {
@@ -215,13 +230,7 @@
                             </div>
                         </div>
                         
-                        <div class="action-item-card">
-                            ${loc.initial_photo_url ? `<a href="${loc.initial_photo_url}" target="_blank"><img src="${loc.initial_photo_url}" alt="Initial Photo"></a>` : ''}
-                            <div class="action-item-content">
-                                <div><span class="action-tag">${loc.initial_action_tag || 'Standard maintenance action'}</span></div>
-                            </div>
-                            <div style="clear: both;"></div>
-                        </div>
+                        ${actionCardsHtml}
 
                         <div class="updates-container">
                             <h4 style="margin: 0 0 8px 0; font-size: 0.95rem; color: var(--primary-color);">Progress Updates & Field Actions</h4>
@@ -264,7 +273,7 @@
                 });
 
                 if (response.ok) {
-                    fetchLogs(); // Refresh UI dynamically
+                    fetchLogs();
                 } else {
                     alert('Failed to save update.');
                 }
@@ -274,7 +283,6 @@
             }
         }
 
-        // Initial fetch on page load
         fetchLogs();
     </script>
 </body>
