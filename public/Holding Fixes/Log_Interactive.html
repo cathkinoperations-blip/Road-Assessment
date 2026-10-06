@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holding Fix Upgrade Photo & Action Log — Live Database</title>
+    <title>Holding Fix Upgrade Photo & Action Log</title>
     <style>
         :root {
             --primary-color: #1e293b;
@@ -12,45 +12,57 @@
             --card-bg: #ffffff;
             --border-color: #e2e8f0;
             --success-color: #10b981;
+            --warning-color: #f59e0b;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: #334155;
             margin: 0;
-            padding: 10px;
+            padding: 8px;
+            box-sizing: border-box;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
+        * { box-sizing: border-box; }
+        .container { max-width: 1200px; margin: 0 auto; width: 100%; }
+        
         .header-card {
             background-color: var(--primary-color);
             color: #ffffff;
-            padding: 20px;
+            padding: 16px;
             border-radius: 12px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 12px;
         }
-        .header-card h1 { margin: 0 0 8px 0; font-size: 1.5rem; color: #ffffff; }
-        .header-card p { margin: 0; color: #94a3b8; font-size: 0.9rem; }
+        .header-card h1 { margin: 0 0 6px 0; font-size: 1.25rem; color: #ffffff; line-height: 1.3; }
+        .header-card p { margin: 0; color: #94a3b8; font-size: 0.85rem; line-height: 1.4; }
+
         .section-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 12px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
         }
+        
+        /* Mobile-first layout for location titles and badges */
         .section-title {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--primary-color);
             margin-top: 0;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 8px;
             display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 8px;
+        }
+        .title-top-row {
+            display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
+            width: 100%;
         }
         .location-badge {
             font-size: 0.75rem;
@@ -61,21 +73,24 @@
             border: 1px solid #bae6fd;
             text-decoration: none;
             font-weight: 600;
+            text-align: center;
+            display: block;
         }
         .location-badge:hover { background-color: #bae6fd; }
+
         .action-item-card {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             background-color: #f8fafc;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
+            padding: 10px;
+            margin-bottom: 8px;
         }
         .action-item-card img {
             width: 100%;
-            max-height: 220px;
+            max-height: 200px;
             object-fit: cover;
             border-radius: 6px;
             border: 1px solid var(--border-color);
@@ -84,74 +99,113 @@
             display: inline-block;
             background-color: #fef3c7;
             color: #92400e;
-            padding: 6px 10px;
+            padding: 6px 8px;
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
             border: 1px solid #fde68a;
+            line-height: 1.4;
         }
+
+        /* Updates Container */
         .updates-container {
-            margin-top: 12px;
+            margin-top: 10px;
             border-top: 1px dashed var(--border-color);
-            padding-top: 12px;
+            padding-top: 10px;
         }
         .update-card {
             background: #ffffff;
             border-left: 3px solid var(--accent-color);
-            padding: 8px 12px;
+            padding: 10px;
             margin-bottom: 8px;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 0.9rem;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .update-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
         }
         .update-date {
             font-weight: 600;
             color: var(--accent-color);
             font-size: 0.8rem;
-            margin-bottom: 4px;
         }
-        .add-update-btn {
+        .edit-btn {
+            background: none;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .edit-btn:hover { background-color: #f1f5f9; }
+
+        /* Buttons & Forms */
+        .btn-primary {
             background-color: var(--accent-color);
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 8px 12px;
             border-radius: 6px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             cursor: pointer;
             font-weight: 600;
+            width: 100%;
+            text-align: center;
         }
-        .add-update-btn:hover { background-color: #02699c; }
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+        }
         .update-form {
             display: none;
             background: #f1f5f9;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
-            margin-top: 10px;
+            margin-top: 8px;
             border: 1px solid var(--border-color);
         }
-        .update-form input, .update-form textarea {
+        .update-form input[type="date"],
+        .update-form textarea,
+        .update-form input[type="file"] {
             width: 100%;
             padding: 8px;
             margin-bottom: 8px;
             border: 1px solid var(--border-color);
             border-radius: 4px;
-            box-sizing: border-box;
             font-size: 0.9rem;
+            background: #fff;
         }
-        .update-form button {
-            background-color: var(--success-color);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .footer { text-align: center; font-size: 0.8rem; color: #94a3b8; margin-top: 30px; }
-        
+        .footer { text-align: center; font-size: 0.75rem; color: #94a3b8; margin-top: 20px; }
+
+        /* Tablet & Desktop Layout Enhancements */
         @media (min-width: 768px) {
-            body { padding: 20px; }
-            .action-item-card img { width: 150px; height: 110px; float: left; margin-right: 15px; }
+            body { padding: 16px; }
+            .header-card { padding: 24px; }
+            .header-card h1 { font-size: 1.75rem; }
+            .section-box { padding: 20px; }
+            .section-title {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .title-top-row { width: auto; }
+            .location-badge { width: auto; display: inline-block; }
+            .action-item-card { flex-direction: row; align-items: center; }
+            .action-item-card img { width: 140px; height: 100px; flex-shrink: 0; }
+            .btn-primary { width: auto; }
         }
     </style>
 </head>
@@ -159,7 +213,7 @@
     <div class="container">
         <div class="header-card">
             <h1>Holding Fix Upgrade Photo & Action Log</h1>
-            <p>Live field inspection database connected to Neon PostgreSQL & Vercel</p>
+            <p>Live field inspection records, progress updates, and mobile photo uploads</p>
         </div>
 
         <div id="locations-wrapper">
@@ -171,12 +225,13 @@
 
     <script>
         const API_ENDPOINT = '/api/updates';
+        let cachedLocations = [];
 
         async function fetchLogs() {
             try {
                 const response = await fetch(API_ENDPOINT);
-                const locations = await response.json();
-                renderUI(locations);
+                cachedLocations = await response.json();
+                renderUI(cachedLocations);
             } catch (error) {
                 console.error('Failed to load logs:', error);
                 document.getElementById('locations-wrapper').innerHTML = '<p style="color: red; text-align: center;">Failed to load data from database backend.</p>';
@@ -194,12 +249,11 @@
                         actionCardsHtml += `
                             <div class="action-item-card">
                                 <a href="${item.photo_url}" target="_blank" title="Click to view full size">
-                                    <img src="${item.photo_url}" alt="${item.photo_url}">
+                                    <img src="${item.photo_url}" alt="Action photo">
                                 </a>
                                 <div class="action-item-content">
-                                    <div><span class="action-tag">${item.action_tag}</span></div>
+                                    <span class="action-tag">${item.action_tag}</span>
                                 </div>
-                                <div style="clear: both;"></div>
                             </div>
                         `;
                     });
@@ -209,10 +263,23 @@
                 if (loc.updates && loc.updates.length > 0) {
                     loc.updates.forEach(u => {
                         updatesHtml += `
-                            <div class="update-card">
-                                <div class="update-date">📅 ${u.update_date}</div>
-                                <div>${u.notes}</div>
-                                ${u.attachment_url ? `<div style="margin-top:6px;"><a href="${u.attachment_url}" target="_blank"><img src="${u.attachment_url}" style="max-height:100px; border-radius:4px;" /></a></div>` : ''}
+                            <div class="update-card" id="update-card-${u.id}">
+                                <div class="update-header-row">
+                                    <div class="update-date">📅 ${u.update_date}</div>
+                                    <button class="edit-btn" onclick="openEditForm(${u.id}, ${loc.id})">✏️ Edit</button>
+                                </div>
+                                <div id="update-text-${u.id}">${u.notes}</div>
+                                ${u.attachment_url ? `<div style="margin-top:6px;"><a href="${u.attachment_url}" target="_blank"><img src="${u.attachment_url}" style="max-height:120px; border-radius:4px; border:1px solid #e2e8f0;" /></a></div>` : ''}
+                                
+                                <!-- Inline Edit Form -->
+                                <div id="edit-form-${u.id}" class="update-form">
+                                    <h5 style="margin: 0 0 6px 0; color: #1e293b;">Edit Progress Update</h5>
+                                    <input type="date" id="edit-date-${u.id}" value="${u.update_date}">
+                                    <textarea id="edit-notes-${u.id}" rows="2">${u.notes}</textarea>
+                                    <label style="font-size:0.75rem; color:#64748b; display:block; margin-bottom:4px;">Replace Image / Attachment (optional):</label>
+                                    <input type="file" id="edit-file-${u.id}" accept="image/*">
+                                    <button class="btn-success" onclick="saveEdit(${u.id}, ${loc.id})">Save Changes</button>
+                                </div>
                             </div>
                         `;
                     });
@@ -221,27 +288,28 @@
                 }
 
                 const cardHtml = `
-                    <div class="section-box" id="loc-${loc.id}">
+                    <div class="section-box">
                         <div class="section-title">
-                            <span>${loc.location_number}</span>
-                            <div style="display:flex; gap:8px; align-items:center;">
-                                <a href="${loc.google_maps_url}" target="_blank" class="location-badge">📍 GPS: ${loc.gps_coordinates} ↗</a>
-                                <button class="add-update-btn" onclick="toggleForm(${loc.id})">+ Add Update</button>
+                            <div class="title-top-row">
+                                <span style="font-weight: 700; font-size: 1.05rem;">${loc.location_number}</span>
+                                <button class="btn-primary" style="width: auto; padding: 6px 12px;" onclick="toggleAddForm(${loc.id})">+ Add Update</button>
                             </div>
+                            <a href="${loc.google_maps_url}" target="_blank" class="location-badge">📍 GPS: ${loc.gps_coordinates} ↗</a>
                         </div>
                         
                         ${actionCardsHtml}
 
                         <div class="updates-container">
-                            <h4 style="margin: 0 0 8px 0; font-size: 0.95rem; color: var(--primary-color);">Progress Updates & Field Actions</h4>
+                            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--primary-color);">Progress Updates & Field Actions</h4>
                             ${updatesHtml}
 
-                            <div id="form-${loc.id}" class="update-form">
-                                <h5 style="margin: 0 0 6px 0;">New Progress Entry</h5>
-                                <input type="date" id="date-${loc.id}" value="${new Date().toISOString().split('T')[0]}">
-                                <textarea id="notes-${loc.id}" placeholder="Describe work completed, current status, or next steps..." rows="2"></textarea>
-                                <input type="text" id="img-${loc.id}" placeholder="Image or attachment URL (optional)">
-                                <button onclick="submitUpdate(${loc.id})">Save Update to Database</button>
+                            <div id="add-form-${loc.id}" class="update-form">
+                                <h5 style="margin: 0 0 6px 0; color: var(--primary-color);">New Progress Entry</h5>
+                                <input type="date" id="new-date-${loc.id}" value="${new Date().toISOString().split('T')[0]}">
+                                <textarea id="new-notes-${loc.id}" placeholder="Describe work completed or current status..." rows="2"></textarea>
+                                <label style="font-size:0.75rem; color:#64748b; display:block; margin-bottom:4px;">Attach Image from Phone/PC:</label>
+                                <input type="file" id="new-file-${loc.id}" accept="image/*">
+                                <button class="btn-success" onclick="submitNewUpdate(${loc.id})">Save Update to Database</button>
                             </div>
                         </div>
                     </div>
@@ -250,15 +318,35 @@
             });
         }
 
-        function toggleForm(id) {
-            const form = document.getElementById(`form-${id}`);
+        function toggleAddForm(id) {
+            const form = document.getElementById(`add-form-${id}`);
             form.style.display = form.style.display === 'block' ? 'none' : 'block';
         }
 
-        async function submitUpdate(locationId) {
-            const update_date = document.getElementById(`date-${locationId}`).value;
-            const notes = document.getElementById(`notes-${locationId}`).value;
-            const attachment_url = document.getElementById(`img-${locationId}`).value;
+        function openEditForm(updateId, locationId) {
+            const editForm = document.getElementById(`edit-form-${updateId}`);
+            editForm.style.display = editForm.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Helper to convert file input to Base64 data URL
+        function convertFileToBase64(fileInputId) {
+            return new Promise((resolve, reject) => {
+                const fileInput = document.getElementById(fileInputId);
+                if (!fileInput || fileInput.files.length === 0) {
+                    resolve(null);
+                    return;
+                }
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function submitNewUpdate(locationId) {
+            const update_date = document.getElementById(`new-date-${locationId}`).value;
+            const notes = document.getElementById(`new-notes-${locationId}`).value;
 
             if (!notes) {
                 alert('Please enter update notes.');
@@ -266,6 +354,8 @@
             }
 
             try {
+                const attachment_url = await convertFileToBase64(`new-file-${locationId}`);
+
                 const response = await fetch(API_ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -279,7 +369,36 @@
                 }
             } catch (error) {
                 console.error('Error posting update:', error);
-                alert('Network error while saving update.');
+                alert('Error uploading attachment or saving update.');
+            }
+        }
+
+        async function saveEdit(updateId, locationId) {
+            const update_date = document.getElementById(`edit-date-${updateId}`).value;
+            const notes = document.getElementById(`edit-notes-${updateId}`).value;
+
+            if (!notes) {
+                alert('Notes cannot be empty.');
+                return;
+            }
+
+            try {
+                const attachment_url = await convertFileToBase64(`edit-file-${updateId}`);
+
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: updateId, update_date, notes, attachment_url })
+                });
+
+                if (response.ok) {
+                    fetchLogs();
+                } else {
+                    alert('Failed to update record.');
+                }
+            } catch (error) {
+                console.error('Error saving edit:', error);
+                alert('Network error while saving edit.');
             }
         }
 
