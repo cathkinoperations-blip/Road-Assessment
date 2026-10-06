@@ -3,7 +3,6 @@ import { neon } from '@neondatabase/serverless';
 const sql = neon(process.env.DATABASE_URL);
 
 export default async function handler(req, res) {
-    // Enable CORS for Vercel deployment
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -14,12 +13,13 @@ export default async function handler(req, res) {
 
     try {
         if (req.method === 'GET') {
-            // Fetch all locations along with their chronological updates
             const locations = await sql`SELECT * FROM inspection_locations ORDER BY id ASC;`;
+            const actionItems = await sql`SELECT * FROM action_items ORDER BY id ASC;`;
             const updates = await sql`SELECT * FROM location_updates ORDER BY update_date DESC;`;
 
             const combined = locations.map(loc => ({
                 ...loc,
+                action_items: actionItems.filter(item => item.location_id === loc.id),
                 updates: updates.filter(u => u.location_id === loc.id)
             }));
 
@@ -27,11 +27,10 @@ export default async function handler(req, res) {
         }
 
         if (req.method === 'POST') {
-            // Add a new date-stamped update to a location
             const { location_id, update_date, notes, attachment_url } = req.body;
             
             if (!location_id || !update_date || !notes) {
-                return res.status(400).json({ error: 'Missing required fields (location_id, update_date, notes)' });
+                return res.status(400).json({ error: 'Missing required fields' });
             }
 
             const result = await sql`
@@ -49,4 +48,3 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Internal Server Error', details: error.message });
     }
 }
-
