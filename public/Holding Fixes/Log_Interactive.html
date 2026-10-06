@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holding Fix Upgrade Photo & Action Log — Live Database</title>
+    <style>
+        :root {
+            --primary-color: #1e293b;
+            --accent-color: #0284c7;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: #334155;
+            margin: 0;
+            padding: 10px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header-card {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+        }
+        .header-card h1 { margin: 0 0 8px 0; font-size: 1.5rem; color: #ffffff; }
+        .header-card p { margin: 0; color: #94a3b8; font-size: 0.9rem; }
+        .section-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .section-title {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .location-badge {
+            font-size: 0.75rem;
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #bae6fd;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .location-badge:hover { background-color: #bae6fd; }
+        .action-item-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+        .action-item-card img {
+            width: 100%;
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        .action-tag {
+            display: inline-block;
+            background-color: #fef3c7;
+            color: #92400e;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #fde68a;
+        }
+        /* Updates Timeline Styling */
+        .updates-container {
+            margin-top: 12px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 12px;
+        }
+        .update-card {
+            background: #ffffff;
+            border-left: 3px solid var(--accent-color);
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .update-date {
+            font-weight: 600;
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+        }
+        /* Update Form Trigger & Modal/Box */
+        .add-update-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .add-update-btn:hover { background-color: #02699c; }
+        .update-form {
+            display: none;
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid var(--border-color);
+        }
+        .update-form input, .update-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 0.9rem;
+        }
+        .update-form button {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .footer { text-align: center; font-size: 0.8rem; color: #94a3b8; margin-top: 30px; }
+        
+        @media (min-width: 768px) {
+            body { padding: 20px; }
+            .action-item-card img { width: 150px; height: 110px; float: left; margin-right: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-card">
+            <h1>Holding Fix Upgrade Photo & Action Log</h1>
+            <p>Live field inspection database connected to Neon PostgreSQL & Vercel</p>
+        </div>
+
+        <div id="locations-wrapper">
+            <p style="text-align: center; color: #64748b;">Loading live records from database...</p>
+        </div>
+
+        <div class="footer">Cathkin Estates Operations Committee</div>
+    </div>
+
+    <script>
+        const API_ENDPOINT = '/api/updates'; // Replace with your full Vercel deployment URL if hosted separately
+
+        async function fetchLogs() {
+            try {
+                const response = await fetch(API_ENDPOINT);
+                const locations = await response.json();
+                renderUI(locations);
+            } catch (error) {
+                console.error('Failed to load logs:', error);
+                document.getElementById('locations-wrapper').innerHTML = '<p style="color: red; text-align: center;">Failed to load data from database backend.</p>';
+            }
+        }
+
+        function renderUI(locations) {
+            const wrapper = document.getElementById('locations-wrapper');
+            wrapper.innerHTML = '';
+
+            locations.forEach(loc => {
+                let updatesHtml = '';
+                if (loc.updates && loc.updates.length > 0) {
+                    loc.updates.forEach(u => {
+                        updatesHtml += `
+                            <div class="update-card">
+                                <div class="update-date">📅 ${u.update_date}</div>
+                                <div>${u.notes}</div>
+                                ${u.attachment_url ? `<div style="margin-top:6px;"><a href="${u.attachment_url}" target="_blank"><img src="${u.attachment_url}" style="max-height:100px; border-radius:4px;" /></a></div>` : ''}
+                            </div>
+                        `;
+                    });
+                } else {
+                    updatesHtml = '<p style="font-size: 0.85rem; color: #94a3b8; font-style: italic;">No progress updates logged yet.</p>';
+                }
+
+                const cardHtml = `
+                    <div class="section-box" id="loc-${loc.id}">
+                        <div class="section-title">
+                            <span>${loc.location_number}</span>
+                            <div style="display:flex; gap:8px; align-items:center;">
+                                <a href="${loc.google_maps_url}" target="_blank" class="location-badge">📍 GPS: ${loc.gps_coordinates} ↗</a>
+                                <button class="add-update-btn" onclick="toggleForm(${loc.id})">+ Add Update</button>
+                            </div>
+                        </div>
+                        
+                        <div class="action-item-card">
+                            ${loc.initial_photo_url ? `<a href="${loc.initial_photo_url}" target="_blank"><img src="${loc.initial_photo_url}" alt="Initial Photo"></a>` : ''}
+                            <div class="action-item-content">
+                                <div><span class="action-tag">${loc.initial_action_tag || 'Standard maintenance action'}</span></div>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+
+                        <div class="updates-container">
+                            <h4 style="margin: 0 0 8px 0; font-size: 0.95rem; color: var(--primary-color);">Progress Updates & Field Actions</h4>
+                            ${updatesHtml}
+
+                            <div id="form-${loc.id}" class="update-form">
+                                <h5 style="margin: 0 0 6px 0;">New Progress Entry</h5>
+                                <input type="date" id="date-${loc.id}" value="${new Date().toISOString().split('T')[0]}">
+                                <textarea id="notes-${loc.id}" placeholder="Describe work completed, current status, or next steps..." rows="2"></textarea>
+                                <input type="text" id="img-${loc.id}" placeholder="Image or attachment URL (optional)">
+                                <button onclick="submitUpdate(${loc.id})">Save Update to Database</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                wrapper.innerHTML += cardHtml;
+            });
+        }
+
+        function toggleForm(id) {
+            const form = document.getElementById(`form-${id}`);
+            form.style.display = form.style.display === 'block' ? 'none' : 'block';
+        }
+
+        async function submitUpdate(locationId) {
+            const update_date = document.getElementById(`date-${locationId}`).value;
+            const notes = document.getElementById(`notes-${locationId}`).value;
+            const attachment_url = document.getElementById(`img-${locationId}`).value;
+
+            if (!notes) {
+                alert('Please enter update notes.');
+                return;
+            }
+
+            try {
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ location_id: locationId, update_date, notes, attachment_url })
+                });
+
+                if (response.ok) {
+                    fetchLogs(); // Refresh UI dynamically
+                } else {
+                    alert('Failed to save update.');
+                }
+            } catch (error) {
+                console.error('Error posting update:', error);
+                alert('Network error while saving update.');
+            }
+        }
+
+        // Initial fetch on page load
+        fetchLogs();
+    </script>
+</body>
+</html>
