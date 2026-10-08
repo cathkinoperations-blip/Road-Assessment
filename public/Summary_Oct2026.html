@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cathkin Estates HOA Road Upgrade Index</title>
+    <title>Cathkin Estates Road Upgrade Program — Executive Report</title>
     <style>
         :root {
             --bg-color: #f8f9fa;
@@ -12,8 +12,10 @@
             --text-muted: #6c757d;
             --primary-blue: #0d6efd;
             --border-color: #e9ecef;
-            --badge-bg: #eef2ff;
-            --badge-text: #3730a3;
+            --accent-green: #166534;
+            --bg-green: #dcfce7;
+            --accent-red: #991b1b;
+            --bg-red: #fee2e2;
         }
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -21,29 +23,30 @@
             color: var(--text-main);
             margin: 0;
             padding: 40px 20px;
-            line-height: 1.6;
+            line-height: 1.65;
         }
         .container {
-            max-width: 900px;
+            max-width: 880px;
             margin: 0 auto;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 40px;
+            padding: 48px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         h1 {
             color: #1e293b;
-            font-size: 26px;
+            font-size: 28px;
             margin-top: 0;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
         }
         .subtitle {
             color: var(--text-muted);
             font-size: 15px;
             margin-bottom: 24px;
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
+            padding-bottom: 16px;
         }
         .search-box {
             width: 100%;
@@ -52,7 +55,7 @@
             border: 1px solid #cbd5e1;
             border-radius: 6px;
             box-sizing: border-box;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
             background-color: #fafafa;
         }
         .search-box:focus {
@@ -60,78 +63,104 @@
             border-color: var(--primary-blue);
             background-color: #fff;
         }
-        .section-header {
-            font-size: 18px;
+        .story-step {
+            margin-bottom: 36px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .story-step:last-of-type {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .step-number {
+            font-size: 12px;
             font-weight: 700;
-            margin-top: 36px;
-            margin-bottom: 6px;
+            text-transform: uppercase;
+            color: var(--primary-blue);
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+        }
+        .step-title {
+            font-size: 20px;
+            font-weight: 700;
             color: #1e293b;
+            margin-top: 0;
+            margin-bottom: 12px;
         }
-        .section-desc {
-            font-size: 13.5px;
-            color: var(--text-muted);
-            margin-bottom: 16px;
+        .step-text {
+            font-size: 14.5px;
+            color: #334155;
+            margin-bottom: 14px;
         }
-        .link-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 20px 0;
-        }
-        .link-item {
-            background: #fdfdfd;
+        .evidence-box {
+            background-color: #f8fafc;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 18px;
-            margin-bottom: 14px;
+            padding: 14px 18px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .evidence-label {
+            font-size: 13px;
+            color: #475569;
+        }
+        .evidence-label strong {
+            color: #1e293b;
+        }
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            text-decoration: none;
+            background: #eff6ff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            white-space: nowrap;
+        }
+        .doc-link:hover {
+            background: #dbeafe;
+        }
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .vendor-card {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 16px;
+            background-color: #fff;
+        }
+        .vendor-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            margin-bottom: 8px;
         }
-        .link-item:hover {
-            border-color: var(--primary-blue);
-            box-shadow: 0 2px 8px rgba(13, 110, 253, 0.08);
-        }
-        .link-info h3 {
-            margin: 0 0 6px 0;
-            font-size: 15.5px;
+        .vendor-name {
+            font-weight: 700;
+            font-size: 15px;
             color: #1e293b;
         }
-        .link-info p {
-            margin: 0 0 8px 0;
-            font-size: 13.5px;
-            color: #475569;
-            line-height: 1.45;
-        }
-        .badge-bar {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .badge {
-            background-color: var(--badge-bg);
-            color: var(--badge-text);
+        .status-tag {
             font-size: 11px;
-            font-weight: 600;
-            padding: 2px 8px;
+            font-weight: 700;
+            padding: 3px 8px;
             border-radius: 4px;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
         }
-        .link-button {
-            background-color: var(--primary-blue);
-            color: white;
-            padding: 8px 14px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-        .link-button:hover {
-            background-color: #0b5ed7;
-        }
+        .tag-rec { background-color: var(--bg-green); color: var(--accent-green); }
+        .tag-disq { background-color: var(--bg-red); color: var(--accent-red); }
+        .tag-alt { background-color: #f1f5f9; color: #475569; }
+
         .note {
             background-color: #f8fafc;
             border-left: 4px solid var(--primary-blue);
@@ -192,10 +221,10 @@
 
     <!-- Password Screen -->
     <div id="password-screen">
-        <h2>Protected Master Index</h2>
-        <p>Please enter the security password to view the Cathkin Estates HOA Road Upgrade Index.</p>
+        <h2>Protected Executive Report</h2>
+        <p>Please enter the security password to access the Cathkin Estates Road Upgrade Report.</p>
         <input type="password" id="password-input" placeholder="Enter password..." autofocus onkeydown="if(event.key === 'Enter') checkPassword()">
-        <button id="unlock-btn" onclick="checkPassword()">Unlock Index</button>
+        <button id="unlock-btn" onclick="checkPassword()">Unlock Report</button>
         <div id="error-msg">Incorrect password. Please try again.</div>
     </div>
 
@@ -213,176 +242,126 @@
             }
         }
 
-        function filterIndex() {
+        function filterReport() {
             const query = document.getElementById('search-input').value.toLowerCase();
-            const items = document.querySelectorAll('.link-item');
-            items.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                item.style.display = text.includes(query) ? 'flex' : 'none';
+            const steps = document.querySelectorAll('.story-step');
+            steps.forEach(step => {
+                const text = step.textContent.toLowerCase();
+                step.style.display = text.includes(query) ? 'block' : 'none';
             });
         }
     </script>
 
     <div id="main-app" class="main-content">
         <div class="container">
-            <h1>Cathkin Estates HOA Road Upgrade Index</h1>
-            <div class="subtitle">Central resource hub and documentation portal summarizing technical standards, financial plans, and tender evaluations for homeowners.</div>
+            <h1>Cathkin Estates Road Rehabilitation Program</h1>
+            <div class="subtitle">Executive Program Summary &amp; Commercial Due Diligence Report for Homeowners</div>
 
-            <input type="text" id="search-input" class="search-box" placeholder="🔍 Search links by keyword (e.g., Raciti, Bridge 8, Budget, Pavers)..." onkeyup="filterIndex()">
+            <input type="text" id="search-input" class="search-box" placeholder="🔍 Search report content (e.g., Raciti, Bridge 8, Budget, Pavers, Reserve Fund)..." onkeyup="filterReport()">
 
-            <!-- Section 1 -->
-            <div class="section-header">📋 Core Project &amp; Strategy Materials</div>
-            <div class="section-desc">Key presentations and spatial mapping portals outlining the strategic move toward rigid paver engineering.</div>
-            <ul class="link-list">
-                <li class="link-item">
-                    <div class="link-info">
-                        <h3>Road Upgrade Kick-Off Presentation</h3>
-                        <p>Executive deck establishing the engineering transition from reactive bitumen patching to heavy-duty 80mm interlocking pavers (60mm on flat runs) and reinforced concrete inclines, highlighting lower 20-year Total Cost of Ownership.</p>
-                        <div class="badge-bar">
-                            <span class="badge">Strategy</span>
-                            <span class="badge">Hybrid Model</span>
-                            <span class="badge">20-Yr TCO</span>
-                        </div>
+            <!-- Step 1 -->
+            <div class="story-step">
+                <div class="step-number">Phase 1: Diagnosis &amp; Strategic Decision</div>
+                <h2 class="step-title">1. Why We Shifted from Tar Patching to Interlocking Pavers</h2>
+                <p class="step-text">
+                    Following extensive field surveys across 1,595m of estate roads, the Operations Committee determined that continuous asphalt patching on high-wear inclines was failing due to thermal degradation and stormwater erosion. To protect long-term property values, a strategic decision was made to transition high-impact corridors to 80mm heavy-duty interlocking pavers (60mm on flat runs) and reinforced concrete sections, offering a substantially lower 20-year Total Cost of Ownership.
+                </p>
+                <div class="evidence-box">
+                    <span class="evidence-label"><strong>Supporting Technical Data:</strong> Interactive GIS network maps, corridor tier classifications, and the strategic TCO presentation.</span>
+                    <div style="display:flex; gap:8px;">
+                        <a href="https://road-assessment-seven.vercel.app/Road_Upgrade_Kick_Off_21072026.pdf" target="_blank" class="doc-link">📄 Strategy Deck</a>
+                        <a href="https://road-assessment-seven.vercel.app/" target="_blank" class="doc-link">🌐 GIS Map Portal</a>
                     </div>
-                    <a href="https://road-assessment-seven.vercel.app/Road_Upgrade_Kick_Off_21072026.pdf" target="_blank" class="link-button">View PDF</a>
-                </li>
-                <li class="link-item">
-                    <div class="link-info">
-                        <h3>Assessment Portal</h3>
-                        <p>Central interactive portal hosting spatial network maps, tier-based corridor priority matrix, and GPS-mapped damage logs across 1,595m of estate roads.</p>
-                        <div class="badge-bar">
-                            <span class="badge">GIS Map</span>
-                            <span class="badge">18 Corridors</span>
-                            <span class="badge">4 Tiers</span>
-                        </div>
-                    </div>
-                    <a href="https://road-assessment-seven.vercel.app/" target="_blank" class="link-button">Open Portal</a>
-                </li>
-            </ul>
+                </div>
+            </div>
 
-            <!-- Section 2 -->
-            <div class="section-header">📊 Assessments &amp; Technical Data</div>
-            <div class="section-desc">Engineering studies, material standards (COLTO/TRH14), and localized pre-paving field maintenance logs.</div>
-            <ul class="link-list">
-                <li class="link-item">
-                    <div class="link-info">
-                        <h3>Executive Summary</h3>
-                        <p>Master strategic evaluation allocating ~694m for permanent paver/concrete rebuilds (Champagne Ridge, Bridges 6 &amp; 8) and ~901m for cost-effective holding fixes across lower-wear residential lanes.</p>
-                        <div class="badge-bar">
-                            <span class="badge">Master Plan</span>
-                            <span class="badge">Tier 1–4 Scope</span>
-                        </div>
+            <!-- Step 2 -->
+            <div class="story-step">
+                <div class="step-number">Phase 2: Technical Scope &amp; Maintenance</div>
+                <h2 class="step-title">2. Program Scope: Rebuilds vs. Holding Fixes</h2>
+                <p class="step-text">
+                    To optimize spending, the road network was divided into two distinct operational scopes. Permanent heavy-duty paving (~694m) was allocated to critical failure points like Champagne Ridge and Bridges 6 &amp; 8. Meanwhile, lower-wear residential lanes (~901m) were designated for cost-effective holding fixes (cold-mix patching, crack sealing, and concrete U-drain trenching) completed during September 2026 to ensure durability ahead of seasonal rains.
+                </p>
+                <div class="evidence-box">
+                    <span class="evidence-label"><strong>Supporting Engineering Specifications:</strong> COLTO/TRH14 aggregate sub-base standards and field inspection photographic logs.</span>
+                    <div style="display:flex; gap:8px;">
+                        <a href="https://road-assessment-seven.vercel.app/Road_Assessment_Jul_2026_Exec_Summ.html" target="_blank" class="doc-link">📄 Exec Summary</a>
+                        <a href="https://road-assessment-seven.vercel.app/Road_Assessment_Jul_2026_Appendix.html" target="_blank" class="doc-link">📄 COLTO Appendix</a>
+                        <a href="https://road-assessment-seven.vercel.app/Holding%20Fixes/Log_Simple.html" target="_blank" class="doc-link">📸 Field Log</a>
                     </div>
-                    <a href="https://road-assessment-seven.vercel.app/Road_Assessment_Jul_2026_Exec_Summ.html" target="_blank" class="link-button">View Summary</a>
-                </li>
-                <li class="link-item">
-                    <div class="link-info">
-                        <h3>Technical Appendix</h3>
-                        <p>Engineering reference covering G2 aggregate sub-base standards (COLTO/TRH14), Cape Seal vs. Slurry comparisons, and modular paver micro-articulation performance.</p>
-                        <div class="badge-bar">
-                            <span class="badge">COLTO Specs</span>
-                            <span class="badge">Sub-Base Design</span>
-                        </div>
-                    </div>
-                    <a href="https://road-assessment-seven.vercel.app/Road_Assessment_Jul_2026_Appendix.html" target="_blank" class="link-button">View Appendix</a>
-                </li>
-                <li class="link-item">
-                    <div class="link-info">
-                        <h3>Holding Fixes Log</h3>
-                        <p>Field log capturing September 2026 inspection points, GPS coordinates, and required maintenance tasks (cold-mix patching, crack sealing, and concrete U-drain trenching).</p>
-                        <div class="badge-bar">
-                            <span class="badge">GPS Log</span>
-                            <span class="badge">Drainage</span>
-                            <span class="badge">Maintenance</span>
-                        </div>
-                    </div>
-                    <a href="https://road-assessment-seven.vercel.app/Holding%20Fixes/Log_Simple.html" target="_blank" class="link-button">View Log</a>
-                </li>
-            </ul>
+                </div>
+            </div>
 
-            <!-- Section 3 -->
-            <div class="section-header">🗓️ Planning &amp; Communications</div>
-            <div class="section-desc">Financial modeling, phased Gantt timelines, deferred Capex reserve funding, and SGM owner communications.</div>
-            <ul class="link-list">
-                <li class="link-item">
-                    <div class="link-info">
-                        <h3>Project Plan &amp; Roadmap</h3>
-                        <p>Interactive Gantt timeline and R2.85M budget allocation plan spanning FY 25/26 to FY 26/27, featuring a 4-month summer rain buffer and deferred Capex reserve funding.</p>
-                        <div class="badge-bar">
-                            <span class="badge">Gantt Chart</span>
-                            <span class="badge">R2.85M Budget</span>
-                            <span class="badge">Phasing</span>
-                        </div>
+            <!-- Step 3 -->
+            <div class="story-step">
+                <div class="step-number">Phase 3: Financial Framework &amp; Governance</div>
+                <h2 class="step-title">3. Funding Model: Zero Special Levy Mandate</h2>
+                <p class="step-text">
+                    The entire R2.85M infrastructure roadmap spanning FY 25/26 and FY 26/27 has been structured without raising a special levy on homeowners. Funding is fully absorbed through planned Capex Reserve Fund drawdowns and operational savings. A 4-month weather buffer has been built into the multi-year Gantt schedule to prevent costly rain delays during peak Drakensberg wet seasons.
+                </p>
+                <div class="evidence-box">
+                    <span class="evidence-label"><strong>Supporting Financial Plans:</strong> SGM pre-read memorandum and master financial roadmap.</span>
+                    <div style="display:flex; gap:8px;">
+                        <a href="https://road-assessment-seven.vercel.app/plan.html" target="_blank" class="doc-link">📊 Gantt &amp; Budget Plan</a>
+                        <a href="https://road-assessment-seven.vercel.app/Homeowner_Comm_Sept2026.html" target="_blank" class="doc-link">📄 SGM Memo</a>
                     </div>
-                    <a href="https://road-assessment-seven.vercel.app/plan.html" target="_blank" class="link-button">View Plan</a>
-                </li>
-                <li class="link-item">
-                    <div class="link-info">
-                        <h3>SGM Reviewed Material &amp; Administrative Update</h3>
-                        <p>Pre-read memorandum presented at the September 2026 SGM detailing the zero special levy funding model, Reserve Fund drawdown, and two-phase operational mandate.</p>
-                        <div class="badge-bar">
-                            <span class="badge">SGM Pre-Read</span>
-                            <span class="badge">Governance</span>
-                            <span class="badge">Reserve Fund</span>
-                        </div>
-                    </div>
-                    <a href="https://road-assessment-seven.vercel.app/Homeowner_Comm_Sept2026.html" target="_blank" class="link-button">Read Update</a>
-                </li>
-            </ul>
+                </div>
+            </div>
 
-            <!-- Section 4 -->
-            <div class="section-header">🏗️ Commercial Procurement &amp; Vendor Evaluation</div>
-            <div class="section-desc">Commercial tender evaluation, scoring matrix, and contractor due diligence sheets for Champagne Ridge (810 m²).</div>
-            <ul class="link-list">
-                <li class="link-item">
-                    <div class="link-info">
-                        <h3>Champagne Ridge Tender Recommendation Report</h3>
-                        <p>Master commercial evaluation for project ref 2026_003_CR_v2_1 (810 m²). Details the scoring matrix, Jobman's disqualification on ethics grounds, and the conditional award to Raciti.</p>
-                        <div class="badge-bar">
-                            <span class="badge">Tender Award</span>
-                            <span class="badge">Score Matrix</span>
-                            <span class="badge">Ref: 2026_003_CR</span>
+            <!-- Step 4 -->
+            <div class="story-step">
+                <div class="step-number">Phase 4: Commercial Execution &amp; Due Diligence</div>
+                <h2 class="step-title">4. Vendor Selection &amp; Tender Evaluation (Champagne Ridge — 810 m²)</h2>
+                <p class="step-text">
+                    A rigorous tender process was conducted for the first major paving contract (Champagne Ridge). Bids were evaluated across technical capability, pricing accuracy, and ethical compliance. The finance and operations teams completed deep-dive due diligence on all participating contractors to ensure total transparency.
+                </p>
+
+                <div class="vendor-grid">
+                    <div class="vendor-card">
+                        <div class="vendor-header">
+                            <span class="vendor-name">Jenrac Plant Hire t/a Raciti's Paving</span>
+                            <span class="status-tag tag-rec">Recommended Awardee</span>
                         </div>
+                        <p class="step-text" style="font-size:13.5px; margin-bottom:8px;">
+                            <strong>Score: 8.77 / 10 | Price: ZAR 743,762.50 (incl. VAT)</strong><br>
+                            Emerged as the top-ranked bidder offering the most competitive pricing and proven paver expertise. Award subject to capping their fuel variation clause.
+                        </p>
+                        <a href="https://road-assessment-seven.vercel.app/Commercials/Raciti%20-%20Detailed%20Analysis%20Sheet.html" target="_blank" class="doc-link">📄 Raciti Analysis Sheet</a>
                     </div>
-                    <a href="https://road-assessment-seven.vercel.app/Commercials/Recommendation%20-%20Champagne%20Ridge%20Road%20Upgrade.html" target="_blank" class="link-button">View Report</a>
-                </li>
-                <li class="link-item">
-                    <div class="link-info">
-                        <h3>Raciti — Detailed Analysis Sheet</h3>
-                        <p>Procurement due diligence for Jenrac Plant Hire t/a Raciti's Paving. Recommended awardee (Score: 8.77/10) at ZAR 743,762.50 incl. VAT. Note: Fuel price variation clause requires capping prior to signing.</p>
-                        <div class="badge-bar">
-                            <span class="badge" style="background:#dcfce7; color:#166534;">Recommended</span>
-                            <span class="badge">ZAR 743,762</span>
+
+                    <div class="vendor-card">
+                        <div class="vendor-header">
+                            <span class="vendor-name">Remca Construction cc</span>
+                            <span class="status-tag tag-alt">Alternative Bidder</span>
                         </div>
+                        <p class="step-text" style="font-size:13.5px; margin-bottom:8px;">
+                            <strong>Score: 6.86 / 10 | Adjusted Price: ZAR 844,280.50 (incl. VAT)</strong><br>
+                            Qualified bidder, but scored lower due to higher overall costs and technical risk associated with paving directly over un-milled asphalt.
+                        </p>
+                        <a href="https://road-assessment-seven.vercel.app/Commercials/Remca%20-%20Detailed%20Analysis%20Sheet.html" target="_blank" class="doc-link">📄 Remca Analysis Sheet</a>
                     </div>
-                    <a href="https://road-assessment-seven.vercel.app/Commercials/Raciti%20-%20Detailed%20Analysis%20Sheet.html" target="_blank" class="link-button">View Analysis</a>
-                </li>
-                <li class="link-item">
-                    <div class="link-info">
-                        <h3>Remca — Detailed Analysis Sheet</h3>
-                        <p>Procurement due diligence for Remca Construction cc (Score: 6.86/10). Adjusted total of ZAR 844,280.50 incl. VAT for 810 m² scope. Highlights risks regarding paving directly over tar without milling.</p>
-                        <div class="badge-bar">
-                            <span class="badge">Score: 6.86</span>
-                            <span class="badge">ZAR 844,280</span>
+
+                    <div class="vendor-card">
+                        <div class="vendor-header">
+                            <span class="vendor-name">Jobman Construction</span>
+                            <span class="status-tag tag-disq">Disqualified</span>
                         </div>
+                        <p class="step-text" style="font-size:13.5px; margin-bottom:8px;">
+                            <strong>Quoted: ZAR 2,720,900.00 (incl. VAT)</strong><br>
+                            Disqualified following governance checks due to an unacceptable 80% deposit requirement, gross rate inflation, and ethical compliance flags.
+                        </p>
+                        <a href="https://road-assessment-seven.vercel.app/Commercials/Jobman%20-%20Detailed%20Analysis%20Sheet.html" target="_blank" class="doc-link">📄 Jobman Analysis Sheet</a>
                     </div>
-                    <a href="https://road-assessment-seven.vercel.app/Commercials/Remca%20-%20Detailed%20Analysis%20Sheet.html" target="_blank" class="link-button">View Analysis</a>
-                </li>
-                <li class="link-item">
-                    <div class="link-info">
-                        <h3>Jobman — Detailed Analysis Sheet</h3>
-                        <p>Procurement due diligence for Jobman Construction (Disqualified). Quoted ZAR 2,720,900.00 incl. VAT. Flagged for 80% deposit demand, major scope rate discrepancies, and ethical governance issues.</p>
-                        <div class="badge-bar">
-                            <span class="badge" style="background:#fee2e2; color:#991b1b;">Disqualified</span>
-                            <span class="badge">Governance Flag</span>
-                        </div>
-                    </div>
-                    <a href="https://road-assessment-seven.vercel.app/Commercials/Jobman%20-%20Detailed%20Analysis%20Sheet.html" target="_blank" class="link-button">View Analysis</a>
-                </li>
-            </ul>
+                </div>
+
+                <div class="evidence-box" style="margin-top:16px;">
+                    <span class="evidence-label"><strong>Master Commercial Summary:</strong> Full tender scoring matrix and governance evaluation report.</span>
+                    <a href="https://road-assessment-seven.vercel.app/Commercials/Recommendation%20-%20Champagne%20Ridge%20Road%20Upgrade.html" target="_blank" class="doc-link">📄 Tender Recommendation Report</a>
+                </div>
+            </div>
 
             <div class="note">
-                <strong>Security Note:</strong> Access to this master index and detailed evaluation reports requires the security password, <code>Cathkin2026</code>.
+                <strong>Security Note:</strong> Access to this executive report and underlying verification files is restricted to Cathkin Estates homeowners using password <code>Cathkin2026</code>.
             </div>
 
             <div class="footer">
