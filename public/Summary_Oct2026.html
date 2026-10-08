@@ -88,11 +88,19 @@
             border-color: var(--primary-blue);
             background-color: #fff;
         }
-        .story-step {
-            margin-bottom: 36px;
-            padding-bottom: 28px;
-            border-bottom: 1px solid var(--border-color);
-        }
+        /* Remove strict container avoidance that causes giant gaps */
+            .story-step {
+                page-break-inside: auto;
+                break-inside: auto;
+                margin-bottom: 24px;
+                padding-bottom: 16px;
+            }
+            /* Only prevent breaking inside smaller self-contained boxes */
+            .evidence-box,
+            .vendor-card {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
         .story-step:last-of-type {
             border-bottom: none;
             padding-bottom: 0;
