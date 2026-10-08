@@ -110,6 +110,11 @@
         .evidence-label strong {
             color: #1e293b;
         }
+        .doc-link-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
         .doc-link {
             display: inline-flex;
             align-items: center;
@@ -144,6 +149,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
+            gap: 8px;
         }
         .vendor-name {
             font-weight: 700;
@@ -156,6 +162,7 @@
             padding: 3px 8px;
             border-radius: 4px;
             text-transform: uppercase;
+            white-space: nowrap;
         }
         .tag-rec { background-color: var(--bg-green); color: var(--accent-green); }
         .tag-disq { background-color: var(--bg-red); color: var(--accent-red); }
@@ -215,6 +222,84 @@
         #unlock-btn:hover { background-color: #0b5ed7; }
         #error-msg { color: #dc3545; font-size: 13px; margin-top: 12px; display: none; }
         .main-content { display: none; }
+
+        /* ==========================================================================
+           MOBILE RESPONSIVE STYLES
+           ========================================================================== */
+        @media (max-width: 600px) {
+            body {
+                padding: 12px 8px;
+            }
+            .container {
+                padding: 20px 16px;
+                border-radius: 6px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .subtitle {
+                font-size: 13.5px;
+            }
+            .evidence-box {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .doc-link-group {
+                width: 100%;
+            }
+            .doc-link {
+                width: 100%;
+                justify-content: center;
+                box-sizing: border-box;
+            }
+            .vendor-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            #password-screen {
+                margin: 20px auto;
+                padding: 24px 16px;
+            }
+        }
+
+        /* ==========================================================================
+           PRINT / PDF EXPORT STYLES
+           ========================================================================== */
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+                padding: 0;
+            }
+            .container {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            #password-screen,
+            .search-box {
+                display: none !important;
+            }
+            .main-content {
+                display: block !important;
+            }
+            .story-step {
+                page-break-inside: avoid;
+            }
+            .doc-link {
+                background: none;
+                border: none;
+                color: #000;
+                padding: 0;
+            }
+            .doc-link::after {
+                content: " (" attr(href) ")";
+                font-size: 10px;
+                color: #555;
+            }
+        }
     </style>
 </head>
 <body>
@@ -268,7 +353,7 @@
                 </p>
                 <div class="evidence-box">
                     <span class="evidence-label"><strong>Supporting Technical Data:</strong> Interactive GIS network maps, corridor tier classifications, and the strategic TCO presentation.</span>
-                    <div style="display:flex; gap:8px;">
+                    <div class="doc-link-group">
                         <a href="https://road-assessment-seven.vercel.app/Road_Upgrade_Kick_Off_21072026.pdf" target="_blank" class="doc-link">📄 Strategy Deck</a>
                         <a href="https://road-assessment-seven.vercel.app/" target="_blank" class="doc-link">🌐 GIS Map Portal</a>
                     </div>
@@ -284,7 +369,7 @@
                 </p>
                 <div class="evidence-box">
                     <span class="evidence-label"><strong>Supporting Engineering Specifications:</strong> COLTO/TRH14 aggregate sub-base standards and field inspection photographic logs.</span>
-                    <div style="display:flex; gap:8px;">
+                    <div class="doc-link-group">
                         <a href="https://road-assessment-seven.vercel.app/Road_Assessment_Jul_2026_Exec_Summ.html" target="_blank" class="doc-link">📄 Exec Summary</a>
                         <a href="https://road-assessment-seven.vercel.app/Road_Assessment_Jul_2026_Appendix.html" target="_blank" class="doc-link">📄 COLTO Appendix</a>
                         <a href="https://road-assessment-seven.vercel.app/Holding%20Fixes/Log_Simple.html" target="_blank" class="doc-link">📸 Field Log</a>
@@ -301,7 +386,7 @@
                 </p>
                 <div class="evidence-box">
                     <span class="evidence-label"><strong>Supporting Financial Plans:</strong> SGM pre-read memorandum and master financial roadmap.</span>
-                    <div style="display:flex; gap:8px;">
+                    <div class="doc-link-group">
                         <a href="https://road-assessment-seven.vercel.app/plan.html" target="_blank" class="doc-link">📊 Gantt &amp; Budget Plan</a>
                         <a href="https://road-assessment-seven.vercel.app/Homeowner_Comm_Sept2026.html" target="_blank" class="doc-link">📄 SGM Memo</a>
                     </div>
