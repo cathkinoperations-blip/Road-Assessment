@@ -12,6 +12,8 @@
             --text-muted: #6c757d;
             --primary-blue: #0d6efd;
             --border-color: #e9ecef;
+            --badge-bg: #eef2ff;
+            --badge-text: #3730a3;
         }
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -39,19 +41,36 @@
         .subtitle {
             color: var(--text-muted);
             font-size: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 15px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+            background-color: #fafafa;
+        }
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            background-color: #fff;
         }
         .section-header {
             font-size: 18px;
             font-weight: 700;
-            margin-top: 30px;
-            margin-bottom: 12px;
+            margin-top: 36px;
+            margin-bottom: 6px;
             color: #1e293b;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        }
+        .section-desc {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
         }
         .link-list {
             list-style: none;
@@ -62,36 +81,43 @@
             background: #fdfdfd;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 20px;
-            margin-bottom: 16px;
+            padding: 18px;
+            margin-bottom: 14px;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             gap: 20px;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
         .link-item:hover {
             border-color: var(--primary-blue);
+            box-shadow: 0 2px 8px rgba(13, 110, 253, 0.08);
         }
         .link-info h3 {
             margin: 0 0 6px 0;
-            font-size: 16px;
+            font-size: 15.5px;
             color: #1e293b;
         }
         .link-info p {
-            margin: 0;
-            font-size: 14px;
-            color: var(--text-main);
-            line-height: 1.5;
-        }
-        .detail-list {
-            margin: 8px 0 12px 18px;
-            padding: 0;
+            margin: 0 0 8px 0;
             font-size: 13.5px;
-            color: #334155;
+            color: #475569;
+            line-height: 1.45;
         }
-        .detail-list li {
-            margin-bottom: 4px;
+        .badge-bar {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
         }
         .link-button {
             background-color: var(--primary-blue);
@@ -102,7 +128,6 @@
             font-size: 13px;
             font-weight: 600;
             white-space: nowrap;
-            margin-top: 2px;
         }
         .link-button:hover {
             background-color: #0b5ed7;
@@ -111,9 +136,10 @@
             background-color: #f8fafc;
             border-left: 4px solid var(--primary-blue);
             padding: 15px;
-            font-size: 14px;
-            margin-top: 30px;
+            font-size: 13.5px;
+            margin-top: 35px;
             border-radius: 0 6px 6px 0;
+            color: #334155;
         }
         .footer {
             text-align: center;
@@ -186,166 +212,181 @@
                 document.getElementById('password-input').focus();
             }
         }
+
+        function filterIndex() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const items = document.querySelectorAll('.link-item');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(query) ? 'flex' : 'none';
+            });
+        }
     </script>
 
     <div id="main-app" class="main-content">
         <div class="container">
             <h1>Cathkin Estates HOA Road Upgrade Index</h1>
-            <div class="subtitle">Central resource hub and documentation portal summarising key outcomes and comprehensive background details.</div>
+            <div class="subtitle">Central resource hub and documentation portal summarizing technical standards, financial plans, and tender evaluations for homeowners.</div>
 
-            <div class="section-header">📋 Core Project &amp; Meeting Materials</div>
+            <input type="text" id="search-input" class="search-box" placeholder="🔍 Search links by keyword (e.g., Raciti, Bridge 8, Budget, Pavers)..." onkeyup="filterIndex()">
+
+            <!-- Section 1 -->
+            <div class="section-header">📋 Core Project &amp; Strategy Materials</div>
+            <div class="section-desc">Key presentations and spatial mapping portals outlining the strategic move toward rigid paver engineering.</div>
             <ul class="link-list">
                 <li class="link-item">
                     <div class="link-info">
                         <h3>Road Upgrade Kick-Off Presentation</h3>
-                        <p>This presentation sets out the strategic shift away from temporary cosmetic patching toward a hybrid rigid-pavement engineering model across the estate:</p>
-                        <ul class="detail-list">
-                            <li><strong>Core Recommendation:</strong> Implement a hybrid surface strategy combining <strong>60mm (35 MPa) Interlocking Pavers</strong> for standard flat corridors with <strong>150mm Reinforced Cast Concrete (30 MPa)</strong> on steep inclines and water channels.</li>
-                            <li><strong>Structural Superiority:</strong> Flexible bituminous seals split under heavy 10-cube truck axle loads (~8.2 t) due to zero bridging strength. Rigid pavers bridge underlying subgrade movements without cracking.</li>
-                            <li><strong>Zero Access Delays:</strong> Paver installations allow cars to drive over laid sections immediately, avoiding access disruptions in single-road estate zones.</li>
-                            <li><strong>20-Year TCO Leader:</strong> Eliminates recurring re-sealing cycles, offering the lowest 20-year Total Cost of Ownership (R500–R750/m²) with 100% reusable blocks during subgrade repairs.</li>
-                            <li><strong>Execution Standard:</strong> 90° Herringbone laying pattern over a 20–25mm washed river sand bed, restrained laterally by in-situ concrete edge kerbs and swept with silica joint sand.</li>
-                        </ul>
+                        <p>Executive deck establishing the engineering transition from reactive bitumen patching to heavy-duty 80mm interlocking pavers (60mm on flat runs) and reinforced concrete inclines, highlighting lower 20-year Total Cost of Ownership.</p>
+                        <div class="badge-bar">
+                            <span class="badge">Strategy</span>
+                            <span class="badge">Hybrid Model</span>
+                            <span class="badge">20-Yr TCO</span>
+                        </div>
                     </div>
                     <a href="https://road-assessment-seven.vercel.app/Road_Upgrade_Kick_Off_21072026.pdf" target="_blank" class="link-button">View PDF</a>
                 </li>
                 <li class="link-item">
                     <div class="link-info">
                         <h3>Assessment Portal</h3>
-                        <p>Serving as the central navigation hub for the July 2026 infrastructure review, this portal integrates master executive summary decks with granular, tier-based corridor breakdowns and spatial visualisations:</p>
-                        <ul class="detail-list">
-                            <li><strong>Scope & Strategy:</strong> Categorises 18 distinct estate road corridors (~1,595m) into a four-tier priority matrix, balancing permanent paver/concrete rebuilds on critical failure zones with cost-effective holding fixes on recoverable asphalt.</li>
-                            <li><strong>Tier 1 — Critical Priority:</strong> Focuses on permanent rebuilds for severe oxidation, washouts, and structural failures across Champagne Ridge (~280m), Bridge 6 Series (~60m), and Bridge 8 Series (~140m).</li>
-                            <li><strong>Tier 2 — High Priority:</strong> Addresses base and drainage failures including bridge approaches (Bridge 2, 4, 5), Arum Lane apron (~36m paver apron), and Cathkin Drive Dam Series (~103m slumping, piping cavitation & sub-soil drainage).</li>
-                            <li><strong>Tier 3 & 4 — Medium/Low Priority:</strong> Outlines low-cost, targeted maintenance (hot-pour crack sealing, mastic patching, cold-mix leveling) across residential lanes (Eland Way, Dierama Lane, Oribi Lane, Whydah Way) and low-wear bridge approaches.</li>
-                            <li><strong>Interactive Spatial Mapping:</strong> Features an embedded Google GIS network map allowing interactive layer toggling to inspect damage logs and repair specifications for individual road segments.</li>
-                        </ul>
+                        <p>Central interactive portal hosting spatial network maps, tier-based corridor priority matrix, and GPS-mapped damage logs across 1,595m of estate roads.</p>
+                        <div class="badge-bar">
+                            <span class="badge">GIS Map</span>
+                            <span class="badge">18 Corridors</span>
+                            <span class="badge">4 Tiers</span>
+                        </div>
                     </div>
                     <a href="https://road-assessment-seven.vercel.app/" target="_blank" class="link-button">Open Portal</a>
                 </li>
             </ul>
 
+            <!-- Section 2 -->
             <div class="section-header">📊 Assessments &amp; Technical Data</div>
+            <div class="section-desc">Engineering studies, material standards (COLTO/TRH14), and localized pre-paving field maintenance logs.</div>
             <ul class="link-list">
                 <li class="link-item">
                     <div class="link-info">
                         <h3>Executive Summary</h3>
-                        <p>This document presents the master strategic evaluation of the entire ~1,595m estate road network, balancing permanent paving upgrades against low-cost holding fixes:</p>
-                        <ul class="detail-list">
-                            <li><strong>Network-Wide Scope:</strong> Evaluates 18 distinct road corridors totaling ~1,595m, allocating ~694m for permanent paver/concrete rebuilds with edge curbs and ~901m for targeted holding fixes.</li>
-                            <li><strong>Critical Priority Rebuilds (Tier 1):</strong> Details full-scope permanent rebuilds for Champagne Ridge (~280m paver conversion with G2 undercutting), Bridge 6 (~60m wall-footing washout repair), and Bridge 8 (~140m headwall rip-rap & 59m steep approach paving).</li>
-                            <li><strong>High Priority Interventions (Tier 2):</strong> Targets localized structural and drainage failures across Bridge 2 (~95m rebuild), Bridge 4 (~30m deck paving & weep channels), Bridge 5 (~15m sub-soil drainage & pave), Arum Lane (~15m turning apron), and Dam Series (~28m bridge deck pave & sub-soil drains).</li>
-                            <li><strong>Medium & Low Priority Holding Fixes (Tiers 3 & 4):</strong> Preserves capital on lower-wear sections (Eland Way, Dierama Lane, Duiker Ridge, Oribi Lane, Village 4 & 5, Whydah Way, Bridges 3 & 7, Tumbleweed) using elastomeric hot-pour crack sealing, cold-mix leveling, and mastic over-banding to buy 3–5 years of service life.</li>
-                        </ul>
+                        <p>Master strategic evaluation allocating ~694m for permanent paver/concrete rebuilds (Champagne Ridge, Bridges 6 &amp; 8) and ~901m for cost-effective holding fixes across lower-wear residential lanes.</p>
+                        <div class="badge-bar">
+                            <span class="badge">Master Plan</span>
+                            <span class="badge">Tier 1–4 Scope</span>
+                        </div>
                     </div>
                     <a href="https://road-assessment-seven.vercel.app/Road_Assessment_Jul_2026_Exec_Summ.html" target="_blank" class="link-button">View Summary</a>
                 </li>
                 <li class="link-item">
                     <div class="link-info">
                         <h3>Technical Appendix</h3>
-                        <p>Serving as the technical engineering reference for the assessment, this appendix details structural sub-base strategies, material standards, and regional benchmarks:</p>
-                        <ul class="detail-list">
-                            <li><strong>Sub-Base Strategy Matrix:</strong> Differentiates non-invasive surface waterproofing (preserves capital on sound beds) from targeted box-cut repairs and total structural rebuilds (G2 aggregate undercutting & edge restraints).</li>
-                            <li><strong>Bituminous Material Comparison:</strong> Evaluates thin Slurry Overlays (3–6mm, 5–7 yr lifespan for light runs) against heavy-duty Cape Seals (10–15mm hybrid stone/slurry matrix, 10–15 yr lifespan for high-shear turning zones).</li>
-                            <li><strong>TRH14 / COLTO Granular Classifications:</strong> Outlines structural specifications for South African gravel classes (G1 to G10), establishing G2 dense-graded crushed stone as the mandatory standard for high-wear paver box-cuts and junction aprons.</li>
-                            <li><strong>Photographic Empirical Evidence:</strong> Compares field performance across identical roadbed conditions, demonstrating how rigid concrete suffers map cracking and asphalt oxidizes, while modular interlocking pavers maintain structural micro-articulation.</li>
-                            <li><strong>Regional Logistics Benchmarking:</strong> Contrasts urban-adjacent developments (e.g., Amber Valley) with Cathkin Estates' remote mountain setting, justifying self-sufficient "lift-and-relay" interlocking pavers over high-risk ready-mix concrete transit.</li>
-                        </ul>
+                        <p>Engineering reference covering G2 aggregate sub-base standards (COLTO/TRH14), Cape Seal vs. Slurry comparisons, and modular paver micro-articulation performance.</p>
+                        <div class="badge-bar">
+                            <span class="badge">COLTO Specs</span>
+                            <span class="badge">Sub-Base Design</span>
+                        </div>
                     </div>
                     <a href="https://road-assessment-seven.vercel.app/Road_Assessment_Jul_2026_Appendix.html" target="_blank" class="link-button">View Appendix</a>
                 </li>
                 <li class="link-item">
                     <div class="link-info">
                         <h3>Holding Fixes Log</h3>
-                        <p>This operational photo and action log records September 2026 field inspections, precise GPS coordinates, and required maintenance tasks to stabilize surfaces prior to major paving works:</p>
-                        <ul class="detail-list">
-                            <li><strong>GPS-Mapped Field Catalogue:</strong> Tracks 10 key spatial inspection locations across the estate, pairing exact geographic coordinates with photographic visual evidence of surface defects.</li>
-                            <li><strong>Targeted Maintenance Interventions:</strong> Details site-specific holding actions, including cold-tar pothole patching, bitumen emulsion crack sealing on crocodile-cracked zones, slurry surface stabilization, and crusher-run cement layerworks.</li>
-                            <li><strong>Stormwater &amp; Drainage Works:</strong> Captures critical drainage interventions, such as excavating cast concrete stormwater trenches, building brick-lined channels, clearing debris, constructing stormwater gullies, and shaping bell-mouth transition flares.</li>
-                            <li><strong>Scope Boundaries &amp; Exclusions:</strong> Notes that the asphalt water-diverting hump at Location 1 is excluded from holding fixes, as it is integrated directly into the separate commercial paving scope.</li>
-                        </ul>
+                        <p>Field log capturing September 2026 inspection points, GPS coordinates, and required maintenance tasks (cold-mix patching, crack sealing, and concrete U-drain trenching).</p>
+                        <div class="badge-bar">
+                            <span class="badge">GPS Log</span>
+                            <span class="badge">Drainage</span>
+                            <span class="badge">Maintenance</span>
+                        </div>
                     </div>
                     <a href="https://road-assessment-seven.vercel.app/Holding%20Fixes/Log_Simple.html" target="_blank" class="link-button">View Log</a>
                 </li>
             </ul>
 
+            <!-- Section 3 -->
             <div class="section-header">🗓️ Planning &amp; Communications</div>
+            <div class="section-desc">Financial modeling, phased Gantt timelines, deferred Capex reserve funding, and SGM owner communications.</div>
             <ul class="link-list">
                 <li class="link-item">
                     <div class="link-info">
                         <h3>Project Plan &amp; Roadmap</h3>
-                        <p>This interactive Gantt roadmap and financial allocation plan outlines the phased project schedule, monthly cash flow, and capital funding strategy from July 2026 through May 2027:</p>
-                        <ul class="detail-list">
-                            <li><strong>Phased Implementation Schedule:</strong> Details six operational phases spanning initial site audits, vendor procurement, pre-paving holding maintenance across Villages 2–5 (R260k total), stormwater u-drain trenching (R55k), and Tier 1/2 paving execution.</li>
-                            <li><strong>Rainy Season Buffer (Nov 2026 – Feb 2027):</strong> Enforces a 4-month pause on major roadwork to mitigate heavy mountain rainfall risks, reserving early 2027 for post-rain paving phases.</li>
-                            <li><strong>Multi-Year Budget Strategy:</strong> Outlines a Total Estimated Budget of R2.85M (R2.465M excl. 15% contingency), divided into R1.495M for FY 25/26 and R1.380M for FY 26/27.</li>
-                            <li><strong>Deferred Capex Funding Mechanism:</strong> Identifies R1.465M in deferred non-essential capital expenditure (e.g., Landini tractor, electric fence, park development, off-grid solar) to fund road construction without special levies.</li>
-                            <li><strong>Tiered Paving Execution Milestones:</strong> Schedules Champagne Ridge 280m paving in Oct 2026 (R950k), followed by Bridges 6 & 8 in Mar 2027 (R650k), and Bridges 2, 4, 5 plus Dam Series in Apr–May 2027 (R550k total).</li>
-                        </ul>
+                        <p>Interactive Gantt timeline and R2.85M budget allocation plan spanning FY 25/26 to FY 26/27, featuring a 4-month summer rain buffer and deferred Capex reserve funding.</p>
+                        <div class="badge-bar">
+                            <span class="badge">Gantt Chart</span>
+                            <span class="badge">R2.85M Budget</span>
+                            <span class="badge">Phasing</span>
+                        </div>
                     </div>
                     <a href="https://road-assessment-seven.vercel.app/plan.html" target="_blank" class="link-button">View Plan</a>
                 </li>
                 <li class="link-item">
                     <div class="link-info">
                         <h3>SGM Reviewed Material &amp; Administrative Update</h3>
-                        <p>This pre-read memorandum presented at the 28 September 2026 Special General Meeting (SGM) outlines the strategic infrastructure rehabilitation proposal and financial framework:</p>
-                        <ul class="detail-list">
-                            <li><strong>Strategic Engineering Shift:</strong> Transitioning from reactive temporary patching to permanent 80mm interlocking concrete pavers secured by reinforced concrete kerbing.</li>
-                            <li><strong>Urgency &amp; Timing Rationale:</strong> Approving works prior to the July 2027 AGM prevents severe summer rainfall from penetrating unsealed sub-bases and causing exponentially higher damage.</li>
-                            <li><strong>Zero Special Levy Funding Strategy:</strong> Draws the R2.875M multi-year capital requirement (incl. 15% contingency) directly from the HOA Capital Reserve Fund and existing R480k operational budget without raising levies.</li>
-                            <li><strong>Phase 1 Financial Mandate (FY 25/26):</strong> Commits R1.495M (R1.015M net reserve allocation) for Champagne Ridge rebuild (R950k), village holding fixes (R260k), and stormwater upgrades (R55k).</li>
-                            <li><strong>Phase 2 Commitment (FY 26/27):</strong> Earmarks R1.380M for post-rainy season execution across Tier 1 (Bridges 6 & 8) and Tier 2 priority rebuilds (Bridges 2, 4, 5 & Dam Series).</li>
-                        </ul>
+                        <p>Pre-read memorandum presented at the September 2026 SGM detailing the zero special levy funding model, Reserve Fund drawdown, and two-phase operational mandate.</p>
+                        <div class="badge-bar">
+                            <span class="badge">SGM Pre-Read</span>
+                            <span class="badge">Governance</span>
+                            <span class="badge">Reserve Fund</span>
+                        </div>
                     </div>
                     <a href="https://road-assessment-seven.vercel.app/Homeowner_Comm_Sept2026.html" target="_blank" class="link-button">Read Update</a>
                 </li>
             </ul>
 
-            <div class="section-header">🏗️ Procurement &amp; Vendor Evaluation</div>
+            <!-- Section 4 -->
+            <div class="section-header">🏗️ Commercial Procurement &amp; Vendor Evaluation</div>
+            <div class="section-desc">Commercial tender evaluation, scoring matrix, and contractor due diligence sheets for Champagne Ridge (810 m²).</div>
             <ul class="link-list">
                 <li class="link-item">
                     <div class="link-info">
-                        <h3>Champagne Ridge Road Upgrade Recommendation</h3>
-                        <p>This comprehensive tender evaluation report details the commercial and technical scoring matrix applied to contractor bids for project reference 2026_003_CR_v2_1 covering the Champagne Ridge upgrade (810 m²):</p>
-                        <ul class="detail-list">
-                            <li><strong>Governance & Ethics Disqualification:</strong> Disqualified Jobman following an unacceptable "Golden Handshake" offer and critical compliance issues[span_0](start_span)[span_0](end_span).</li>
-                            <li><strong>Recommended Awardee:</strong> Recommends a conditional award to <strong>Raciti</strong> as the top-ranked bidder (score: 8.77/10) with the lowest price of <strong>ZAR 743,762.50</strong> (~ZAR 918.23/m²)[span_1](start_span)[span_1](end_span)[span_2](start_span)[span_2](end_span).</li>
-                            <li><strong>Comparative Bids:</strong> Evaluates competing offers from Remca (ZAR 844,280.50 / 6.86 score) and non-compliant Jobman (ZAR 2,720,900.00 / 8.31 score)[span_3](start_span)[span_3](end_span)[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span).</li>
-                            <li><strong>Technical Scope Requirements:</strong> Mandates 80mm interlocking pavers engineered for high-tonnage construction traffic, G2 sub-base undercutting, concrete edge curbs along inner curves, and shoulder stabilization[span_6](start_span)[span_6](end_span).</li>
-                            <li><strong>Pre-Award Conditions:</strong> Requires Raciti to submit a binding turnkey fixed-price contract (no scope creep variations), 10-year structural paver warranties, independent density/crushing test certificates, and a traffic management plan within 10 business days[span_7](start_span)[span_7](end_span).</li>
-                        </ul>
+                        <h3>Champagne Ridge Tender Recommendation Report</h3>
+                        <p>Master commercial evaluation for project ref 2026_003_CR_v2_1 (810 m²). Details the scoring matrix, Jobman's disqualification on ethics grounds, and the conditional award to Raciti.</p>
+                        <div class="badge-bar">
+                            <span class="badge">Tender Award</span>
+                            <span class="badge">Score Matrix</span>
+                            <span class="badge">Ref: 2026_003_CR</span>
+                        </div>
                     </div>
                     <a href="https://road-assessment-seven.vercel.app/Commercials/Recommendation%20-%20Champagne%20Ridge%20Road%20Upgrade.html" target="_blank" class="link-button">View Report</a>
                 </li>
                 <li class="link-item">
                     <div class="link-info">
-                        <h3>Raciti - Detailed Analysis Sheet</h3>
-                        <p>Individual procurement due diligence sheet reviewing the proposal submitted by Jenrac Plant Hire and Paving cc t/a Raciti's Paving &amp; Construction on 3 September 2026[span_8](start_span)[span_8](end_span).</p>
+                        <h3>Raciti — Detailed Analysis Sheet</h3>
+                        <p>Procurement due diligence for Jenrac Plant Hire t/a Raciti's Paving. Recommended awardee (Score: 8.77/10) at ZAR 743,762.50 incl. VAT. Note: Fuel price variation clause requires capping prior to signing.</p>
+                        <div class="badge-bar">
+                            <span class="badge" style="background:#dcfce7; color:#166534;">Recommended</span>
+                            <span class="badge">ZAR 743,762</span>
+                        </div>
                     </div>
                     <a href="https://road-assessment-seven.vercel.app/Commercials/Raciti%20-%20Detailed%20Analysis%20Sheet.html" target="_blank" class="link-button">View Analysis</a>
                 </li>
                 <li class="link-item">
                     <div class="link-info">
-                        <h3>Remca - Detailed Analysis Sheet</h3>
-                        <p>Individual procurement due diligence sheet evaluating the proposal submitted by Remca Construction cc on 7 September 2026[span_9](start_span)[span_9](end_span).</p>
+                        <h3>Remca — Detailed Analysis Sheet</h3>
+                        <p>Procurement due diligence for Remca Construction cc (Score: 6.86/10). Adjusted total of ZAR 844,280.50 incl. VAT for 810 m² scope. Highlights risks regarding paving directly over tar without milling.</p>
+                        <div class="badge-bar">
+                            <span class="badge">Score: 6.86</span>
+                            <span class="badge">ZAR 844,280</span>
+                        </div>
                     </div>
                     <a href="https://road-assessment-seven.vercel.app/Commercials/Remca%20-%20Detailed%20Analysis%20Sheet.html" target="_blank" class="link-button">View Analysis</a>
                 </li>
                 <li class="link-item">
                     <div class="link-info">
-                        <h3>Jobman - Detailed Analysis Sheet</h3>
-                        <p>Individual procurement due diligence sheet detailing the proposal submitted by Jobman Construction (Pty) Ltd on 27 August 2026[span_10](start_span)[span_10](end_span).</p>
+                        <h3>Jobman — Detailed Analysis Sheet</h3>
+                        <p>Procurement due diligence for Jobman Construction (Disqualified). Quoted ZAR 2,720,900.00 incl. VAT. Flagged for 80% deposit demand, major scope rate discrepancies, and ethical governance issues.</p>
+                        <div class="badge-bar">
+                            <span class="badge" style="background:#fee2e2; color:#991b1b;">Disqualified</span>
+                            <span class="badge">Governance Flag</span>
+                        </div>
                     </div>
                     <a href="https://road-assessment-seven.vercel.app/Commercials/Jobman%20-%20Detailed%20Analysis%20Sheet.html" target="_blank" class="link-button">View Analysis</a>
                 </li>
             </ul>
 
             <div class="note">
-                <strong>Security Note:</strong> Access to this master index and detailed evaluation reports requires the security password, <code>Cathkin2026</code>[span_11](start_span)[span_11](end_span)[span_12](start_span)[span_12](end_span)[span_13](start_span)[span_13](end_span).
+                <strong>Security Note:</strong> Access to this master index and detailed evaluation reports requires the security password, <code>Cathkin2026</code>.
             </div>
 
             <div class="footer">
-                Cathkin Estates Operations and Finance Committees &mdash; September 2026
+                Cathkin Estates Operations and Finance Committees &mdash; October 2026
             </div>
         </div>
     </div>
