@@ -520,14 +520,14 @@ function renderUI(locations) {
                                 </div>
 
                                 <div style="flex-grow: 1; min-width: 240px;">
-                                <div class="action-tag" style="margin-bottom: 8px; font-size: 0.92rem;">⚠️ ${escapeHtml(item.action_tag)}</div>
-                                <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 6px;">
-                                    <span style="font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; background: ${statusBg}; color:${statusColor}; display: inline-block;">
-                                        ${currentStatus}
-                                    </span>
+                                    <div class="action-tag" style="margin-bottom: 8px; font-size: 0.92rem;">⚠️ ${escapeHtml(item.action_tag)}</div>
+                                    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 6px;">
+                                        <span style="font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; background: ${statusBg}; color:${statusColor}; display: inline-block;">
+                                            ${currentStatus}
+                                        </span>
+                                    </div>
+                                    ${item.notes ? `<div style="font-size: 0.88rem; color: var(--slate-700); background: #f8fafc; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--slate-250); margin-top: 6px; white-space: pre-wrap;">📝 ${escapeHtml(item.notes)}</div>` : ''}
                                 </div>
-                                ${item.notes ? `<div style="font-size: 0.88rem; color: var(--slate-700); background: #f8fafc; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--slate-250); margin-top: 6px; white-space: pre-wrap;">📝 ${escapeHtml(item.notes)}</div>` : ''}
-                            </div>
                             </div>
 
                             <button class="btn btn-sm" onclick="toggleActionForm(${item.id})" style="width: 100%; justify-content: center; padding: 9px; font-size: 0.88rem;">🛠️ Update Action Status / Progress Photo</button>
@@ -543,8 +543,17 @@ function renderUI(locations) {
                                 </select>
                                 <label>Progress Notes / Repair Details:</label>
                                 <textarea id="action-notes-${item.id}" rows="2" placeholder="Describe repair work done..." style="width: 100%; padding: 9px; margin-bottom: 10px; border-radius: 6px; border: 1px solid var(--slate-300); font-family: inherit;">${escapeHtml(item.notes || '')}</textarea>
+                                
                                 <label>Attach Progress Photo (After):</label>
-                                <input type="file" id="action-file-${item.id}" accept="image/*" style="margin-bottom: 10px;">
+                                <input type="file" id="action-file-${item.id}" accept="image/*" style="margin-bottom: ${afterPhotoUrl ? '6px' : '10px'};">
+                                
+                                ${afterPhotoUrl ? `
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.85rem; color: var(--rose-600); font-weight: 600;">
+                                        <input type="checkbox" id="remove-photo-${item.id}" style="width: 16px; height: 16px; cursor: pointer;">
+                                        <label for="remove-photo-${item.id}" style="margin: 0; cursor: pointer; color: var(--rose-600);">Remove current After photo</label>
+                                    </div>
+                                ` : ''}
+
                                 <button id="action-btn-${item.id}" class="btn btn-success" onclick="saveActionUpdate(${item.id})">Save Action Changes</button>
                             </div>
                         </div>
@@ -625,7 +634,7 @@ function renderUI(locations) {
             wrapper.innerHTML += cardHtml;
         });
     }
-
+    
     function toggleActionForm(actionId) {
         const form = document.getElementById(`action-form-${actionId}`);
         form.style.display = form.style.display === 'block' ? 'none' : 'block';
@@ -636,6 +645,8 @@ function renderUI(locations) {
         const status = statusSelect ? statusSelect.value : 'Not Started';
         const notesInput = document.getElementById(`action-notes-${actionId}`);
         const notes = notesInput ? notesInput.value : '';
+        const removeCheckbox = document.getElementById(`remove-photo-${actionId}`);
+        const remove_photo = removeCheckbox ? removeCheckbox.checked : false;
         const submitBtn = document.getElementById(`action-btn-${actionId}`);
 
         try {
@@ -662,7 +673,7 @@ function renderUI(locations) {
             const response = await fetch('/api/actions', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: actionId, status, photo_url, notes })
+                body: JSON.stringify({ id: actionId, status, photo_url, notes, remove_photo })
             });
 
             if (response.ok) {
