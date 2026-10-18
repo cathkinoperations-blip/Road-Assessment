@@ -3,23 +3,22 @@ import { NextResponse } from 'next/server';
 
 export async function PUT(request) {
   try {
-    const { id, status, photo_url } = await request.json();
+    const { id, status, photo_url, notes } = await request.json();
 
     if (!id) {
       return NextResponse.json({ error: 'Action ID is required' }, { status: 400 });
     }
 
-    // Save new upload into after_photo_url so original photo_url (Before) is preserved
     if (photo_url) {
       await sql`
         UPDATE action_items 
-        SET status = ${status}, after_photo_url = ${photo_url} 
+        SET status = ${status}, after_photo_url = ${photo_url}, notes = ${notes} 
         WHERE id = ${id}
       `;
     } else {
       await sql`
         UPDATE action_items 
-        SET status = ${status} 
+        SET status = ${status}, notes = ${notes} 
         WHERE id = ${id}
       `;
     }

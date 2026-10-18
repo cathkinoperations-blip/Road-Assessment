@@ -180,9 +180,9 @@
         
         /* Required Field Actions Grid */
         .actions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
             margin-bottom: 24px;
         }
         .action-item-card {
@@ -492,46 +492,51 @@ function renderUI(locations) {
                     const statusColor = currentStatus === 'Complete' ? '#059669' : currentStatus === 'In Progress' ? '#d97706' : '#dc2626';
 
                     actionCardsHtml += `
-                        <div class="action-item-card" style="display: flex; flex-direction: column; align-items: stretch; gap: 8px;">
-                            <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <div class="action-item-card" style="display: flex; flex-direction: column; align-items: stretch; gap: 12px; padding: 16px;">
+                            <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
                                 <!-- Before Photo -->
                                 <div style="text-align: center;">
-                                    <div class="action-thumb-container" onclick="openLightbox('${beforePhotoUrl}')" style="width: 64px; height: 64px;">
+                                    <div class="action-thumb-container" onclick="openLightbox('${beforePhotoUrl}')" style="width: 90px; height: 90px;">
                                         <img src="${beforePhotoUrl}" alt="Before photo" style="width: 100%; height: 100%; object-fit: cover;">
                                     </div>
-                                    <span style="font-size: 0.68rem; font-weight: 700; color: var(--slate-500);">BEFORE</span>
+                                    <span style="font-size: 0.72rem; font-weight: 700; color: var(--slate-500); display: block; margin-top: 4px;">BEFORE</span>
                                 </div>
 
-                                ${afterPhotoUrl ? `
                                 <!-- After Photo (shown only if logged) -->
                                 <div style="text-align: center;">
-                                    <div class="action-thumb-container" onclick="openLightbox('${afterPhotoUrl}')" style="width: 64px; height: 64px; border-color: var(--emerald-600);">
-                                        <img src="${afterPhotoUrl}" alt="After photo" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <div class="action-thumb-container" onclick="openLightbox('${afterPhotoUrl || '#'}')" style="width: 90px; height: 90px; border-color: ${afterPhotoUrl ? 'var(--emerald-600)' : 'var(--slate-300)'}; background: ${afterPhotoUrl ? 'transparent' : '#f1f5f9'};">
+                                        ${afterPhotoUrl ? `<img src="${afterPhotoUrl}" alt="After photo" style="width: 100%; height: 100%; object-fit: cover;">` : `<div style="display: flex; align-items: center; justify-content: center; height: 100%; font-size: 0.7rem; color: var(--slate-400); text-align: center; padding: 4px;">Pending</div>`}
                                     </div>
-                                    <span style="font-size: 0.68rem; font-weight: 700; color: var(--emerald-600);">AFTER</span>
-                                </div>` : ''}
+                                    <span style="font-size: 0.72rem; font-weight: 700; color: ${afterPhotoUrl ? 'var(--emerald-600)' : 'var(--slate-400)'}; display: block; margin-top: 4px;">AFTER</span>
+                                </div>
 
-                                <div style="flex-grow: 1; min-width: 0;">
-                                    <div class="action-tag" style="margin-bottom: 6px;">⚠️ ${escapeHtml(item.action_tag)}</div>
-                                    <span style="font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 12px; background: ${statusBg}; color: ${statusColor}; display: inline-block;">
+                                <div style="flex-grow: 1; min-width: 240px;">
+                                <div class="action-tag" style="margin-bottom: 8px; font-size: 0.92rem;">⚠️ ${escapeHtml(item.action_tag)}</div>
+                                <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 6px;">
+                                    <span style="font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; background: ${statusBg}; color:${statusColor}; display: inline-block;">
                                         ${currentStatus}
                                     </span>
                                 </div>
+                                ${item.notes ? `<div style="font-size: 0.88rem; color: var(--slate-700); background: #f8fafc; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--slate-250); margin-top: 6px; white-space: pre-wrap;">📝 ${escapeHtml(item.notes)}</div>` : ''}
                             </div>
-                            <button class="btn btn-sm" onclick="toggleActionForm(${item.id})" style="width: 100%; justify-content: center; margin-top: 4px;">🛠️ Update Action Status / Progress Photo</button>
+                            </div>
+
+                            <button class="btn btn-sm" onclick="toggleActionForm(${item.id})" style="width: 100%; justify-content: center; padding: 9px; font-size: 0.88rem;">🛠️ Update Action Status / Progress Photo</button>
                             
                             <!-- Inline Action Update Form -->
-                            <div id="action-form-${item.id}" class="update-form" style="margin-top: 8px;">
+                            <div id="action-form-${item.id}" class="update-form" style="margin-top: 4px;">
                                 <h5>Update Field Action</h5>
                                 <label>Status:</label>
-                                <select id="action-status-${item.id}" style="width: 100%; padding: 8px; margin-bottom: 8px; border-radius: 6px; border: 1px solid var(--slate-300); font-family: inherit;">
+                                <select id="action-status-${item.id}" style="width: 100%; padding: 9px; margin-bottom: 10px; border-radius: 6px; border: 1px solid var(--slate-300); font-family: inherit;">
                                     <option value="Not Started" ${currentStatus === 'Not Started' ? 'selected' : ''}>Not Started</option>
                                     <option value="In Progress" ${currentStatus === 'In Progress' ? 'selected' : ''}>In Progress</option>
                                     <option value="Complete" ${currentStatus === 'Complete' ? 'selected' : ''}>Complete</option>
                                 </select>
+                                <label>Progress Notes / Repair Details:</label>
+                                <textarea id="action-notes-${item.id}" rows="2" placeholder="Describe repair work done..." style="width: 100%; padding: 9px; margin-bottom: 10px; border-radius: 6px; border: 1px solid var(--slate-300); font-family: inherit;">${escapeHtml(item.notes || '')}</textarea>
                                 <label>Attach Progress Photo (After):</label>
-                                <input type="file" id="action-file-${item.id}" accept="image/*" style="margin-bottom: 8px;">
-                                <button class="btn btn-success" onclick="saveActionUpdate(${item.id})">Save Action Changes</button>
+                                <input type="file" id="action-file-${item.id}" accept="image/*" style="margin-bottom: 10px;">
+                                <button id="action-btn-${item.id}" class="btn btn-success" onclick="saveActionUpdate(${item.id})">Save Action Changes</button>
                             </div>
                         </div>
                     `;
@@ -620,13 +625,18 @@ function renderUI(locations) {
     async function saveActionUpdate(actionId) {
         const statusSelect = document.getElementById(`action-status-${actionId}`);
         const status = statusSelect ? statusSelect.value : 'Not Started';
+        const notesInput = document.getElementById(`action-notes-${actionId}`);
+        const notes = notesInput ? notesInput.value : '';
+        const submitBtn = document.getElementById(`action-btn-${actionId}`);
 
         try {
-            // Upload new photo to Vercel Blob if a file was chosen
             const fileInput = document.getElementById(`action-file-${actionId}`);
             let photo_url = null;
             
             if (fileInput && fileInput.files.length > 0) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = '⏳ Uploading image to Vercel Blob...';
+                
                 const file = fileInput.files[0];
                 const uploadRes = await fetch(`/api/upload?filename=${encodeURIComponent(file.name)}`, {
                     method: 'POST',
@@ -637,21 +647,32 @@ function renderUI(locations) {
                 photo_url = blobResult.url;
             }
 
-            // Send update to API endpoint
+            submitBtn.disabled = true;
+            submitBtn.innerText = '💾 Saving changes to database...';
+
             const response = await fetch('/api/actions', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: actionId, status, photo_url })
+                body: JSON.stringify({ id: actionId, status, photo_url, notes })
             });
 
             if (response.ok) {
-                fetchLogs(); // Refresh UI to show new status and photo
+                submitBtn.innerText = '✅ Updated successfully!';
+                setTimeout(() => {
+                    fetchLogs();
+                }, 800);
             } else {
                 alert('Failed to save action update.');
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Save Action Changes';
             }
         } catch (error) {
             console.error('Error saving action update:', error);
             alert('Error uploading attachment or saving changes.');
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Save Action Changes';
+            }
         }
     }
 
