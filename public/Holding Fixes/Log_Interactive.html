@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holding Fix Upgrade Photo & Action Log</title>
+    <title>Holding Fix Upgrade Photo & Action Log | Cathkin Estates</title>
     <style>
         :root {
+            --slate-950: #020617;
             --slate-900: #0f172a;
             --slate-800: #1e293b;
             --slate-700: #334155;
             --slate-500: #64748b;
+            --slate-300: #cbd5e1;
+            --slate-250: #e2e8f0;
             --slate-100: #f1f5f9;
             --slate-50: #f8fafc;
             --sky-600: #0284c7;
@@ -19,16 +22,15 @@
             --amber-50: #fef3c7;
             --amber-900: #78350f;
             --emerald-600: #059669;
+            --emerald-50: #ecfdf5;
             --rose-600: #dc2626;
             --rose-50: #fef2f2;
-            --border-color: #cbd5e1;
-            --border-light: #e2e8f0;
             --radius-lg: 16px;
-            --radius-md: 10px;
-            --radius-sm: 6px;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.06);
+            --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+            --shadow-hover: 0 12px 28px -4px rgba(15, 23, 42, 0.1);
         }
 
         * { box-sizing: border-box; }
@@ -38,59 +40,123 @@
             background-color: var(--slate-100);
             color: var(--slate-700);
             margin: 0;
-            padding: 24px 16px;
+            padding: 0 0 48px 0;
             -webkit-font-smoothing: antialiased;
         }
 
-        .container { max-width: 1040px; margin: 0 auto; width: 100%; }
-
-        /* Dashboard Header */
-        .header-card {
+        /* Top Sticky Header Bar */
+        .top-navbar {
             background: linear-gradient(135deg, var(--slate-900) 0%, var(--slate-800) 100%);
             color: #ffffff;
-            padding: 28px 32px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 24px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .header-card h1 { margin: 0 0 8px 0; font-size: 1.65rem; font-weight: 700; letter-spacing: -0.02em; }
-        .header-card p { margin: 0; color: #94a3b8; font-size: 0.95rem; }
+        .nav-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .header-title-group h1 {
+            margin: 0 0 4px 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        .header-title-group p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 0.88rem;
+        }
+
+        /* Controls / Filters Container */
+        .controls-bar {
+            max-width: 1100px;
+            margin: 24px auto 16px auto;
+            padding: 0 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .search-input {
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--slate-300);
+            font-size: 0.92rem;
+            width: 300px;
+            background: #fff;
+            transition: all 0.2s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--sky-600);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+        .stats-pill {
+            background: #fff;
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--slate-250);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--slate-700);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        /* Main Layout */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
 
         /* Location Section Card */
         .section-box {
             background-color: #ffffff;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--slate-250);
             border-radius: var(--radius-lg);
             padding: 24px;
             margin-bottom: 24px;
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-card);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .section-box:hover { box-shadow: var(--shadow-lg); }
+        .section-box:hover { box-shadow: var(--shadow-hover); }
 
         /* Section Header */
         .section-title {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             border-bottom: 2px solid var(--slate-100);
             padding-bottom: 16px;
             margin-bottom: 20px;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 16px;
         }
         .location-heading {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 800;
             color: var(--slate-900);
-            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .location-actions-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
         }
         .location-badge {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             background-color: var(--sky-50);
             color: var(--sky-700);
-            padding: 8px 14px;
+            padding: 6px 12px;
             border-radius: 20px;
             border: 1px solid #bae6fd;
             text-decoration: none;
@@ -102,8 +168,8 @@
         }
         .location-badge:hover { background-color: #e0f2fe; border-color: var(--sky-600); }
 
-        /* Section Headings */
-        .actions-heading, .updates-heading {
+        /* Section Sub-headings */
+        .block-label {
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
@@ -112,83 +178,84 @@
             font-weight: 700;
         }
         
-        /* Action Item Cards */
-        .action-item-card {
+        /* Required Field Actions Grid */
+        .actions-grid {
             display: grid;
-            grid-template-columns: 140px 1fr;
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .action-item-card {
+            display: flex;
             align-items: center;
+            gap: 12px;
             background-color: var(--slate-50);
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--slate-250);
             border-radius: var(--radius-md);
-            padding: 12px;
-            margin-bottom: 12px;
+            padding: 10px;
             transition: border-color 0.2s ease;
         }
-        .action-item-card:hover { border-color: var(--border-color); }
+        .action-item-card:hover { border-color: var(--slate-300); }
 
         .action-thumb-container {
-            width: 140px;
-            height: 95px;
+            width: 72px;
+            height: 72px;
             border-radius: var(--radius-sm);
             overflow: hidden;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--slate-250);
             background: #e2e8f0;
             flex-shrink: 0;
-            position: relative;
+            cursor: pointer;
         }
-        .action-item-card img {
+        .action-thumb-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
         }
-        .action-item-card img:hover { transform: scale(1.06); }
+        .action-thumb-container img:hover { transform: scale(1.05); }
 
         .action-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: var(--amber-50);
+            font-size: 0.85rem;
             color: var(--amber-900);
-            padding: 8px 14px;
+            background-color: var(--amber-50);
+            padding: 6px 10px;
             border-radius: var(--radius-sm);
-            font-size: 0.9rem;
             font-weight: 600;
             border: 1px solid #fde68a;
-            line-height: 1.4;
+            line-height: 1.35;
+            width: 100%;
         }
 
-        /* Updates Container Section */
+        /* Updates Container */
         .updates-container {
-            margin-top: 24px;
-            border-top: 1px dashed var(--border-light);
+            border-top: 1px dashed var(--slate-250);
             padding-top: 20px;
         }
         
         .update-card {
             background: #ffffff;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--slate-250);
             border-left: 4px solid var(--sky-600);
             padding: 16px;
             margin-bottom: 14px;
             border-radius: var(--radius-md);
-            font-size: 0.95rem;
-            box-shadow: var(--shadow-sm);
+            font-size: 0.93rem;
+            box-shadow: var(--shadow-subtle);
             transition: box-shadow 0.2s ease;
         }
-        .update-card:hover { box-shadow: var(--shadow-md); }
+        .update-card:hover { box-shadow: var(--shadow-card); }
 
         .update-header-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .update-date {
             font-weight: 700;
             color: var(--sky-700);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -199,53 +266,60 @@
         }
         .update-body {
             color: var(--slate-700);
-            line-height: 1.6;
+            line-height: 1.55;
             margin-bottom: 12px;
+            white-space: pre-wrap;
+        }
+        .update-thumb-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
         }
         .update-thumb {
-            max-width: 160px;
-            height: 110px;
+            width: 90px;
+            height: 90px;
             border-radius: var(--radius-sm);
             overflow: hidden;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--slate-250);
             background: #f8fafc;
+            cursor: pointer;
         }
         .update-thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
         }
         .update-thumb img:hover { transform: scale(1.05); }
 
-        /* Action Buttons */
+        /* Buttons Styling */
         .btn {
             font-family: inherit;
             border: none;
-            padding: 10px 18px;
+            padding: 8px 16px;
             border-radius: var(--radius-sm);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             cursor: pointer;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             transition: all 0.2s ease;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-subtle);
         }
         .btn:active { transform: scale(0.98); }
         .btn-primary { background-color: var(--sky-600); color: white; }
         .btn-primary:hover { background-color: var(--sky-700); box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25); }
         
-        .btn-success { background-color: var(--emerald-600); color: white; width: 100%; margin-top: 12px; padding: 12px; font-size: 0.95rem; }
+        .btn-success { background-color: var(--emerald-600); color: white; width: 100%; margin-top: 8px; padding: 11px; font-size: 0.92rem; }
         .btn-success:hover { background-color: #047857; }
 
         .btn-sm {
-            padding: 6px 12px;
-            font-size: 0.8rem;
+            padding: 5px 10px;
+            font-size: 0.78rem;
             background: #ffffff;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--slate-300);
             color: var(--slate-700);
             border-radius: var(--radius-sm);
             box-shadow: none;
@@ -254,27 +328,27 @@
         .btn-danger-sm { color: var(--rose-600); border-color: #fca5a5; }
         .btn-danger-sm:hover { background-color: var(--rose-50); border-color: var(--rose-600); }
 
-        /* Forms */
+        /* Forms (Hidden by default / Toggleable) */
         .update-form {
             display: none;
             background: var(--slate-50);
-            padding: 20px;
+            padding: 16px;
             border-radius: var(--radius-md);
-            margin-top: 16px;
-            border: 1px solid var(--border-color);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            margin-top: 14px;
+            border: 1px solid var(--slate-300);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
         }
-        .update-form h5 { margin: 0 0 12px 0; color: var(--slate-900); font-size: 1rem; font-weight: 700; }
-        .update-form label { font-size: 0.85rem; font-weight: 600; color: var(--slate-700); display: block; margin-bottom: 6px; }
+        .update-form h5 { margin: 0 0 10px 0; color: var(--slate-900); font-size: 0.95rem; font-weight: 700; }
+        .update-form label { font-size: 0.82rem; font-weight: 600; color: var(--slate-700); display: block; margin-bottom: 4px; }
         .update-form input[type="date"],
         .update-form textarea,
         .update-form input[type="file"] {
             width: 100%;
-            padding: 10px 14px;
-            margin-bottom: 14px;
-            border: 1px solid var(--border-color);
+            padding: 9px 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--slate-300);
             border-radius: var(--radius-sm);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             background: #fff;
             font-family: inherit;
             color: var(--slate-900);
@@ -286,34 +360,82 @@
             border-color: var(--sky-600);
             box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
         }
-        .update-form textarea { resize: vertical; min-height: 90px; }
-        
-        .footer { text-align: center; font-size: 0.85rem; color: var(--slate-500); margin-top: 36px; padding-bottom: 24px; font-weight: 500; }
+        .update-form textarea { resize: vertical; min-height: 80px; }
 
-        /* Responsive Mobile Layout */
+        /* Lightbox Modal */
+        #lightbox-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #lightbox-modal img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: var(--radius-md);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        #lightbox-close {
+            position: absolute;
+            top: 20px; right: 25px;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-weight: 300;
+        }
+
+        .footer { text-align: center; font-size: 0.82rem; color: var(--slate-500); margin-top: 40px; font-weight: 500; }
+
+        /* Responsive */
         @media (max-width: 640px) {
-            body { padding: 12px 8px; }
+            .controls-bar { flex-direction: column; align-items: stretch; }
+            .search-input { width: 100%; }
             .section-box { padding: 16px; }
-            .action-item-card { grid-template-columns: 1fr; gap: 12px; }
-            .action-thumb-container { width: 100%; height: 160px; }
-            .header-card { padding: 20px; }
+            .actions-grid { grid-template-columns: 1fr; }
             .section-title { flex-direction: column; align-items: stretch; gap: 10px; }
-            .location-badge { justify-content: center; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Sticky Top Navigation -->
+    <div class="top-navbar">
+        <div class="nav-content">
+            <div class="header-title-group">
+                <h1>Holding Fix Upgrade Log</h1>
+                <p>Cathkin Estates Operations & Field Inspection Register</p>
+            </div>
+            <div id="live-status-pill" class="stats-pill" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">
+                🔄 Syncing database...
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter & Search Bar -->
+    <div class="controls-bar">
+        <input type="text" id="search-box" class="search-input" placeholder="🔍 Search locations or updates..." oninput="filterLogs()">
+        <div id="total-count-pill" class="stats-pill">Total Locations: 0</div>
+    </div>
+
+    <!-- Main Container -->
     <div class="container">
-        <div class="header-card">
-            <h1>Holding Fix Upgrade Photo & Action Log</h1>
-            <p>Live field inspection records, progress tracking, and mobile photo uploads</p>
-        </div>
-
         <div id="locations-wrapper">
-            <p style="text-align: center; color: var(--slate-500); padding: 50px; font-weight: 500;">Loading live records from database...</p>
+            <p style="text-align: center; color: var(--slate-500); padding: 50px; font-weight: 500;">Loading records...</p>
         </div>
+        <div class="footer">Cathkin Estates Homeowners Association • Operations Committee</div>
+    </div>
 
-        <div class="footer">Cathkin Estates Operations Committee</div>
+    <!-- Image Lightbox Modal -->
+    <div id="lightbox-modal" onclick="closeLightbox()">
+        <button id="lightbox-close">&times;</button>
+        <img id="lightbox-img" src="" alt="Enlarged view">
     </div>
 
     <script>
@@ -325,15 +447,27 @@
                 const response = await fetch(API_ENDPOINT);
                 cachedLocations = await response.json();
                 renderUI(cachedLocations);
+                document.getElementById('live-status-pill').innerHTML = '🟢 Live Connected';
             } catch (error) {
                 console.error('Failed to load logs:', error);
-                document.getElementById('locations-wrapper').innerHTML = '<p style="color: var(--rose-600); text-align: center; font-weight: 600; padding: 40px;">Failed to load data from database backend.</p>';
+                document.getElementById('live-status-pill').innerHTML = '🔴 Offline Mode / Error';
+                document.getElementById('locations-wrapper').innerHTML = `
+                    <div class="section-box" style="text-align: center; padding: 40px;">
+                        <p style="color: var(--rose-600); font-weight: 600; margin-bottom: 8px;">Failed to load data from database backend.</p>
+                        <p style="color: var(--slate-500); font-size: 0.88rem;">Please check your server connection or refresh the page.</p>
+                    </div>`;
             }
         }
 
         function renderUI(locations) {
             const wrapper = document.getElementById('locations-wrapper');
             wrapper.innerHTML = '';
+            document.getElementById('total-count-pill').innerText = `Total Locations: ${locations.length}`;
+
+            if (locations.length === 0) {
+                wrapper.innerHTML = '<p style="text-align: center; color: var(--slate-500); padding: 40px;">No records match your search criteria.</p>';
+                return;
+            }
 
             locations.forEach(loc => {
                 let actionCardsHtml = '';
@@ -341,14 +475,10 @@
                     loc.action_items.forEach(item => {
                         actionCardsHtml += `
                             <div class="action-item-card">
-                                <div class="action-thumb-container">
-                                    <a href="${item.photo_url}" target="_blank" title="Click to view full size">
-                                        <img src="${item.photo_url}" alt="Action photo">
-                                    </a>
+                                <div class="action-thumb-container" onclick="openLightbox('${item.photo_url}')">
+                                    <img src="${item.photo_url}" alt="Action photo">
                                 </div>
-                                <div>
-                                    <span class="action-tag">⚠️ ${item.action_tag}</span>
-                                </div>
+                                <div class="action-tag">⚠️ ${item.action_tag}</div>
                             </div>
                         `;
                     });
@@ -361,17 +491,17 @@
                             <div class="update-card" id="update-card-${u.id}">
                                 <div class="update-header-row">
                                     <div class="update-date">📅 ${u.update_date}</div>
-                                    <div style="display: flex; gap: 8px;">
+                                    <div style="display: flex; gap: 6px;">
                                         <button class="btn btn-sm" onclick="openEditForm(${u.id})">✏️ Edit</button>
                                         <button class="btn btn-sm btn-danger-sm" onclick="deleteUpdate(${u.id})">🗑️ Delete</button>
                                     </div>
                                 </div>
-                                <div class="update-body" id="update-text-${u.id}">${u.notes}</div>
+                                <div class="update-body" id="update-text-${u.id}">${escapeHtml(u.notes)}</div>
                                 ${u.attachment_url ? `
-                                    <div class="update-thumb">
-                                        <a href="${u.attachment_url}" target="_blank" title="View attachment full size">
+                                    <div class="update-thumb-row">
+                                        <div class="update-thumb" onclick="openLightbox('${u.attachment_url}')">
                                             <img src="${u.attachment_url}" alt="Update attachment" />
-                                        </a>
+                                        </div>
                                     </div>` : ''}
                                 
                                 <!-- Inline Edit Form -->
@@ -380,7 +510,7 @@
                                     <label>Update Date:</label>
                                     <input type="date" id="edit-date-${u.id}" value="${u.update_date}">
                                     <label>Progress Notes:</label>
-                                    <textarea id="edit-notes-${u.id}" rows="2">${u.notes}</textarea>
+                                    <textarea id="edit-notes-${u.id}" rows="2">${escapeHtml(u.notes)}</textarea>
                                     <label>Replace Image / Attachment (optional):</label>
                                     <input type="file" id="edit-file-${u.id}" accept="image/*">
                                     <button class="btn btn-success" onclick="saveEdit(${u.id})">Save Changes</button>
@@ -389,25 +519,25 @@
                         `;
                     });
                 } else {
-                    updatesHtml = '<p style="font-size: 0.9rem; color: var(--slate-500); font-style: italic; margin-bottom: 16px;">No progress updates logged yet.</p>';
+                    updatesHtml = '<p style="font-size: 0.88rem; color: var(--slate-500); font-style: italic; margin-bottom: 16px;">No progress updates logged yet for this location.</p>';
                 }
 
                 const cardHtml = `
                     <div class="section-box">
                         <div class="section-title">
                             <div class="location-heading">
-                                <span>${loc.location_number}</span>
+                                <span>📍 ${escapeHtml(loc.location_number)}</span>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                                <a href="${loc.google_maps_url}" target="_blank" class="location-badge">📍 GPS: ${loc.gps_coordinates} ↗</a>
+                            <div class="location-actions-group">
+                                <a href="${loc.google_maps_url}" target="_blank" class="location-badge">🗺️ GPS: ${escapeHtml(loc.gps_coordinates)} ↗</a>
                                 <button class="btn btn-primary" onclick="toggleAddForm(${loc.id})">+ Add Update</button>
                             </div>
                         </div>
                         
-                        ${actionCardsHtml ? `<h4 class="actions-heading">Required Field Actions</h4>${actionCardsHtml}` : ''}
+                        ${actionCardsHtml ? `<h4 class="block-label">Required Field Actions</h4><div class="actions-grid">${actionCardsHtml}</div>` : ''}
 
                         <div class="updates-container">
-                            <h4 class="updates-heading">Progress Updates & History</h4>
+                            <h4 class="block-label">Progress Updates & History</h4>
                             ${updatesHtml}
 
                             <div id="add-form-${loc.id}" class="update-form">
@@ -427,6 +557,17 @@
             });
         }
 
+        function filterLogs() {
+            const query = document.getElementById('search-box').value.toLowerCase();
+            const filtered = cachedLocations.filter(loc => {
+                const matchLoc = loc.location_number.toLowerCase().includes(query) || loc.gps_coordinates.toLowerCase().includes(query);
+                const matchUpdates = loc.updates && loc.updates.some(u => u.notes.toLowerCase().includes(query));
+                const matchActions = loc.action_items && loc.action_items.some(a => a.action_tag.toLowerCase().includes(query));
+                return matchLoc || matchUpdates || matchActions;
+            });
+            renderUI(filtered);
+        }
+
         function toggleAddForm(id) {
             const form = document.getElementById(`add-form-${id}`);
             form.style.display = form.style.display === 'block' ? 'none' : 'block';
@@ -435,6 +576,22 @@
         function openEditForm(updateId) {
             const editForm = document.getElementById(`edit-form-${updateId}`);
             editForm.style.display = editForm.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function openLightbox(url) {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+            img.src = url;
+            modal.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-modal').style.display = 'none';
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
         function convertFileToBase64(fileInputId) {
