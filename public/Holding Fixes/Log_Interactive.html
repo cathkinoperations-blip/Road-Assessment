@@ -485,17 +485,32 @@ function renderUI(locations) {
             let actionCardsHtml = '';
             if (loc.action_items && loc.action_items.length > 0) {
                 loc.action_items.forEach(item => {
-                    const cleanActionUrl = getImageUrl(item.photo_url);
+                    const beforePhotoUrl = getImageUrl(item.photo_url);
+                    const afterPhotoUrl = item.after_photo_url ? getImageUrl(item.after_photo_url) : null;
                     const currentStatus = item.status || 'Not Started';
                     const statusBg = currentStatus === 'Complete' ? '#ecfdf5' : currentStatus === 'In Progress' ? '#fef3c7' : '#fef2f2';
                     const statusColor = currentStatus === 'Complete' ? '#059669' : currentStatus === 'In Progress' ? '#d97706' : '#dc2626';
 
                     actionCardsHtml += `
                         <div class="action-item-card" style="display: flex; flex-direction: column; align-items: stretch; gap: 8px;">
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <div class="action-thumb-container" onclick="openLightbox('${cleanActionUrl}')" style="width: 64px; height: 64px; flex-shrink: 0;">
-                                    <img src="${cleanActionUrl}" alt="Action photo" style="width: 100%; height: 100%; object-fit: cover;">
+                            <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                <!-- Before Photo -->
+                                <div style="text-align: center;">
+                                    <div class="action-thumb-container" onclick="openLightbox('${beforePhotoUrl}')" style="width: 64px; height: 64px;">
+                                        <img src="${beforePhotoUrl}" alt="Before photo" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                    <span style="font-size: 0.68rem; font-weight: 700; color: var(--slate-500);">BEFORE</span>
                                 </div>
+
+                                ${afterPhotoUrl ? `
+                                <!-- After Photo (shown only if logged) -->
+                                <div style="text-align: center;">
+                                    <div class="action-thumb-container" onclick="openLightbox('${afterPhotoUrl}')" style="width: 64px; height: 64px; border-color: var(--emerald-600);">
+                                        <img src="${afterPhotoUrl}" alt="After photo" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                    <span style="font-size: 0.68rem; font-weight: 700; color: var(--emerald-600);">AFTER</span>
+                                </div>` : ''}
+
                                 <div style="flex-grow: 1; min-width: 0;">
                                     <div class="action-tag" style="margin-bottom: 6px;">⚠️ ${escapeHtml(item.action_tag)}</div>
                                     <span style="font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 12px; background: ${statusBg}; color: ${statusColor}; display: inline-block;">
@@ -503,7 +518,7 @@ function renderUI(locations) {
                                     </span>
                                 </div>
                             </div>
-                            <button class="btn btn-sm" onclick="toggleActionForm(${item.id})" style="width: 100%; justify-content: center; margin-top: 4px;">🛠️ Update Action Status / Photo</button>
+                            <button class="btn btn-sm" onclick="toggleActionForm(${item.id})" style="width: 100%; justify-content: center; margin-top: 4px;">🛠️ Update Action Status / Progress Photo</button>
                             
                             <!-- Inline Action Update Form -->
                             <div id="action-form-${item.id}" class="update-form" style="margin-top: 8px;">
@@ -514,7 +529,7 @@ function renderUI(locations) {
                                     <option value="In Progress" ${currentStatus === 'In Progress' ? 'selected' : ''}>In Progress</option>
                                     <option value="Complete" ${currentStatus === 'Complete' ? 'selected' : ''}>Complete</option>
                                 </select>
-                                <label>Attach / Replace Photo:</label>
+                                <label>Attach Progress Photo (After):</label>
                                 <input type="file" id="action-file-${item.id}" accept="image/*" style="margin-bottom: 8px;">
                                 <button class="btn btn-success" onclick="saveActionUpdate(${item.id})">Save Action Changes</button>
                             </div>

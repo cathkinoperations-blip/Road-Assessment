@@ -9,10 +9,11 @@ export async function PUT(request) {
       return NextResponse.json({ error: 'Action ID is required' }, { status: 400 });
     }
 
+    // Save new upload into after_photo_url so original photo_url (Before) is preserved
     if (photo_url) {
       await sql`
         UPDATE action_items 
-        SET status = ${status}, photo_url = ${photo_url} 
+        SET status = ${status}, after_photo_url = ${photo_url} 
         WHERE id = ${id}
       `;
     } else {
