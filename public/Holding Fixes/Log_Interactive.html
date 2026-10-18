@@ -6,206 +6,267 @@
     <title>Holding Fix Upgrade Photo & Action Log</title>
     <style>
         :root {
-            --primary-color: #1e293b;
-            --accent-color: #0284c7;
-            --bg-color: #f8fafc;
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #0284c7;
+            --accent-hover: #0369a1;
+            --bg: #f1f5f9;
             --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
+            --border: #e2e8f0;
+            --text: #334155;
+            --text-muted: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
         }
+
+        * { box-sizing: border-box; }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: #334155;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        * { box-sizing: border-box; }
-        .container { max-width: 1200px; margin: 0 auto; width: 100%; }
-        
-        .header-card {
-            background-color: var(--primary-color);
-            color: #ffffff;
             padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin-bottom: 12px;
+            -webkit-font-smoothing: antialiased;
         }
-        .header-card h1 { margin: 0 0 6px 0; font-size: 1.25rem; color: #ffffff; line-height: 1.3; }
-        .header-card p { margin: 0; color: #94a3b8; font-size: 0.85rem; line-height: 1.4; }
 
+        .container { max-width: 1000px; margin: 0 auto; width: 100%; }
+
+        /* Header Card */
+        .header-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: #ffffff;
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 20px;
+        }
+        .header-card h1 { margin: 0 0 6px 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; }
+        .header-card p { margin: 0; color: #94a3b8; font-size: 0.9rem; }
+
+        /* Location Section Card */
         .section-box {
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 14px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.2s ease;
         }
-        
-        /* Mobile-first layout for location titles and badges */
+        .section-box:hover { box-shadow: var(--shadow-lg); }
+
+        /* Section Header */
         .section-title {
-            font-size: 1rem;
-            color: var(--primary-color);
-            margin-top: 0;
-            margin-bottom: 10px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            gap: 8px;
-        }
-        .title-top-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .location-heading {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .location-badge {
-            font-size: 0.75rem;
-            background-color: #e0f2fe;
-            color: #0369a1;
-            padding: 6px 10px;
-            border-radius: 6px;
+            font-size: 0.8rem;
+            background-color: #f0f9ff;
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 20px;
             border: 1px solid #bae6fd;
             text-decoration: none;
             font-weight: 600;
-            text-align: center;
-            display: block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.2s;
         }
-        .location-badge:hover { background-color: #bae6fd; }
+        .location-badge:hover { background-color: #e0f2fe; }
 
+        /* Action Items Grid/List Styling */
+        .actions-heading, .updates-heading {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin: 0 0 12px 0;
+            font-weight: 700;
+        }
+        
         .action-item-card {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 16px;
+            align-items: center;
             background-color: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
             padding: 10px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            transition: border-color 0.2s;
+        }
+        .action-item-card:hover { border-color: #cbd5e1; }
+
+        .action-thumb-container {
+            width: 110px;
+            height: 80px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #e2e8f0;
+            flex-shrink: 0;
         }
         .action-item-card img {
             width: 100%;
-            max-height: 200px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease;
         }
+        .action-item-card img:hover { transform: scale(1.05); }
+
         .action-tag {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             background-color: #fef3c7;
             color: #92400e;
-            padding: 6px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            border: 1px solid #fde68a;
-            line-height: 1.4;
-        }
-
-        /* Updates Container */
-        .updates-container {
-            margin-top: 10px;
-            border-top: 1px dashed var(--border-color);
-            padding-top: 10px;
-        }
-        .update-card {
-            background: #ffffff;
-            border-left: 3px solid var(--accent-color);
-            padding: 10px;
-            margin-bottom: 8px;
+            padding: 6px 12px;
             border-radius: 6px;
             font-size: 0.9rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            position: relative;
+            font-weight: 600;
+            border: 1px solid #fde68a;
+        }
+
+        /* Updates Container Section */
+        .updates-container {
+            margin-top: 20px;
+            border-top: 1px dashed var(--border);
+            padding-top: 16px;
+        }
+        
+        .update-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            padding: 14px;
+            margin-bottom: 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
         }
         .update-header-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
         }
         .update-date {
             font-weight: 600;
-            color: var(--accent-color);
-            font-size: 0.8rem;
+            color: var(--accent);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
-        .edit-btn {
-            background: none;
-            border: 1px solid #cbd5e1;
-            color: #475569;
-            padding: 2px 8px;
-            font-size: 0.75rem;
-            border-radius: 4px;
-            cursor: pointer;
+        .update-body {
+            color: var(--text);
+            line-height: 1.5;
+            margin-bottom: 8px;
         }
-        .edit-btn:hover { background-color: #f1f5f9; }
+        .update-thumb {
+            margin-top: 8px;
+            max-width: 140px;
+            height: 90px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .update-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-        /* Buttons & Forms */
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: white;
+        /* Action Buttons */
+        .btn {
+            font-family: inherit;
             border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
             font-size: 0.85rem;
             cursor: pointer;
             font-weight: 600;
-            width: 100%;
-            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background-color 0.2s, transform 0.1s;
         }
-        .btn-success {
-            background-color: var(--success-color);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            font-weight: 600;
-            width: 100%;
+        .btn:active { transform: scale(0.98); }
+        .btn-primary { background-color: var(--accent); color: white; }
+        .btn-primary:hover { background-color: var(--accent-hover); }
+        
+        .btn-success { background-color: var(--success); color: white; width: 100%; margin-top: 8px; }
+        .btn-success:hover { background-color: #059669; }
+
+        .btn-sm {
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 4px;
         }
+        .btn-sm:hover { background-color: #f1f5f9; }
+        .btn-danger-sm { color: var(--danger); border-color: #fca5a5; }
+        .btn-danger-sm:hover { background-color: #fef2f2; }
+
+        /* Forms */
         .update-form {
             display: none;
-            background: #f1f5f9;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 8px;
-            border: 1px solid var(--border-color);
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            margin-top: 12px;
+            border: 1px solid var(--border);
         }
+        .update-form h5 { margin: 0 0 10px 0; color: var(--primary); font-size: 0.95rem; }
         .update-form input[type="date"],
         .update-form textarea,
         .update-form input[type="file"] {
             width: 100%;
-            padding: 8px;
-            margin-bottom: 8px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
             font-size: 0.9rem;
             background: #fff;
+            font-family: inherit;
         }
-        .footer { text-align: center; font-size: 0.75rem; color: #94a3b8; margin-top: 20px; }
+        .update-form textarea { resize: vertical; min-height: 80px; }
+        
+        .footer { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 30px; padding-bottom: 20px; }
 
-        /* Tablet & Desktop Layout Enhancements */
-        @media (min-width: 768px) {
-            body { padding: 16px; }
-            .header-card { padding: 24px; }
-            .header-card h1 { font-size: 1.75rem; }
-            .section-box { padding: 20px; }
-            .section-title {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
+        /* Mobile Adjustments */
+        @media (max-width: 640px) {
+            .action-item-card {
+                grid-template-columns: 1fr;
             }
-            .title-top-row { width: auto; }
-            .location-badge { width: auto; display: inline-block; }
-            .action-item-card { flex-direction: row; align-items: center; }
-            .action-item-card img { width: 140px; height: 100px; flex-shrink: 0; }
-            .btn-primary { width: auto; }
+            .action-thumb-container {
+                width: 100%;
+                height: 140px;
+            }
         }
     </style>
 </head>
@@ -213,11 +274,11 @@
     <div class="container">
         <div class="header-card">
             <h1>Holding Fix Upgrade Photo & Action Log</h1>
-            <p>Live field inspection records, progress updates, and mobile photo uploads</p>
+            <p>Live field inspection records, progress tracking, and mobile photo uploads</p>
         </div>
 
         <div id="locations-wrapper">
-            <p style="text-align: center; color: #64748b;">Loading live records from database...</p>
+            <p style="text-align: center; color: var(--text-muted); padding: 40px;">Loading live records from database...</p>
         </div>
 
         <div class="footer">Cathkin Estates Operations Committee</div>
@@ -234,7 +295,7 @@
                 renderUI(cachedLocations);
             } catch (error) {
                 console.error('Failed to load logs:', error);
-                document.getElementById('locations-wrapper').innerHTML = '<p style="color: red; text-align: center;">Failed to load data from database backend.</p>';
+                document.getElementById('locations-wrapper').innerHTML = '<p style="color: var(--danger); text-align: center;">Failed to load data from database backend.</p>';
             }
         }
 
@@ -248,11 +309,13 @@
                     loc.action_items.forEach(item => {
                         actionCardsHtml += `
                             <div class="action-item-card">
-                                <a href="${item.photo_url}" target="_blank" title="Click to view full size">
-                                    <img src="${item.photo_url}" alt="Action photo">
-                                </a>
-                                <div class="action-item-content">
-                                    <span class="action-tag">${item.action_tag}</span>
+                                <div class="action-thumb-container">
+                                    <a href="${item.photo_url}" target="_blank" title="Click to view full size">
+                                        <img src="${item.photo_url}" alt="Action photo">
+                                    </a>
+                                </div>
+                                <div>
+                                    <span class="action-tag">⚠️ ${item.action_tag}</span>
                                 </div>
                             </div>
                         `;
@@ -263,57 +326,63 @@
                 if (loc.updates && loc.updates.length > 0) {
                     loc.updates.forEach(u => {
                         updatesHtml += `
-      <div class="update-card" id="update-card-${u.id}">
-        <div class="update-header-row">
-            <div class="update-date">📅 ${u.update_date}</div>
-            <div style="display: flex; gap: 4px;">
-                <button class="edit-btn" onclick="openEditForm(${u.id})">✏️ Edit</button>
-                <button class="edit-btn" style="color: #dc2626; border-color: #fca5a5;" onclick="deleteUpdate(${u.id})">🗑️ Delete</button>
-            </div>
-        </div>
-        <div id="update-text-${u.id}">${u.notes}</div>
-        ${u.attachment_url ? `<div style="margin-top:6px;"><a href="${u.attachment_url}" target="_blank"><img src="${u.attachment_url}" style="max-height:120px; border-radius:4px; border:1px solid #e2e8f0;" /></a></div>` : ''}
-        
-        <!-- Inline Edit Form -->
-        <div id="edit-form-${u.id}" class="update-form">
-            <h5 style="margin: 0 0 6px 0; color: #1e293b;">Edit Progress Update</h5>
-            <input type="date" id="edit-date-${u.id}" value="${u.update_date}">
-            <textarea id="edit-notes-${u.id}" rows="2">${u.notes}</textarea>
-            <label style="font-size:0.75rem; color:#64748b; display:block; margin-bottom:4px;">Replace Image / Attachment (optional):</label>
-            <input type="file" id="edit-file-${u.id}" accept="image/*">
-            <button class="btn-success" onclick="saveEdit(${u.id})">Save Changes</button>
-        </div>
-    </div>
-`;
-
+                            <div class="update-card" id="update-card-${u.id}">
+                                <div class="update-header-row">
+                                    <div class="update-date">📅 ${u.update_date}</div>
+                                    <div style="display: flex; gap: 6px;">
+                                        <button class="btn btn-sm" onclick="openEditForm(${u.id})">✏️ Edit</button>
+                                        <button class="btn btn-sm btn-danger-sm" onclick="deleteUpdate(${u.id})">🗑️ Delete</button>
+                                    </div>
+                                </div>
+                                <div class="update-body" id="update-text-${u.id}">${u.notes}</div>
+                                ${u.attachment_url ? `
+                                    <div class="update-thumb">
+                                        <a href="${u.attachment_url}" target="_blank">
+                                            <img src="${u.attachment_url}" alt="Update attachment" />
+                                        </a>
+                                    </div>` : ''}
+                                
+                                <!-- Inline Edit Form -->
+                                <div id="edit-form-${u.id}" class="update-form">
+                                    <h5>Edit Progress Update</h5>
+                                    <input type="date" id="edit-date-${u.id}" value="${u.update_date}">
+                                    <textarea id="edit-notes-${u.id}" rows="2">${u.notes}</textarea>
+                                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;">Replace Image / Attachment (optional):</label>
+                                    <input type="file" id="edit-file-${u.id}" accept="image/*">
+                                    <button class="btn btn-success" onclick="saveEdit(${u.id})">Save Changes</button>
+                                </div>
+                            </div>
+                        `;
                     });
                 } else {
-                    updatesHtml = '<p style="font-size: 0.85rem; color: #94a3b8; font-style: italic;">No progress updates logged yet.</p>';
+                    updatesHtml = '<p style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-bottom: 12px;">No progress updates logged yet.</p>';
                 }
 
                 const cardHtml = `
                     <div class="section-box">
                         <div class="section-title">
-                            <div class="title-top-row">
-                                <span style="font-weight: 700; font-size: 1.05rem;">${loc.location_number}</span>
-                                <button class="btn-primary" style="width: auto; padding: 6px 12px;" onclick="toggleAddForm(${loc.id})">+ Add Update</button>
+                            <div class="location-heading">
+                                <span>${loc.location_number}</span>
                             </div>
-                            <a href="${loc.google_maps_url}" target="_blank" class="location-badge">📍 GPS: ${loc.gps_coordinates} ↗</a>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <a href="${loc.google_maps_url}" target="_blank" class="location-badge">📍 GPS: ${loc.gps_coordinates} ↗</a>
+                                <button class="btn btn-primary" onclick="toggleAddForm(${loc.id})">+ Add Update</button>
+                            </div>
                         </div>
                         
-                        ${actionCardsHtml}
+                        ${actionCardsHtml ? `<h4 class="actions-heading">Required Field Actions</h4>${actionCardsHtml}` : ''}
 
                         <div class="updates-container">
-                            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--primary-color);">Progress Updates & Field Actions</h4>
+                            <h4 class="updates-heading">Progress Updates & History</h4>
                             ${updatesHtml}
 
                             <div id="add-form-${loc.id}" class="update-form">
-                                <h5 style="margin: 0 0 6px 0; color: var(--primary-color);">New Progress Entry</h5>
+                                <h5>New Progress Entry</h5>
                                 <input type="date" id="new-date-${loc.id}" value="${new Date().toISOString().split('T')[0]}">
-                                <textarea id="new-notes-${loc.id}" placeholder="Describe work completed or current status..." rows="2"></textarea>
-                                <label style="font-size:0.75rem; color:#64748b; display:block; margin-bottom:4px;">Attach Image from Phone/PC:</label>
+                                <textarea id="new-notes-${loc.id}" placeholder="Describe work completed or current status..."></textarea>
+                                <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;">Attach Image from Phone/PC:</label>
                                 <input type="file" id="new-file-${loc.id}" accept="image/*">
-                                <button class="btn-success" onclick="submitNewUpdate(${loc.id})">Save Update to Database</button>
+                                <button class="btn btn-success" onclick="submitNewUpdate(${loc.id})">Save Update to Database</button>
                             </div>
                         </div>
                     </div>
@@ -327,12 +396,11 @@
             form.style.display = form.style.display === 'block' ? 'none' : 'block';
         }
 
-        function openEditForm(updateId, locationId) {
+        function openEditForm(updateId) {
             const editForm = document.getElementById(`edit-form-${updateId}`);
             editForm.style.display = editForm.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Helper to convert file input to Base64 data URL
         function convertFileToBase64(fileInputId) {
             return new Promise((resolve, reject) => {
                 const fileInput = document.getElementById(fileInputId);
@@ -359,7 +427,6 @@
 
             try {
                 const attachment_url = await convertFileToBase64(`new-file-${locationId}`);
-
                 const response = await fetch(API_ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -377,7 +444,7 @@
             }
         }
 
-        async function saveEdit(updateId, locationId) {
+        async function saveEdit(updateId) {
             const update_date = document.getElementById(`edit-date-${updateId}`).value;
             const notes = document.getElementById(`edit-notes-${updateId}`).value;
 
@@ -388,7 +455,6 @@
 
             try {
                 const attachment_url = await convertFileToBase64(`edit-file-${updateId}`);
-
                 const response = await fetch(API_ENDPOINT, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
@@ -407,28 +473,30 @@
         }
 
         async function deleteUpdate(updateId) {
-    if (!confirm('Are you sure you want to delete this update?')) {
-        return;
-    }
+            if (!confirm('Are you sure you want to delete this update?')) {
+                return;
+            }
 
-    try {
-        const response = await fetch(API_ENDPOINT, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: updateId })
-        });
-
-        if (response.ok) {
-            fetchLogs(); // Refresh UI dynamically
-        } else {
-            alert('Failed to delete update.');
+            try {
+                const response = usingFetchDelete(updateId);
+            } catch (error) {
+                console.error('Error deleting update:', error);
+            }
         }
-    } catch (error) {
-        console.error('Error deleting update:', error);
-        alert('Network error while deleting update.');
-    }
-}
 
+        async function usingFetchDelete(updateId) {
+            const response = await fetch(API_ENDPOINT, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: updateId })
+            });
+
+            if (response.ok) {
+                fetchLogs();
+            } else {
+                alert('Failed to delete update.');
+            }
+        }
 
         fetchLogs();
     </script>
