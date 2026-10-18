@@ -569,15 +569,15 @@
     }
 
     function getImageUrl(url) {
-    if (!url) return '';
-    // If it's already a full URL (Vercel Blob or http/data), use it as is
-    if (url.startsWith('http') || url.startsWith('data:')) {
-        return url;
+        if (!url) return '';
+        // If it's a full Vercel Blob URL or base64 string, keep it as is
+        if (url.startsWith('http') || url.startsWith('data:')) {
+            return url;
         }
-        // Clean up any leading slashes or duplicate folder names
-        let cleanName = url.replace(/^\/?(Holding%20Fixes|Holding\sFixes)\//i, '');
-        // Return absolute path from root domain
-        return `/Holding%20Fixes/${encodeURIComponent(cleanName)}`;
+        // Extract just the filename if it had /uploads/ or other paths prefixed
+        let filename = url.split('/').pop();
+        // Since they are in the same folder, just return the filename
+        return filename;
     }
 
     function toggleAddForm(id) {
