@@ -5,9 +5,9 @@ export async function POST(request) {
   const { searchParams } = new URL(request.url);
   const filename = searchParams.get('filename') || 'inspection-photo.jpg';
 
-  // Stream incoming request file directly to Vercel Blob
   const blob = await put(filename, request.body, {
     access: 'public',
+    addRandomSuffix: true,
   });
 
   return NextResponse.json(blob);
