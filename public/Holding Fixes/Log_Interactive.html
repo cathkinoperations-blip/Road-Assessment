@@ -602,6 +602,44 @@ function renderUI(locations) {
         form.style.display = form.style.display === 'block' ? 'none' : 'block';
     }
 
+    async function saveActionUpdate(actionId) {
+        const statusSelect = document.getElementById(`action-status-${actionId}`);
+        const status = statusSelect ? statusSelect.value : 'Not Started';
+
+        try {
+            // Upload new photo to Vercel Blob if a file was chosen
+            const fileInput = document.getElementById(`action-file-${actionId}`);
+            let photo_url = null;
+            
+            if (fileInput && fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const uploadRes = await fetch(`/api/upload?filename=${encodeURIComponent(file.name)}`, {
+                    method: 'POST',
+                    body: file,
+                });
+                if (!uploadRes.ok) throw new Error('Failed to upload image');
+                const blobResult = await uploadRes.json();
+                photo_url = blobResult.url;
+            }
+
+            // Send update to API endpoint
+            const response = await fetch('/api/actions', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: actionId, status, photo_url })
+            });
+
+            if (response.ok) {
+                fetchLogs(); // Refresh UI to show new status and photo
+            } else {
+                alert('Failed to save action update.');
+            }
+        } catch (error) {
+            console.error('Error saving action update:', error);
+            alert('Error uploading attachment or saving changes.');
+        }
+    }
+
     function filterLogs() {
         const query = document.getElementById('search-box').value.toLowerCase();
         const filtered = cachedLocations.filter(loc => {
