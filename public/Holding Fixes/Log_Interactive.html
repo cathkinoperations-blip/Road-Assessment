@@ -568,6 +568,14 @@
         renderUI(filtered);
     }
 
+    function getImageUrl(url) {
+        if (!url) return '';
+        if (url.startsWith('http') || url.startsWith('data:') || url.startsWith('/')) {
+            return url;
+        }
+        return `/Holding%20Fixes/${encodeURIComponent(url)}`;
+    }
+
     function toggleAddForm(id) {
         const form = document.getElementById(`add-form-${id}`);
         form.style.display = form.style.display === 'block' ? 'none' : 'block';
