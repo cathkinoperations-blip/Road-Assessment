@@ -439,256 +439,262 @@
     </div>
 
     <script>
-        const API_ENDPOINT = '/api/updates';
-        let cachedLocations = [];
+    const API_ENDPOINT = '/api/updates';
+    let cachedLocations = [];
 
-        async function fetchLogs() {
-            try {
-                const response = await fetch(API_ENDPOINT);
-                cachedLocations = await response.json();
-                renderUI(cachedLocations);
-                document.getElementById('live-status-pill').innerHTML = '🟢 Live Connected';
-            } catch (error) {
-                console.error('Failed to load logs:', error);
-                document.getElementById('live-status-pill').innerHTML = '🔴 Offline Mode / Error';
-                document.getElementById('locations-wrapper').innerHTML = `
-                    <div class="section-box" style="text-align: center; padding: 40px;">
-                        <p style="color: var(--rose-600); font-weight: 600; margin-bottom: 8px;">Failed to load data from database backend.</p>
-                        <p style="color: var(--slate-500); font-size: 0.88rem;">Please check your server connection or refresh the page.</p>
-                    </div>`;
-            }
+    async function fetchLogs() {
+        try {
+            const response = await fetch(API_ENDPOINT);
+            cachedLocations = await response.json();
+            renderUI(cachedLocations);
+            document.getElementById('live-status-pill').innerHTML = '🟢 Live Connected';
+        } catch (error) {
+            console.error('Failed to load logs:', error);
+            document.getElementById('live-status-pill').innerHTML = '🔴 Offline Mode / Error';
+            document.getElementById('locations-wrapper').innerHTML = `
+                <div class="section-box" style="text-align: center; padding: 40px;">
+                    <p style="color: var(--rose-600); font-weight: 600; margin-bottom: 8px;">Failed to load data from database backend.</p>
+                    <p style="color: var(--slate-500); font-size: 0.88rem;">Please check your server connection or refresh the page.</p>
+                </div>`;
+        }
+    }
+
+    function renderUI(locations) {
+        const wrapper = document.getElementById('locations-wrapper');
+        wrapper.innerHTML = '';
+        document.getElementById('total-count-pill').innerText = `Total Locations: ${locations.length}`;
+
+        if (locations.length === 0) {
+            wrapper.innerHTML = '<p style="text-align: center; color: var(--slate-500); padding: 40px;">No records match your search criteria.</p>';
+            return;
         }
 
-        function renderUI(locations) {
-            const wrapper = document.getElementById('locations-wrapper');
-            wrapper.innerHTML = '';
-            document.getElementById('total-count-pill').innerText = `Total Locations: ${locations.length}`;
-
-            if (locations.length === 0) {
-                wrapper.innerHTML = '<p style="text-align: center; color: var(--slate-500); padding: 40px;">No records match your search criteria.</p>';
-                return;
+        locations.forEach(loc => {
+            let actionCardsHtml = '';
+            if (loc.action_items && loc.action_items.length > 0) {
+                loc.action_items.forEach(item => {
+                    actionCardsHtml += `
+                        <div class="action-item-card">
+                            <div class="action-thumb-container" onclick="openLightbox('${item.photo_url}')">
+                                <img src="${item.photo_url}" alt="Action photo">
+                            </div>
+                            <div class="action-tag">⚠️ ${item.action_tag}</div>
+                        </div>
+                    `;
+                });
             }
 
-            locations.forEach(loc => {
-                let actionCardsHtml = '';
-                if (loc.action_items && loc.action_items.length > 0) {
-                    loc.action_items.forEach(item => {
-                        actionCardsHtml += `
-                            <div class="action-item-card">
-                                <div class="action-thumb-container" onclick="openLightbox('${item.photo_url}')">
-                                    <img src="${item.photo_url}" alt="Action photo">
+            let updatesHtml = '';
+            if (loc.updates && loc.updates.length > 0) {
+                loc.updates.forEach(u => {
+                    updatesHtml += `
+                        <div class="update-card" id="update-card-${u.id}">
+                            <div class="update-header-row">
+                                <div class="update-date">📅 ${u.update_date}</div>
+                                <div style="display: flex; gap: 6px;">
+                                    <button class="btn btn-sm" onclick="openEditForm(${u.id})">✏️ Edit</button>
+                                    <button class="btn btn-sm btn-danger-sm" onclick="deleteUpdate(${u.id})">🗑️ Delete</button>
                                 </div>
-                                <div class="action-tag">⚠️ ${item.action_tag}</div>
                             </div>
-                        `;
-                    });
-                }
-
-                let updatesHtml = '';
-                if (loc.updates && loc.updates.length > 0) {
-                    loc.updates.forEach(u => {
-                        updatesHtml += `
-                            <div class="update-card" id="update-card-${u.id}">
-                                <div class="update-header-row">
-                                    <div class="update-date">📅 ${u.update_date}</div>
-                                    <div style="display: flex; gap: 6px;">
-                                        <button class="btn btn-sm" onclick="openEditForm(${u.id})">✏️ Edit</button>
-                                        <button class="btn btn-sm btn-danger-sm" onclick="deleteUpdate(${u.id})">🗑️ Delete</button>
+                            <div class="update-body" id="update-text-${u.id}">${escapeHtml(u.notes)}</div>
+                            ${u.attachment_url ? `
+                                <div class="update-thumb-row">
+                                    <div class="update-thumb" onclick="openLightbox('${u.attachment_url}')">
+                                        <img src="${u.attachment_url}" alt="Update attachment" />
                                     </div>
-                                </div>
-                                <div class="update-body" id="update-text-${u.id}">${escapeHtml(u.notes)}</div>
-                                ${u.attachment_url ? `
-                                    <div class="update-thumb-row">
-                                        <div class="update-thumb" onclick="openLightbox('${u.attachment_url}')">
-                                            <img src="${u.attachment_url}" alt="Update attachment" />
-                                        </div>
-                                    </div>` : ''}
-                                
-                                <!-- Inline Edit Form -->
-                                <div id="edit-form-${u.id}" class="update-form">
-                                    <h5>Edit Progress Update</h5>
-                                    <label>Update Date:</label>
-                                    <input type="date" id="edit-date-${u.id}" value="${u.update_date}">
-                                    <label>Progress Notes:</label>
-                                    <textarea id="edit-notes-${u.id}" rows="2">${escapeHtml(u.notes)}</textarea>
-                                    <label>Replace Image / Attachment (optional):</label>
-                                    <input type="file" id="edit-file-${u.id}" accept="image/*">
-                                    <button class="btn btn-success" onclick="saveEdit(${u.id})">Save Changes</button>
-                                </div>
-                            </div>
-                        `;
-                    });
-                } else {
-                    updatesHtml = '<p style="font-size: 0.88rem; color: var(--slate-500); font-style: italic; margin-bottom: 16px;">No progress updates logged yet for this location.</p>';
-                }
-
-                const cardHtml = `
-                    <div class="section-box">
-                        <div class="section-title">
-                            <div class="location-heading">
-                                <span>📍 ${escapeHtml(loc.location_number)}</span>
-                            </div>
-                            <div class="location-actions-group">
-                                <a href="${loc.google_maps_url}" target="_blank" class="location-badge">🗺️ GPS: ${escapeHtml(loc.gps_coordinates)} ↗</a>
-                                <button class="btn btn-primary" onclick="toggleAddForm(${loc.id})">+ Add Update</button>
+                                </div>` : ''}
+                            
+                            <!-- Inline Edit Form -->
+                            <div id="edit-form-${u.id}" class="update-form">
+                                <h5>Edit Progress Update</h5>
+                                <label>Update Date:</label>
+                                <input type="date" id="edit-date-${u.id}" value="${u.update_date}">
+                                <label>Progress Notes:</label>
+                                <textarea id="edit-notes-${u.id}" rows="2">${escapeHtml(u.notes)}</textarea>
+                                <label>Replace Image / Attachment (optional):</label>
+                                <input type="file" id="edit-file-${u.id}" accept="image/*">
+                                <button class="btn btn-success" onclick="saveEdit(${u.id})">Save Changes</button>
                             </div>
                         </div>
-                        
-                        ${actionCardsHtml ? `<h4 class="block-label">Required Field Actions</h4><div class="actions-grid">${actionCardsHtml}</div>` : ''}
+                    `;
+                });
+            } else {
+                updatesHtml = '<p style="font-size: 0.88rem; color: var(--slate-500); font-style: italic; margin-bottom: 16px;">No progress updates logged yet for this location.</p>';
+            }
 
-                        <div class="updates-container">
-                            <h4 class="block-label">Progress Updates & History</h4>
-                            ${updatesHtml}
-
-                            <div id="add-form-${loc.id}" class="update-form">
-                                <h5>New Progress Entry</h5>
-                                <label>Date:</label>
-                                <input type="date" id="new-date-${loc.id}" value="${new Date().toISOString().split('T')[0]}">
-                                <label>Description of Work / Status:</label>
-                                <textarea id="new-notes-${loc.id}" placeholder="Describe work completed or current status..."></textarea>
-                                <label>Attach Image from Phone/PC:</label>
-                                <input type="file" id="new-file-${loc.id}" accept="image/*">
-                                <button class="btn btn-success" onclick="submitNewUpdate(${loc.id})">Save Update to Database</button>
-                            </div>
+            const cardHtml = `
+                <div class="section-box">
+                    <div class="section-title">
+                        <div class="location-heading">
+                            <span>📍 ${escapeHtml(loc.location_number)}</span>
+                        </div>
+                        <div class="location-actions-group">
+                            <a href="${loc.google_maps_url}" target="_blank" class="location-badge">🗺️ GPS: ${escapeHtml(loc.gps_coordinates)} ↗</a>
+                            <button class="btn btn-primary" onclick="toggleAddForm(${loc.id})">+ Add Update</button>
                         </div>
                     </div>
-                `;
-                wrapper.innerHTML += cardHtml;
+                    
+                    ${actionCardsHtml ? `<h4 class="block-label">Required Field Actions</h4><div class="actions-grid">${actionCardsHtml}</div>` : ''}
+
+                    <div class="updates-container">
+                        <h4 class="block-label">Progress Updates & History</h4>
+                        ${updatesHtml}
+
+                        <div id="add-form-${loc.id}" class="update-form">
+                            <h5>New Progress Entry</h5>
+                            <label>Date:</label>
+                            <input type="date" id="new-date-${loc.id}" value="${new Date().toISOString().split('T')[0]}">
+                            <label>Description of Work / Status:</label>
+                            <textarea id="new-notes-${loc.id}" placeholder="Describe work completed or current status..."></textarea>
+                            <label>Attach Image from Phone/PC:</label>
+                            <input type="file" id="new-file-${loc.id}" accept="image/*">
+                            <button class="btn btn-success" onclick="submitNewUpdate(${loc.id})">Save Update to Database</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            wrapper.innerHTML += cardHtml;
+        });
+    }
+
+    function filterLogs() {
+        const query = document.getElementById('search-box').value.toLowerCase();
+        const filtered = cachedLocations.filter(loc => {
+            const matchLoc = loc.location_number.toLowerCase().includes(query) || loc.gps_coordinates.toLowerCase().includes(query);
+            const matchUpdates = loc.updates && loc.updates.some(u => u.notes.toLowerCase().includes(query));
+            const matchActions = loc.action_items && loc.action_items.some(a => a.action_tag.toLowerCase().includes(query));
+            return matchLoc || matchUpdates || matchActions;
+        });
+        renderUI(filtered);
+    }
+
+    function toggleAddForm(id) {
+        const form = document.getElementById(`add-form-${id}`);
+        form.style.display = form.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function openEditForm(updateId) {
+        const editForm = document.getElementById(`edit-form-${updateId}`);
+        editForm.style.display = editForm.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function openLightbox(url) {
+        const modal = document.getElementById('lightbox-modal');
+        const img = document.getElementById('lightbox-img');
+        img.src = url;
+        modal.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox-modal').style.display = 'none';
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    // Replaced Base64 reader with direct Vercel Blob upload endpoint call
+    async function uploadToVercelBlob(fileInputId) {
+        const fileInput = document.getElementById(fileInputId);
+        if (!fileInput || fileInput.files.length === 0) {
+            return null;
+        }
+
+        const file = fileInput.files[0];
+        const response = await fetch(`/api/upload?filename=${encodeURIComponent(file.name)}`, {
+            method: 'POST',
+            body: file,
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to upload image to Vercel Blob');
+        }
+
+        const blobResult = await response.json();
+        return blobResult.url; // Returns the public Vercel Blob URL
+    }
+
+    async function submitNewUpdate(locationId) {
+        const update_date = document.getElementById(`new-date-${locationId}`).value;
+        const notes = document.getElementById(`new-notes-${locationId}`).value;
+
+        if (!notes) {
+            alert('Please enter update notes.');
+            return;
+        }
+
+        try {
+            const attachment_url = await uploadToVercelBlob(`new-file-${locationId}`);
+            const response = await fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ location_id: locationId, update_date, notes, attachment_url })
             });
+
+            if (response.ok) {
+                fetchLogs();
+            } else {
+                alert('Failed to save update.');
+            }
+        } catch (error) {
+            console.error('Error posting update:', error);
+            alert('Error uploading attachment or saving update.');
+        }
+    }
+
+    async function saveEdit(updateId) {
+        const update_date = document.getElementById(`edit-date-${updateId}`).value;
+        const notes = document.getElementById(`edit-notes-${updateId}`).value;
+
+        if (!notes) {
+            alert('Notes cannot be empty.');
+            return;
         }
 
-        function filterLogs() {
-            const query = document.getElementById('search-box').value.toLowerCase();
-            const filtered = cachedLocations.filter(loc => {
-                const matchLoc = loc.location_number.toLowerCase().includes(query) || loc.gps_coordinates.toLowerCase().includes(query);
-                const matchUpdates = loc.updates && loc.updates.some(u => u.notes.toLowerCase().includes(query));
-                const matchActions = loc.action_items && loc.action_items.some(a => a.action_tag.toLowerCase().includes(query));
-                return matchLoc || matchUpdates || matchActions;
+        try {
+            const attachment_url = await uploadToVercelBlob(`edit-file-${updateId}`);
+            const response = await fetch(API_ENDPOINT, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: updateId, update_date, notes, attachment_url })
             });
-            renderUI(filtered);
+
+            if (response.ok) {
+                fetchLogs();
+            } else {
+                alert('Failed to update record.');
+            }
+        } catch (error) {
+            console.error('Error saving edit:', error);
+            alert('Network error while saving edit.');
+        }
+    }
+
+    async function deleteUpdate(updateId) {
+        if (!confirm('Are you sure you want to delete this update?')) {
+            return;
         }
 
-        function toggleAddForm(id) {
-            const form = document.getElementById(`add-form-${id}`);
-            form.style.display = form.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function openEditForm(updateId) {
-            const editForm = document.getElementById(`edit-form-${updateId}`);
-            editForm.style.display = editForm.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function openLightbox(url) {
-            const modal = document.getElementById('lightbox-modal');
-            const img = document.getElementById('lightbox-img');
-            img.src = url;
-            modal.style.display = 'flex';
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox-modal').style.display = 'none';
-        }
-
-        function escapeHtml(text) {
-            if (!text) return '';
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
-
-        function convertFileToBase64(fileInputId) {
-            return new Promise((resolve, reject) => {
-                const fileInput = document.getElementById(fileInputId);
-                if (!fileInput || fileInput.files.length === 0) {
-                    resolve(null);
-                    return;
-                }
-                const file = fileInput.files[0];
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-                reader.readAsDataURL(file);
+        try {
+            const response = await fetch(API_ENDPOINT, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: updateId })
             });
+
+            if (response.ok) {
+                fetchLogs();
+            } else {
+                alert('Failed to delete update.');
+            }
+        } catch (error) {
+            console.error('Error deleting update:', error);
+            alert('Network error while deleting update.');
         }
+    }
 
-        async function submitNewUpdate(locationId) {
-            const update_date = document.getElementById(`new-date-${locationId}`).value;
-            const notes = document.getElementById(`new-notes-${locationId}`).value;
-
-            if (!notes) {
-                alert('Please enter update notes.');
-                return;
-            }
-
-            try {
-                const attachment_url = await convertFileToBase64(`new-file-${locationId}`);
-                const response = await fetch(API_ENDPOINT, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ location_id: locationId, update_date, notes, attachment_url })
-                });
-
-                if (response.ok) {
-                    fetchLogs();
-                } else {
-                    alert('Failed to save update.');
-                }
-            } catch (error) {
-                console.error('Error posting update:', error);
-                alert('Error uploading attachment or saving update.');
-            }
-        }
-
-        async function saveEdit(updateId) {
-            const update_date = document.getElementById(`edit-date-${updateId}`).value;
-            const notes = document.getElementById(`edit-notes-${updateId}`).value;
-
-            if (!notes) {
-                alert('Notes cannot be empty.');
-                return;
-            }
-
-            try {
-                const attachment_url = await convertFileToBase64(`edit-file-${updateId}`);
-                const response = await fetch(API_ENDPOINT, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: updateId, update_date, notes, attachment_url })
-                });
-
-                if (response.ok) {
-                    fetchLogs();
-                } else {
-                    alert('Failed to update record.');
-                }
-            } catch (error) {
-                console.error('Error saving edit:', error);
-                alert('Network error while saving edit.');
-            }
-        }
-
-        async function deleteUpdate(updateId) {
-            if (!confirm('Are you sure you want to delete this update?')) {
-                return;
-            }
-
-            try {
-                const response = await fetch(API_ENDPOINT, {
-                    method: 'DELETE',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: updateId })
-                });
-
-                if (response.ok) {
-                    fetchLogs();
-                } else {
-                    alert('Failed to delete update.');
-                }
-            } catch (error) {
-                console.error('Error deleting update:', error);
-                alert('Network error while deleting update.');
-            }
-        }
-
-        fetchLogs();
-    </script>
+    fetchLogs();
+</script>
 </body>
 </html>
