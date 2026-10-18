@@ -569,11 +569,15 @@
     }
 
     function getImageUrl(url) {
-        if (!url) return '';
-        if (url.startsWith('http') || url.startsWith('data:') || url.startsWith('/')) {
-            return url;
+    if (!url) return '';
+    // If it's already a full URL (Vercel Blob or http/data), use it as is
+    if (url.startsWith('http') || url.startsWith('data:')) {
+        return url;
         }
-        return `/Holding%20Fixes/${encodeURIComponent(url)}`;
+        // Clean up any leading slashes or duplicate folder names
+        let cleanName = url.replace(/^\/?(Holding%20Fixes|Holding\sFixes)\//i, '');
+        // Return absolute path from root domain
+        return `/Holding%20Fixes/${encodeURIComponent(cleanName)}`;
     }
 
     function toggleAddForm(id) {
