@@ -433,9 +433,18 @@
     </div>
 
     <!-- Image Lightbox Modal -->
-    <div id="lightbox-modal" onclick="closeLightbox()">
+    <div id="lightbox-modal" onclick="closeLightbox(event)">
         <button id="lightbox-close">&times;</button>
-        <img id="lightbox-img" src="" alt="Enlarged view">
+        <div style="display: flex; gap: 20px; max-width: 95vw; max-height: 90vh; justify-content: center; align-items: center; flex-wrap: wrap;" onclick="event.stopPropagation()">
+            <div style="text-align: center;">
+                <img id="lightbox-before-img" src="" alt="Before view" style="max-height: 80vh; max-width: 45vw; border-radius: var(--radius-md); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 2px solid rgba(255,255,255,0.1); object-fit: contain;">
+                <span style="display: block; color: #fff; font-weight: 700; margin-top: 8px; font-size: 0.9rem;">BEFORE</span>
+            </div>
+            <div id="lightbox-after-container" style="text-align: center; display: none;">
+                <img id="lightbox-after-img" src="" alt="After view" style="max-height: 80vh; max-width: 45vw; border-radius: var(--radius-md); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 2px solid var(--emerald-600); object-fit: contain;">
+                <span style="display: block; color: var(--emerald-500); font-weight: 700; margin-top: 8px; font-size: 0.9rem;">AFTER</span>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -496,7 +505,7 @@ function renderUI(locations) {
                             <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
                                 <!-- Before Photo -->
                                 <div style="text-align: center;">
-                                    <div class="action-thumb-container" onclick="openLightbox('${beforePhotoUrl}')" style="width: 90px; height: 90px;">
+                                    <div class="action-thumb-container" onclick="openLightbox('${beforePhotoUrl}', '${afterPhotoUrl || ''}')" style="width: 90px; height: 90px;">
                                         <img src="${beforePhotoUrl}" alt="Before photo" style="width: 100%; height: 100%; object-fit: cover;">
                                     </div>
                                     <span style="font-size: 0.72rem; font-weight: 700; color: var(--slate-500); display: block; margin-top: 4px;">BEFORE</span>
@@ -504,7 +513,7 @@ function renderUI(locations) {
 
                                 <!-- After Photo (shown only if logged) -->
                                 <div style="text-align: center;">
-                                    <div class="action-thumb-container" onclick="openLightbox('${afterPhotoUrl || '#'}')" style="width: 90px; height: 90px; border-color: ${afterPhotoUrl ? 'var(--emerald-600)' : 'var(--slate-300)'}; background: ${afterPhotoUrl ? 'transparent' : '#f1f5f9'};">
+                                    <div class="action-thumb-container" onclick="openLightbox('${beforePhotoUrl}', '${afterPhotoUrl || ''}')" style="width: 90px; height: 90px; border-color: ${afterPhotoUrl ? 'var(--emerald-600)' : 'var(--slate-300)'}; background: ${afterPhotoUrl ? 'transparent' : '#f1f5f9'};">
                                         ${afterPhotoUrl ? `<img src="${afterPhotoUrl}" alt="After photo" style="width: 100%; height: 100%; object-fit: cover;">` : `<div style="display: flex; align-items: center; justify-content: center; height: 100%; font-size: 0.7rem; color: var(--slate-400); text-align: center; padding: 4px;">Pending</div>`}
                                     </div>
                                     <span style="font-size: 0.72rem; font-weight: 700; color: ${afterPhotoUrl ? 'var(--emerald-600)' : 'var(--slate-400)'}; display: block; margin-top: 4px;">AFTER</span>
@@ -697,14 +706,26 @@ function renderUI(locations) {
         editForm.style.display = editForm.style.display === 'block' ? 'none' : 'block';
     }
 
-    function openLightbox(url) {
+    function openLightbox(beforeUrl, afterUrl) {
         const modal = document.getElementById('lightbox-modal');
-        const img = document.getElementById('lightbox-img');
-        img.src = url;
+        const beforeImg = document.getElementById('lightbox-before-img');
+        const afterImg = document.getElementById('lightbox-after-img');
+        const afterContainer = document.getElementById('lightbox-after-container');
+
+        beforeImg.src = beforeUrl;
+
+        if (afterUrl && afterUrl !== 'null' && afterUrl !== '#') {
+            afterImg.src = afterUrl;
+            afterContainer.style.display = 'block';
+        } else {
+            afterContainer.style.display = 'none';
+        }
+
         modal.style.display = 'flex';
     }
 
-    function closeLightbox() {
+    function closeLightbox(event) {
+        // Prevent closing if clicking inside the image container directly
         document.getElementById('lightbox-modal').style.display = 'none';
     }
 
