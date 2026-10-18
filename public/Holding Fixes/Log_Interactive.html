@@ -459,6 +459,18 @@
         }
     }
 
+    function getImageUrl(url) {
+        if (!url) return '';
+        // If it's a full Vercel Blob URL or base64 string, keep it as is
+        if (url.startsWith('http') || url.startsWith('data:')) {
+            return url;
+        }
+        // Extract just the filename if it had /uploads/ or other paths prefixed
+        let filename = url.split('/').pop();
+        // Return relative path so it loads from the same folder
+        return filename;
+    }
+
     function renderUI(locations) {
         const wrapper = document.getElementById('locations-wrapper');
         wrapper.innerHTML = '';
@@ -473,12 +485,13 @@
             let actionCardsHtml = '';
             if (loc.action_items && loc.action_items.length > 0) {
                 loc.action_items.forEach(item => {
+                    const cleanActionUrl = getImageUrl(item.photo_url);
                     actionCardsHtml += `
                         <div class="action-item-card">
-                            <div class="action-thumb-container" onclick="openLightbox('${item.photo_url}')">
-                                <img src="${item.photo_url}" alt="Action photo">
+                            <div class="action-thumb-container" onclick="openLightbox('${cleanActionUrl}')">
+                                <img src="${cleanActionUrl}" alt="Action photo">
                             </div>
-                            <div class="action-tag">⚠️ ${item.action_tag}</div>
+                            <div class="action-tag">⚠️ ${escapeHtml(item.action_tag)}</div>
                         </div>
                     `;
                 });
@@ -487,6 +500,7 @@
             let updatesHtml = '';
             if (loc.updates && loc.updates.length > 0) {
                 loc.updates.forEach(u => {
+                    const cleanUpdateUrl = getImageUrl(u.attachment_url);
                     updatesHtml += `
                         <div class="update-card" id="update-card-${u.id}">
                             <div class="update-header-row">
@@ -499,8 +513,8 @@
                             <div class="update-body" id="update-text-${u.id}">${escapeHtml(u.notes)}</div>
                             ${u.attachment_url ? `
                                 <div class="update-thumb-row">
-                                    <div class="update-thumb" onclick="openLightbox('${u.attachment_url}')">
-                                        <img src="${u.attachment_url}" alt="Update attachment" />
+                                    <div class="update-thumb" onclick="openLightbox('${cleanUpdateUrl}')">
+                                        <img src="${cleanUpdateUrl}" alt="Update attachment" />
                                     </div>
                                 </div>` : ''}
                             
@@ -566,18 +580,6 @@
             return matchLoc || matchUpdates || matchActions;
         });
         renderUI(filtered);
-    }
-
-    function getImageUrl(url) {
-        if (!url) return '';
-        // If it's a full Vercel Blob URL or base64 string, keep it as is
-        if (url.startsWith('http') || url.startsWith('data:')) {
-            return url;
-        }
-        // Extract just the filename if it had /uploads/ or other paths prefixed
-        let filename = url.split('/').pop();
-        // Since they are in the same folder, just return the filename
-        return filename;
     }
 
     function toggleAddForm(id) {
