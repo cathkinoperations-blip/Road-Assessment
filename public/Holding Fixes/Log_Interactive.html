@@ -509,7 +509,6 @@
     <script>
     const API_ENDPOINT = '/api/updates';
     let cachedLocations = [];
-    // Tracker for carousel state per location ID
     const locationCarouselState = {};
 
     async function fetchLogs() {
@@ -618,7 +617,6 @@
                 });
             }
 
-            // Aggregate ALL images across all updates for this location into one carousel list
             const allLocationImages = [];
             let updatesHtml = '';
 
@@ -666,7 +664,6 @@
                 updatesHtml = '<p style="font-size: 0.88rem; color: var(--slate-500); font-style: italic; margin-bottom: 16px;">No progress updates logged yet for this location.</p>';
             }
 
-            // Build single carousel HTML if location has photos
             let carouselHtml = '';
             if (allLocationImages.length > 0) {
                 if (!locationCarouselState[loc.id]) {
@@ -676,12 +673,12 @@
                 const activeImage = allLocationImages[activeIdx];
 
                 carouselHtml = `
-                    <div class="location-carousel">
-                        ${allLocationImages.length > 1 ? `<button class="carousel-btn carousel-prev" onclick="moveLocationCarousel(${loc.id}, -1,${allLocationImages.length})">&#10094;</button>` : ''}
+                    <div class="location-carousel" onclick="event.stopPropagation()">
+                        ${allLocationImages.length > 1 ? `<button class="carousel-btn carousel-prev" onclick="moveLocationCarousel(event, ${loc.id}, -1,${allLocationImages.length})">&#10094;</button>` : ''}
                         <div class="carousel-slide">
                             <img src="${activeImage.url}" alt="Progress photo" onclick="openLightbox('${activeImage.url}')" />
                         </div>
-                        ${allLocationImages.length > 1 ? `<button class="carousel-btn carousel-next" onclick="moveLocationCarousel(${loc.id}, 1,${allLocationImages.length})">&#10095;</button>` : ''}
+                        ${allLocationImages.length > 1 ? `<button class="carousel-btn carousel-next" onclick="moveLocationCarousel(event, ${loc.id}, 1,${allLocationImages.length})">&#10095;</button>` : ''}
                         <div class="carousel-caption">📅 ${activeImage.date}</div>
                         <div class="carousel-counter">Image ${activeIdx + 1} of ${allLocationImages.length}</div>
                     </div>
@@ -743,7 +740,8 @@
         }
     }
 
-    function moveLocationCarousel(locationId, direction, totalImages) {
+    function moveLocationCarousel(event, locationId, direction, totalImages) {
+        event.stopPropagation();
         if (!locationCarouselState[locationId]) {
             locationCarouselState[locationId] = 0;
         }
