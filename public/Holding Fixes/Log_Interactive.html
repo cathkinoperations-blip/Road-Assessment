@@ -504,6 +504,7 @@
     const API_ENDPOINT = '/api/updates';
     let cachedLocations = [];
     const locationCarouselState = {};
+    const collapsibleStates = {}; // Tracks open/closed state per location
 
     async function fetchLogs() {
         try {
@@ -630,7 +631,6 @@
                         });
                     }
 
-                    // Keep a record of edit/delete forms for fallback updates
                     updatesHtmlList += `
                         <div id="edit-form-${u.id}" class="update-form">
                             <h5>Edit Progress Update</h5>
@@ -656,7 +656,7 @@
 
                 carouselHtml = `
                     <div class="location-carousel-card">
-                        <div class="location-carousel">
+                        <div class="location-carousel" onclick="event.stopPropagation()">
                             ${allLocationImages.length > 1 ? `<button class="carousel-btn carousel-prev" onclick="moveLocationCarousel(event, ${loc.id}, -1,${allLocationImages.length})">&#10094;</button>` : ''}
                             <div class="carousel-slide">
                                 <img src="${activeItem.url}" alt="Progress photo" onclick="openLightbox('${activeItem.url}')" />
@@ -692,6 +692,7 @@
                 carouselHtml = '<p style="font-size: 0.88rem; color: var(--slate-500); font-style: italic; margin-bottom: 16px;">No progress updates logged yet for this location.</p>';
             }
 
+            const isOpen = collapsibleStates[loc.id] === true;
             const updatesCount = loc.updates ? loc.updates.length : 0;
             const cardHtml = `
                 <div class="section-box">
@@ -708,11 +709,11 @@
                     ${actionCardsHtml ? `<h4 class="block-label">Required Field Actions</h4><div class="actions-grid">${actionCardsHtml}</div>` : ''}
 
                     <div class="updates-container">
-                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <div class="collapsible-header" onclick="toggleCollapsible(${loc.id}, this)">
                             <h4 class="block-label" style="margin: 0;">Progress Updates & History (${updatesCount} Entries / ${allLocationImages.length} Photos)</h4>
-                            <span style="font-size: 0.85rem; font-weight: 700; color: var(--sky-700);">▼ Expand / Collapse</span>
+                            <span style="font-size: 0.85rem; font-weight: 700; color: var(--sky-700);">${isOpen ? '▲ Collapse' : '▼ Expand / Collapse'}</span>
                         </div>
-                        <div class="collapsible-content">
+                        <div class="collapsible-content ${isOpen ? 'open' : ''}">
                             <div style="margin-top: 14px;">
                                 ${carouselHtml}
                                 ${updatesHtmlList}
@@ -736,9 +737,10 @@
         });
     }
 
-    function toggleCollapsible(headerElement) {
+    function toggleCollapsible(locationId, headerElement) {
         const content = headerElement.nextElementSibling;
         content.classList.toggle('open');
+        collapsibleStates[locationId] = content.classList.contains('open');
         const arrowSpan = headerElement.querySelector('span');
         if (content.classList.contains('open')) {
             arrowSpan.innerText = '▲ Collapse';
