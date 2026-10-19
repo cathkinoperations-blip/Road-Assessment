@@ -248,8 +248,8 @@
             background: #ffffff;
             border: 1px solid var(--slate-250);
             border-left: 4px solid var(--sky-600);
-            padding: 12px 16px;
-            margin-bottom: 10px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
             border-radius: var(--radius-md);
             font-size: 0.9rem;
             box-shadow: var(--shadow-subtle);
@@ -280,19 +280,27 @@
         }
 
         /* Carousel / Location Gallery Styling */
+        .location-carousel-card {
+            background: #ffffff;
+            border: 1px solid var(--slate-250);
+            border-left: 4px solid var(--sky-600);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-subtle);
+        }
         .location-carousel {
             position: relative;
             background: var(--slate-950);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
             overflow: hidden;
             max-width: 100%;
-            height: 420px;
+            height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             border: 1px solid var(--slate-300);
-            box-shadow: var(--shadow-card);
         }
         .carousel-slide {
             width: 100%;
@@ -334,20 +342,6 @@
             font-size: 0.8rem;
             border-radius: 12px;
             font-weight: 600;
-        }
-        .carousel-caption {
-            position: absolute;
-            bottom: 12px;
-            left: 14px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 4px 12px;
-            font-size: 0.8rem;
-            border-radius: 12px;
-            max-width: 60%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         /* Buttons Styling */
@@ -458,7 +452,7 @@
             .section-box { padding: 16px; }
             .actions-grid { grid-template-columns: 1fr; }
             .section-title { flex-direction: column; align-items: stretch; gap: 10px; }
-            .location-carousel { height: 280px; }
+            .location-carousel { height: 260px; }
         }
     </style>
 </head>
@@ -618,7 +612,7 @@
             }
 
             const allLocationImages = [];
-            let updatesHtml = '';
+            let updatesHtmlList = '';
 
             if (loc.updates && loc.updates.length > 0) {
                 loc.updates.forEach(u => {
@@ -627,6 +621,7 @@
                         rawUrls.forEach(urlStr => {
                             if (urlStr) {
                                 allLocationImages.push({
+                                    id: u.id,
                                     url: getImageUrl(urlStr.trim()),
                                     date: u.update_date,
                                     note: u.notes
@@ -635,33 +630,20 @@
                         });
                     }
 
-                    updatesHtml += `
-                        <div class="update-card" id="update-card-${u.id}">
-                            <div class="update-header-row">
-                                <div class="update-date">📅 ${u.update_date}</div>
-                                <div style="display: flex; gap: 6px;">
-                                    <button class="btn btn-sm" onclick="openEditForm(${u.id})">✏️ Edit</button>
-                                    <button class="btn btn-sm btn-danger-sm" onclick="deleteUpdate(${u.id})">🗑️ Delete</button>
-                                </div>
-                            </div>
-                            <div class="update-body" id="update-text-${u.id}">${escapeHtml(u.notes)}</div>
-                            
-                            <!-- Inline Edit Form -->
-                            <div id="edit-form-${u.id}" class="update-form">
-                                <h5>Edit Progress Update</h5>
-                                <label>Update Date:</label>
-                                <input type="date" id="edit-date-${u.id}" value="${u.update_date}">
-                                <label>Progress Notes:</label>
-                                <textarea id="edit-notes-${u.id}" rows="2">${escapeHtml(u.notes)}</textarea>
-                                <label>Replace Image / Attachment (optional):</label>
-                                <input type="file" id="edit-file-${u.id}" accept="image/*">
-                                <button class="btn btn-success" onclick="saveEdit(${u.id})">Save Changes</button>
-                            </div>
+                    // Keep a record of edit/delete forms for fallback updates
+                    updatesHtmlList += `
+                        <div id="edit-form-${u.id}" class="update-form">
+                            <h5>Edit Progress Update</h5>
+                            <label>Update Date:</label>
+                            <input type="date" id="edit-date-${u.id}" value="${u.update_date}">
+                            <label>Progress Notes:</label>
+                            <textarea id="edit-notes-${u.id}" rows="2">${escapeHtml(u.notes)}</textarea>
+                            <label>Replace Image / Attachment (optional):</label>
+                            <input type="file" id="edit-file-${u.id}" accept="image/*">
+                            <button class="btn btn-success" onclick="saveEdit(${u.id})">Save Changes</button>
                         </div>
                     `;
                 });
-            } else {
-                updatesHtml = '<p style="font-size: 0.88rem; color: var(--slate-500); font-style: italic; margin-bottom: 16px;">No progress updates logged yet for this location.</p>';
             }
 
             let carouselHtml = '';
@@ -670,19 +652,44 @@
                     locationCarouselState[loc.id] = 0;
                 }
                 const activeIdx = locationCarouselState[loc.id] < allLocationImages.length ? locationCarouselState[loc.id] : 0;
-                const activeImage = allLocationImages[activeIdx];
+                const activeItem = allLocationImages[activeIdx];
 
                 carouselHtml = `
-                    <div class="location-carousel" onclick="event.stopPropagation()">
-                        ${allLocationImages.length > 1 ? `<button class="carousel-btn carousel-prev" onclick="moveLocationCarousel(event, ${loc.id}, -1,${allLocationImages.length})">&#10094;</button>` : ''}
-                        <div class="carousel-slide">
-                            <img src="${activeImage.url}" alt="Progress photo" onclick="openLightbox('${activeImage.url}')" />
+                    <div class="location-carousel-card">
+                        <div class="location-carousel">
+                            ${allLocationImages.length > 1 ? `<button class="carousel-btn carousel-prev" onclick="moveLocationCarousel(event, ${loc.id}, -1,${allLocationImages.length})">&#10094;</button>` : ''}
+                            <div class="carousel-slide">
+                                <img src="${activeItem.url}" alt="Progress photo" onclick="openLightbox('${activeItem.url}')" />
+                            </div>
+                            ${allLocationImages.length > 1 ? `<button class="carousel-btn carousel-next" onclick="moveLocationCarousel(event, ${loc.id}, 1,${allLocationImages.length})">&#10095;</button>` : ''}
+                            <div class="carousel-counter">Image ${activeIdx + 1} of ${allLocationImages.length}</div>
                         </div>
-                        ${allLocationImages.length > 1 ? `<button class="carousel-btn carousel-next" onclick="moveLocationCarousel(event, ${loc.id}, 1,${allLocationImages.length})">&#10095;</button>` : ''}
-                        <div class="carousel-caption">📅 ${activeImage.date}</div>
-                        <div class="carousel-counter">Image ${activeIdx + 1} of ${allLocationImages.length}</div>
+
+                        <!-- Notes, Date & Edit/Delete Buttons for current image -->
+                        <div class="update-header-row" style="margin-top: 10px;">
+                            <div class="update-date">📅 ${activeItem.date}</div>
+                            <div style="display: flex; gap: 6px;">
+                                <button class="btn btn-sm" onclick="openEditForm(${activeItem.id})">✏️ Edit</button>
+                                <button class="btn btn-sm btn-danger-sm" onclick="deleteUpdate(${activeItem.id})">🗑️ Delete</button>
+                            </div>
+                        </div>
+                        <div class="update-body" style="margin-top: 6px;">${escapeHtml(activeItem.note)}</div>
+
+                        <!-- Inline Edit Form for this specific update entry -->
+                        <div id="edit-form-${activeItem.id}" class="update-form">
+                            <h5>Edit Progress Update</h5>
+                            <label>Update Date:</label>
+                            <input type="date" id="edit-date-${activeItem.id}" value="${activeItem.date}">
+                            <label>Progress Notes:</label>
+                            <textarea id="edit-notes-${activeItem.id}" rows="2">${escapeHtml(activeItem.note)}</textarea>
+                            <label>Replace Image / Attachment (optional):</label>
+                            <input type="file" id="edit-file-${activeItem.id}" accept="image/*">
+                            <button class="btn btn-success" onclick="saveEdit(${activeItem.id})">Save Changes</button>
+                        </div>
                     </div>
                 `;
+            } else {
+                carouselHtml = '<p style="font-size: 0.88rem; color: var(--slate-500); font-style: italic; margin-bottom: 16px;">No progress updates logged yet for this location.</p>';
             }
 
             const updatesCount = loc.updates ? loc.updates.length : 0;
@@ -708,7 +715,7 @@
                         <div class="collapsible-content">
                             <div style="margin-top: 14px;">
                                 ${carouselHtml}
-                                ${updatesHtml}
+                                ${updatesHtmlList}
                             </div>
                         </div>
 
