@@ -184,7 +184,7 @@
             align-items: center;
             cursor: pointer;
             user-select: none;
-            padding: 8px 12px;
+            padding: 10px 14px;
             background: var(--slate-50);
             border: 1px solid var(--slate-250);
             border-radius: var(--radius-sm);
@@ -248,53 +248,51 @@
             background: #ffffff;
             border: 1px solid var(--slate-250);
             border-left: 4px solid var(--sky-600);
-            padding: 16px;
-            margin-bottom: 14px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
             border-radius: var(--radius-md);
-            font-size: 0.93rem;
+            font-size: 0.9rem;
             box-shadow: var(--shadow-subtle);
-            transition: box-shadow 0.2s ease;
         }
-        .update-card:hover { box-shadow: var(--shadow-card); }
 
         .update-header-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .update-date {
             font-weight: 700;
             color: var(--sky-700);
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             display: flex;
             align-items: center;
             gap: 6px;
             background: var(--sky-50);
-            padding: 4px 10px;
-            border-radius: 20px;
+            padding: 3px 8px;
+            border-radius: 16px;
             border: 1px solid #bae6fd;
         }
         .update-body {
             color: var(--slate-700);
-            line-height: 1.55;
-            margin-bottom: 12px;
+            line-height: 1.45;
             white-space: pre-wrap;
         }
 
-        /* Carousel / Inline Gallery Styling */
-        .carousel-wrapper {
+        /* Carousel / Location Gallery Styling */
+        .location-carousel {
             position: relative;
-            background: var(--slate-900);
-            border-radius: var(--radius-sm);
+            background: var(--slate-950);
+            border-radius: var(--radius-md);
             overflow: hidden;
             max-width: 100%;
-            height: 380px;
+            height: 420px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 12px;
-            border: 1px solid var(--slate-250);
+            margin-bottom: 16px;
+            border: 1px solid var(--slate-300);
+            box-shadow: var(--shadow-card);
         }
         .carousel-slide {
             width: 100%;
@@ -313,29 +311,43 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(15, 23, 42, 0.7);
+            background: rgba(15, 23, 42, 0.75);
             color: white;
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,0.25);
+            padding: 12px 16px;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             border-radius: var(--radius-sm);
             z-index: 10;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
-        .carousel-btn:hover { background: rgba(15, 23, 42, 0.9); }
-        .carousel-prev { left: 12px; }
-        .carousel-next { right: 12px; }
+        .carousel-btn:hover { background: rgba(2, 132, 199, 0.9); }
+        .carousel-prev { left: 14px; }
+        .carousel-next { right: 14px; }
         .carousel-counter {
             position: absolute;
-            bottom: 10px;
-            right: 12px;
-            background: rgba(0,0,0,0.6);
+            bottom: 12px;
+            right: 14px;
+            background: rgba(0,0,0,0.7);
             color: white;
-            padding: 4px 10px;
-            font-size: 0.78rem;
+            padding: 4px 12px;
+            font-size: 0.8rem;
             border-radius: 12px;
             font-weight: 600;
+        }
+        .carousel-caption {
+            position: absolute;
+            bottom: 12px;
+            left: 14px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            border-radius: 12px;
+            max-width: 60%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* Buttons Styling */
@@ -362,8 +374,8 @@
         .btn-success:hover { background-color: #047857; }
 
         .btn-sm {
-            padding: 5px 10px;
-            font-size: 0.78rem;
+            padding: 4px 8px;
+            font-size: 0.75rem;
             background: #ffffff;
             border: 1px solid var(--slate-300);
             color: var(--slate-700);
@@ -446,7 +458,7 @@
             .section-box { padding: 16px; }
             .actions-grid { grid-template-columns: 1fr; }
             .section-title { flex-direction: column; align-items: stretch; gap: 10px; }
-            .carousel-wrapper { height: 260px; }
+            .location-carousel { height: 280px; }
         }
     </style>
 </head>
@@ -497,8 +509,8 @@
     <script>
     const API_ENDPOINT = '/api/updates';
     let cachedLocations = [];
-    // Global tracker for image carousel indices per update ID
-    const carouselStates = {};
+    // Tracker for carousel state per location ID
+    const locationCarouselState = {};
 
     async function fetchLogs() {
         try {
@@ -606,26 +618,24 @@
                 });
             }
 
+            // Aggregate ALL images across all updates for this location into one carousel list
+            const allLocationImages = [];
             let updatesHtml = '';
+
             if (loc.updates && loc.updates.length > 0) {
                 loc.updates.forEach(u => {
-                    // Collect all valid images for this update item (supports single attachment_url or array if configured)
-                    const imagesList = [];
                     if (u.attachment_url) {
-                        // In case attachment_url contains multiple comma/array strings, handle them, otherwise single
                         const rawUrls = Array.isArray(u.attachment_url) ? u.attachment_url : [u.attachment_url];
                         rawUrls.forEach(urlStr => {
                             if (urlStr) {
-                                imagesList.push(getImageUrl(urlStr.trim()));
+                                allLocationImages.push({
+                                    url: getImageUrl(urlStr.trim()),
+                                    date: u.update_date,
+                                    note: u.notes
+                                });
                             }
                         });
                     }
-
-                    if (!carouselStates[u.id]) {
-                        carouselStates[u.id] = 0;
-                    }
-                    const activeIdx = carouselStates[u.id] < imagesList.length ? carouselStates[u.id] : 0;
-                    const currentImgUrl = imagesList.length > 0 ? imagesList[activeIdx] : '';
 
                     updatesHtml += `
                         <div class="update-card" id="update-card-${u.id}">
@@ -637,17 +647,6 @@
                                 </div>
                             </div>
                             <div class="update-body" id="update-text-${u.id}">${escapeHtml(u.notes)}</div>
-                            
-                            ${imagesList.length > 0 ? `
-                                <div class="carousel-wrapper">
-                                    ${imagesList.length > 1 ? `<button class="carousel-btn carousel-prev" onclick="moveCarousel(${u.id}, -1, ${imagesList.length})">&#10094;</button>` : ''}
-                                    <div class="carousel-slide">
-                                        <img src="${currentImgUrl}" alt="Progress photo" onclick="openLightbox('${currentImgUrl}')" />
-                                    </div>
-                                    ${imagesList.length > 1 ? `<button class="carousel-btn carousel-next" onclick="moveCarousel(${u.id}, 1, ${imagesList.length})">&#10095;</button>` : ''}
-                                    <div class="carousel-counter">Image ${activeIdx + 1} of${imagesList.length}</div>
-                                </div>
-                            ` : ''}
                             
                             <!-- Inline Edit Form -->
                             <div id="edit-form-${u.id}" class="update-form">
@@ -667,6 +666,28 @@
                 updatesHtml = '<p style="font-size: 0.88rem; color: var(--slate-500); font-style: italic; margin-bottom: 16px;">No progress updates logged yet for this location.</p>';
             }
 
+            // Build single carousel HTML if location has photos
+            let carouselHtml = '';
+            if (allLocationImages.length > 0) {
+                if (!locationCarouselState[loc.id]) {
+                    locationCarouselState[loc.id] = 0;
+                }
+                const activeIdx = locationCarouselState[loc.id] < allLocationImages.length ? locationCarouselState[loc.id] : 0;
+                const activeImage = allLocationImages[activeIdx];
+
+                carouselHtml = `
+                    <div class="location-carousel">
+                        ${allLocationImages.length > 1 ? `<button class="carousel-btn carousel-prev" onclick="moveLocationCarousel(${loc.id}, -1,${allLocationImages.length})">&#10094;</button>` : ''}
+                        <div class="carousel-slide">
+                            <img src="${activeImage.url}" alt="Progress photo" onclick="openLightbox('${activeImage.url}')" />
+                        </div>
+                        ${allLocationImages.length > 1 ? `<button class="carousel-btn carousel-next" onclick="moveLocationCarousel(${loc.id}, 1,${allLocationImages.length})">&#10095;</button>` : ''}
+                        <div class="carousel-caption">📅 ${activeImage.date}</div>
+                        <div class="carousel-counter">Image ${activeIdx + 1} of ${allLocationImages.length}</div>
+                    </div>
+                `;
+            }
+
             const updatesCount = loc.updates ? loc.updates.length : 0;
             const cardHtml = `
                 <div class="section-box">
@@ -675,7 +696,7 @@
                             <span>📍 ${escapeHtml(loc.location_number)}</span>
                         </div>
                         <div class="location-actions-group">
-                            <a href="${loc.google_maps_url}" target="_blank" class="location-badge">🗺️ GPS: ${escapeHtml(loc.gps_coordinates)} ↗</a>
+                            <a href="${loc.google_maps_url}" target="_blank" class="location-badge">MAP GPS: ${escapeHtml(loc.gps_coordinates)} ↗</a>
                             <button class="btn btn-primary" onclick="toggleAddForm(${loc.id})">+ Add Update</button>
                         </div>
                     </div>
@@ -684,11 +705,12 @@
 
                     <div class="updates-container">
                         <div class="collapsible-header" onclick="toggleCollapsible(this)">
-                            <h4 class="block-label" style="margin: 0;">Progress Updates & History (${updatesCount})</h4>
+                            <h4 class="block-label" style="margin: 0;">Progress Updates & History (${updatesCount} Entries / ${allLocationImages.length} Photos)</h4>
                             <span style="font-size: 0.85rem; font-weight: 700; color: var(--sky-700);">▼ Expand / Collapse</span>
                         </div>
                         <div class="collapsible-content">
                             <div style="margin-top: 14px;">
+                                ${carouselHtml}
                                 ${updatesHtml}
                             </div>
                         </div>
@@ -721,17 +743,16 @@
         }
     }
 
-    function moveCarousel(updateId, direction, totalImages) {
-        if (!carouselStates[updateId]) {
-            carouselStates[updateId] = 0;
+    function moveLocationCarousel(locationId, direction, totalImages) {
+        if (!locationCarouselState[locationId]) {
+            locationCarouselState[locationId] = 0;
         }
-        carouselStates[updateId] += direction;
-        if (carouselStates[updateId] < 0) {
-            carouselStates[updateId] = totalImages - 1;
-        } else if (carouselStates[updateId] >= totalImages) {
-            carouselStates[updateId] = 0;
+        locationCarouselState[locationId] += direction;
+        if (locationCarouselState[locationId] < 0) {
+            locationCarouselState[locationId] = totalImages - 1;
+        } else if (locationCarouselState[locationId] >= totalImages) {
+            locationCarouselState[locationId] = 0;
         }
-        // Re-render UI state cleanly without fetching again
         renderUI(cachedLocations);
     }
     
